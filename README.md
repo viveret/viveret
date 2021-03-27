@@ -1,4 +1,4 @@
-### Hi there 👋
+Everything from current to school projects. She/her/they/them. Mostly C++/Java/C# but also some other stuff.
 
 <!--
 **viveret/viveret** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
