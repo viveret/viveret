@@ -5,7 +5,7 @@
 @import "{{ site.theme }}";
 
 $base-color: #212121;
-$base-color-invert: color.invert($base-color, 100%);
+$base-color-invert: invert($base-color);
 $accent-color: #c6538c;
 $light: #fff;
 $dark: #111;
