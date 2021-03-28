@@ -12,11 +12,19 @@ $accent-color: #c6538c;
 $light: #fff;
 $dark: #111;
 
+@font-face {
+    font-family: 'Quicksand';
+    src: url('/assets/fonts/Quicksand-Regular.ttf') format('truetype');
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Quicksand;
+}
 
 body {
     color:$base-color-light;
     background: $base-color;
-    font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+    font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif;
 }
 
 .inner {
