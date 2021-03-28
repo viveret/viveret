@@ -24,18 +24,6 @@ body {
     min-width: 700px;
 }
 
-.main_content_wrap h2 {
-    background: none;
-    border-bottom: 1px solid $base-color-invert;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-    padding-bottom: 0;
-}
-
-.main_content_wrap h2:first-of-type {
-    margin-top: 0.5em;
-}
-
 #forkme_banner {
     color: $light;
     background: url('../images/blacktocat.png') $accent-color no-repeat 95% 50%;
@@ -65,6 +53,18 @@ body {
     background: $base-color-invert;
     border-top: 1px solid $dark;
     border-bottom: 1px solid $dark;
+}
+
+#main_content h2 {
+    background: none;
+    border-bottom: 1px solid $base-color-invert;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0;
+}
+
+#main_content h2:first-of-type {
+    margin-top: 0.5em;
 }
 
 #footer_wrap {
