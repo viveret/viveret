@@ -27,7 +27,8 @@
 - The speed and reliability with which McKinstry shares information leaps tremendously
 
 ##### Computer Science and Math Tutor (2015 - 2017)
-Provided one on one personal tutoring to students who needed help or extra assistance with Computer Science, communication, and problem solving and reasoning. Was a Computer Science tutor at Green River College (3.5 months), freelance tutor (14 months), UW Tacoma (8 months).
+- Provided one on one personal tutoring to students who needed help or extra assistance with Computer Science, communication, and problem solving and reasoning.
+- Was a Computer Science tutor at Green River College (3.5 months), freelance tutor (14 months), UW Tacoma (8 months).
 
 ## Skills
 - Parallelism, data structures and algorithms, software design and architecture, scaling
@@ -35,15 +36,15 @@ Provided one on one personal tutoring to students who needed help or extra assis
 - Video editing, audio editing, graphic design, image editing, code collaboration
 
 ## Technologies
-####### Languages
+###### Languages
 C / C++, C#, Java, Assembly 80x86, HTML / CSS, PHP, SQL, Lua, VB.NET, Java / Type Script, Python
-####### Operating Systems / Platforms
+###### Operating Systems / Platforms
 Linux, Android, Raspberry Pi, Microsoft Windows 2000/XP/Vista/7/8/10/Server
-####### IDEs / Editors
+###### IDEs / Editors
 IntelliJ, Microsoft Visual Studio, Eclipse, LibreOffice / Microsoft Office Suite
-####### Relevant Technologies
+###### Relevant Technologies
 Git, GNU make, gradle, gdb, ssh, Apache, latex, IIS, ElasticSearch
-####### Frameworks & SDKs
+###### Frameworks & SDKs
 OpenGL (Ver. 1, 3, 4), GLES, Bullet Physics, Win32, XLib, POSIX, Boost, Swing, jQuery, tiny-dnn
 
 ## Accomplishments
@@ -53,13 +54,15 @@ OpenGL (Ver. 1, 3, 4), GLES, Bullet Physics, Win32, XLib, POSIX, Boost, Swing, j
 
 ## Education
 ##### University of Washington, Tacoma (Sept. 2015 to June 2017)
-Bachelor’s in Computer Science, graduating this June. Completed:
+Bachelor’s in Computer Science. Completed:
 - User Oriented Design, Design and Analysis of Algorithms, Software Quality Assurance, Mobile Applications, Human Computer Interfaces
 - Discrete Math and Structures I & II, Data Structures and Algorithms, Formal Models in CS
 - Java Practicum - small applications, C System Programming, Machine Organization, Computer Architecture, Artificial Intelligence & Knowledge Acquisition (machine learning)
 
 ##### Green River Community College (Sept. 2013 to June 2015)
-Associates in Computer Science. Completed Calculus I - IV, Statistics, Chemistry with Lab, Engineering Physics with Lab I - III, C++, and Java I & II.
+Associate's in Computer Science. Completed:
+- Calculus I - IV, Statistics, C++, and Java I & II
+- Chemistry with Lab, Engineering Physics with Lab I - III
 
 <!--
 **viveret/viveret** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
