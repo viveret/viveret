@@ -57,14 +57,14 @@ body {
 
 #main_content h2 {
     background: none;
-    border-bottom: 1px solid $base-color;
-    margin-top: 1.5em;
+    border-bottom: 2px solid $base-color;
+    margin-top: 1em;
     margin-bottom: 0.5em;
     padding-bottom: 0;
 }
 
 #main_content h2:first-of-type {
-    margin-top: 0.5em;
+    margin-top: 0;
 }
 
 #footer_wrap {
@@ -99,4 +99,11 @@ a:hover, a:focus {
 footer a {
   color: $base-color-comp;
   text-decoration: underline;
+}
+
+
+
+
+a[href="https://stackoverflow.com/"] {
+    color: rgb(244, 128, 36);
 }
