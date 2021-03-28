@@ -1,0 +1,50 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+$base-color: #212121;
+$base-color-invert: color.invert($base-color, 100%);
+$accent-color: #c6538c;
+$light: #fff;
+$dark: #111;
+
+.inner {
+    max-width: 70%;
+    min-width: 700px;
+}
+
+#forkme_banner {
+    color: $light;
+    background: url('../images/blacktocat.png') $accent-color no-repeat 95% 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
+}
+  
+#header_wrap {
+    background: $base-color-invert;
+    background: -moz-linear-gradient(top, #373737, $base-color);
+    background: -webkit-linear-gradient(top, #373737, $base-color);
+    background: -ms-linear-gradient(top, #373737, $base-color);
+    background: -o-linear-gradient(top, #373737, $base-color);
+    background: linear-gradient(to top, #373737, $base-color);
+}
+
+#project_title {
+    color: $light;
+    text-shadow: $dark 0px 0px 10px;
+}
+
+#project_tagline {
+    color: $light;
+    text-shadow: $dark 0px 0px 10px;
+}
+
+#main_content_wrap {
+    background: $base-color-invert;
+    border-top: 1px solid $dark;
+    border-bottom: 1px solid $dark;
+}
+
+#footer_wrap {
+    background: $base-color;
+}
