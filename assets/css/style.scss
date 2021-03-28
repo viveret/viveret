@@ -12,10 +12,6 @@ $accent-color: #c6538c;
 $light: #fff;
 $dark: #111;
 
-body > div {
-    font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif !important;
-}
-
 @font-face {
     font-family: 'Quicksand';
     src: url('../fonts/Quicksand-Regular.ttf') format('truetype');
@@ -28,6 +24,10 @@ h1, h2, h3, h4, h5, h6 {
 body {
     color: $base-color;
     background: $base-color-invert;
+}
+
+.outer {
+    font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif !important;
 }
 
 .inner {
