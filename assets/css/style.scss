@@ -2,17 +2,8 @@
 ---
 
 
-@font-face {
-    font-family: 'Quicksand';
-    src: url('../fonts/Quicksand-Regular.ttf') format('truetype');
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: Quicksand;
-}
-
 html, body {
-    font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif;
+    font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif !important;
 }
 
 
@@ -25,6 +16,15 @@ $base-color-comp: compliment($base-color);
 $accent-color: #c6538c;
 $light: #fff;
 $dark: #111;
+
+@font-face {
+    font-family: 'Quicksand';
+    src: url('../fonts/Quicksand-Regular.ttf') format('truetype');
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Quicksand;
+}
 
 body {
     color: $base-color;
