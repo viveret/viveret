@@ -58,13 +58,13 @@ body {
 }
 
 #project_title {
-    color: $light;
-    text-shadow: $dark 0px 0px 10px;
+    color: $color-secondary;
+    text-shadow: $color-secondary-dark 0px 0px 10px;
 }
 
 #project_tagline {
-    color: $light;
-    text-shadow: $dark 0px 0px 10px;
+    color: $color-secondary-light;
+    text-shadow: $color-secondary 0px 0px 10px;
 }
 
 #main_content_wrap {
