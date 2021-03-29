@@ -7,7 +7,7 @@
 $base-color: #212121;
 $base-color-light: lighten($base-color, 10%);
 $base-color-invert: invert($base-color);
-$base-color-comp: compliment($base-color);
+$base-color-comp: complement($base-color);
 $accent-color: #c6538c;
 $light: #fff;
 $dark: #111;
@@ -21,9 +21,13 @@ h1, h2, h3, h4, h5, h6 {
     font-family: Quicksand !important;
 }
 
+h2 {
+    font-size: 31px;
+}
+
 body {
     color: $base-color;
-    background: $base-color-invert;
+    background: $base-color-comp;
 }
 
 .outer {
@@ -42,7 +46,7 @@ body {
 }
   
 #header_wrap {
-    background: $base-color-invert;
+    background: $base-color;
     background: -moz-linear-gradient(top, $base-color-light, $base-color);
     background: -webkit-linear-gradient(top, $base-color-light, $base-color);
     background: -ms-linear-gradient(top, $base-color-light, $base-color);
@@ -61,7 +65,7 @@ body {
 }
 
 #main_content_wrap {
-    background: $base-color-invert;
+    background: $base-color-comp;
     border-top: 1px solid $dark;
     border-bottom: 1px solid $dark;
 }
