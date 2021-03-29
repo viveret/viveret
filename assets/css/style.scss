@@ -8,8 +8,8 @@ $color-primary: #212121;
 $color-primary-light: lighten($color-primary, 10%);
 $color-primary-dark: darken($color-primary, 10%);
 $color-secondary: #fff;
-$color-secondary-light: #fff;
-$color-secondary-dark: #111;
+$color-secondary-light: lighten($color-secondary, 10%);
+$color-secondary-dark: darken($color-secondary, 10%);
 
 $color-accent: #c6538c;
 $color-accent-light: lighten($color-accent, 10%);
