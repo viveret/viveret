@@ -1,12 +1,17 @@
 ## Full-Stack Software Developer at [Stack Overflow](https://stackoverflow.com/)
-##### Pronouns: She/her/they/them
-##### Mostly C++/Java/C#
+Pronouns: She/her/they/them
 
-##### Last Updated: 17th of January, 2021
-##### #: 253-431-0075
-##### [www.viveret.ninja](www.viveret.ninja)
-##### [www.linkedin.com/in/viveret](www.linkedin.com/in/viveret)
-##### [viveret.amant.official@gmail.com](viveret.amant.official@gmail.com)
+Mostly C++/Java/C#
+
+Last Updated: 17th of January, 2021
+
+:phone:#: 253-431-0075
+
+[www.viveret.ninja](www.viveret.ninja)
+
+[www.linkedin.com/in/viveret](www.linkedin.com/in/viveret)
+
+[viveret.amant.official@gmail.com](viveret.amant.official@gmail.com)
 
 ## Work Experience
 ##### Software Developer at Stack Exchange / Stack Overflow (July 2019 - Present)
