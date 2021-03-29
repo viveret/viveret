@@ -4,13 +4,16 @@
 
 @import "{{ site.theme }}";
 
-$base-color: #212121;
-$base-color-light: lighten($base-color, 10%);
-$base-color-invert: invert($base-color);
-$base-color-comp: complement($base-color);
-$accent-color: #c6538c;
-$light: #fff;
-$dark: #111;
+$color-primary: #212121;
+$color-primary-light: lighten($color-primary, 10%);
+$color-primary-dark: darken($color-primary, 10%);
+$color-secondary: #fff;
+$color-secondary-light: #fff;
+$color-secondary-dark: #111;
+
+$color-accent: #c6538c;
+$color-accent-light: lighten($color-accent, 10%);
+$color-accent-dark: darken($color-accent, 10%);
 
 @font-face {
     font-family: 'Quicksand';
@@ -26,8 +29,8 @@ h2 {
 }
 
 body {
-    color: $base-color;
-    background: $base-color-comp;
+    color: $color-primary;
+    background: $color-secondary;
 }
 
 .outer {
@@ -41,17 +44,17 @@ body {
 
 #forkme_banner {
     color: $light;
-    background: url('../images/blacktocat.png') $accent-color no-repeat 95% 50%;
+    background: url('../images/blacktocat.png') $color-accent no-repeat 95% 50%;
     box-shadow: 0 0 10px rgba(0,0,0,.5);
 }
   
 #header_wrap {
-    background: $base-color;
-    background: -moz-linear-gradient(top, $base-color-light, $base-color);
-    background: -webkit-linear-gradient(top, $base-color-light, $base-color);
-    background: -ms-linear-gradient(top, $base-color-light, $base-color);
-    background: -o-linear-gradient(top, $base-color-light, $base-color);
-    background: linear-gradient(to top, $base-color-light, $base-color);
+    background: $color-primary;
+    background: -moz-linear-gradient(top, $color-primary-light, $color-primary);
+    background: -webkit-linear-gradient(top, $color-primary-light, $color-primary);
+    background: -ms-linear-gradient(top, $color-primary-light, $color-primary);
+    background: -o-linear-gradient(top, $color-primary-light, $color-primary);
+    background: linear-gradient(to top, $color-primary-light, $color-primary);
 }
 
 #project_title {
@@ -65,14 +68,14 @@ body {
 }
 
 #main_content_wrap {
-    background: $base-color-comp;
-    border-top: 1px solid $dark;
-    border-bottom: 1px solid $dark;
+    background: $color-secondary;
+    border-top: 1px solid $color-secondary-dark;
+    border-bottom: 1px solid $color-secondary-dark;
 }
 
 #main_content h2 {
     background: none;
-    border-bottom: 2px solid $base-color;
+    border-bottom: 2px solid $color-primary;
     margin-top: 1em;
     margin-bottom: 0.5em;
     padding-bottom: 0;
@@ -83,16 +86,16 @@ body {
 }
 
 #footer_wrap {
-    background: $base-color;
+    background: $color-primary;
 }
 
 footer p {
-  color: $base-color-comp;
+  color: $color-secondary;
 }
 
 a {
   text-decoration: none;
-  color: $accent-color;
+  color: $color-accent;
   text-shadow: none;
 
   transition: color 0.5s ease;
@@ -112,7 +115,7 @@ a:hover, a:focus {
 }
 
 footer a {
-  color: $base-color-comp;
+  color: $color-secondary;
   text-decoration: underline;
 }
 
