@@ -14,7 +14,7 @@ Last Updated: 17th of January, 2021
 [viveret.amant.official@gmail.com](viveret.amant.official@gmail.com)
 
 ## Work Experience
-##### Software Developer at Stack Exchange / Stack Overflow (July 2019 - Present)
+##### Full-Stack Software Developer at Stack Exchange / Stack Overflow (July 2019 - Present)
 - Worked on Talent team for Developer Jobs, Developer Stories, and Company pages
 - Helped develop an improved job board, hiring & brand awareness platform used worldwide by devs and software companies
 - Provided insight on software development, project planning, and user centered design
