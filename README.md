@@ -3,7 +3,7 @@ Pronouns: She/her/they/them
 
 Mostly C++/Java/C#
 
-Last Updated: 17th of January, 2021
+Last Updated: 29th of March, 2021
 
 :phone:#: 253-431-0075
 
@@ -35,12 +35,12 @@ Last Updated: 17th of January, 2021
 - Provided one on one personal tutoring to students who needed help or extra assistance with Computer Science, communication, and problem solving and reasoning.
 - Was a Computer Science tutor at Green River College (3.5 months), freelance tutor (14 months), UW Tacoma (8 months).
 
-## Skills
+## Skills ([See Details](proficiencies.md))
 - Parallelism, data structures and algorithms, software design and architecture, scaling
 - Integrations, testing, engineering physics, machine learning, AI, math
 - Video editing, audio editing, graphic design, image editing, code collaboration
 
-## Technologies
+## Technologies ([See Details](proficiencies.md))
 ###### Languages
 C / C++, C#, Java, Assembly 80x86, HTML / CSS, PHP, SQL, Lua, VB.NET, Java / Type Script, Python
 ###### Operating Systems / Platforms
@@ -57,7 +57,7 @@ OpenGL (Ver. 1, 3, 4), GLES, Bullet Physics, Win32, XLib, POSIX, Boost, Swing, j
 - Won #HackHarassment at Def Hacks for a project called SafeMessage that protects the user from harassing, abusive, or malicious messages by using machine learning
 - Received honorable mentions at 3 Seattle CodeDay competitions
 
-## Education
+## Education ([See Details](education.md))
 ##### University of Washington, Tacoma (Sept. 2015 to June 2017)
 Bachelor’s in Computer Science. Completed:
 - User Oriented Design, Design and Analysis of Algorithms, Software Quality Assurance, Mobile Applications, Human Computer Interfaces
