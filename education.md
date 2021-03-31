@@ -9,7 +9,7 @@
 |Topic|Rank (?/5 stars)|
 |-----|----------------|
 |Topic A|:star:|
-|Topic B|:star::star::star::star::star:|
+|Topic B|:star::star::star::star::star:| 
 
 #### Green River Community College
 |Code   |Name      |Desciption     |Grade|Notes|
