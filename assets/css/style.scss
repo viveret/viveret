@@ -52,9 +52,12 @@ body {
     background: linear-gradient(to top, $color-primary-light, $color-primary);
 }
 
+#project_title_tagline, #project_title_tagline:hover {
+    text-decoration: none;
+}
+
 #project_title {
     color: $color-secondary;
-    text-decoration: none;
 }
 
 #project_tagline {
