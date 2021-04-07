@@ -73,28 +73,28 @@
 | ------------- | ------------------- |
 | Git           | :star::star::star: |
 | GNU Make      | :star::star::star: |
-| gradle        | :star::star::star::star: |
-| gdb           | :star::star::star::star: |
-| ssh           | :star::star::star::star: |
-| Apache        | :star::star::star::star: |
-| latex         | :star::star::star::star: |
-| IIS           | :star::star::star::star: |
-| ElasticSearch | :star::star::star::star: |
-| Redis         | :star::star::star::star: |
+| gradle        | :star::star: |
+| gdb           | :star::star: |
+| ssh           | :star::star: |
+| Apache        | :star: |
+| latex         | :star::star: |
+| IIS           | :star: |
+| ElasticSearch | :star::star: |
+| Redis         | :star::star: |
 
 ## Frameworks & SDKs
 
 | Name                | Rank out of 5 stars |
 | ------------------- | ------------------- |
-| OpenGL (Ver. 1-4)   | :star::star::star: |
+| OpenGL (Ver. 1-4)   | :star::star::star::star: |
 | GLES                | :star::star::star: |
 | Bullet Physics      | :star::star::star::star: |
 | Win32               | :star::star::star::star: |
 | XLib                | :star::star::star::star: |
 | POSIX               | :star::star::star::star: |
-| Boost (C++)         | :star::star::star::star: |
-| Swing (Java)        | :star::star::star::star: |
-| JQuery (JS)         | :star::star::star::star: |
+| Boost (C++)         | :star::star::star: |
+| Swing (Java)        | :star::star::star: |
+| JQuery (JS)         | :star::star::star: |
 | tiny-dnn (C++)      | :star::star::star::star: |
-| .NET core (C#)      | :star::star::star::star: |
+| .NET core (C#)      | :star::star::star: |
 | .NET Framework (C#) | :star::star:             |
