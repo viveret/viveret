@@ -2,47 +2,46 @@
 
 ## UW Tacoma
 
-| Code    | Name       | Grade  | Notes  |
-| ------- | ---------- | ------ | ------ |
-| TCSS 342 | Data Structures | - | - |
-| TCSS 445 | Database System Design | - | - |
-| TCSS 343 | Design & Analysis of Algorithms | - | - |
-| TCSS 321 | Discrete Structures | - | - |
-| TCSS 322 | Discrete Structures II | - | - |
-| TCSS 435 | Artificial Intelligence & Knowledge Acquisition | - | - |
-| TCSS 333 | C for Programming Systems | - | - |
-| TCSS 372 | Computer Architecture | - | - |
-| TCSS 440 | Formal Models in CS | - | - |
-| TCSS 371 | Machine Organization | - | - |
-| TCSS 450 | Mobile Applications | - | - |
-| TCSS 305 | Programming Practicum | - | - |
-| TCSS 360 | Software Development & Quality Assurance | - | - |
-| TCSS 452 | Human Computer Interfaces | - | - |
-| TWRT 350 | User Oriented Design | - | - |
+| Name                                            | Code     |
+| ----------------------------------------------- | -------- |
+| User Oriented Design                            | TWRT 350 |
+| Programming Practicum                           | TCSS 305 |
+| Discrete Structures                             | TCSS 321 |
+| Discrete Structures II                          | TCSS 322 |
+| C for Programming Systems                       | TCSS 333 |
+| Data Structures                                 | TCSS 342 |
+| Design & Analysis of Algorithms                 | TCSS 343 |
+| Software Development & Quality Assurance        | TCSS 360 |
+| Machine Organization                            | TCSS 371 |
+| Computer Architecture                           | TCSS 372 |
+| Artificial Intelligence & Knowledge Acquisition | TCSS 435 |
+| Formal Models in CS                             | TCSS 440 |
+| Database System Design                          | TCSS 445 |
+| Mobile Applications                             | TCSS 450 |
+| Human Computer Interfaces                       | TCSS 452 |
 
 
 ## Green River Community College
 
-| Code    | Name       | Grade | Notes |
-| ------- | ---------- | ----- | ----- |
-| SPAN& 123 | Spanish III | - | - |
-| MATH 256 | Statistics-Bus/Soc Sci | - | - |
-| MATH& 151 | Calculus I | - | - |
-| MATH& 152 | Calculus II | - | - |
-| MATH& 153 | Calculus III | - | - |
-| MATH& 154 | Calculus IV | - | - |
-| CS& 131 | Computer Science I C++ | - | - |
-| CS& 141 | Computer Science I Java | - | - |
-| PHYS& 221 | Engineering Physics I w/ Lab | - | - |
-| PHYS& 222 | Engineering Physics II w/ Lab | - | - |
-| CHEM& 161 | General Chem w/ Lab | - | - |
-| PHYS& 114 | General Physics w/ Lab | - | - |
-| CS 145 | Java 2 | - | - |
+| Name                          | Code      |
+| ----------------------------- | --------- |
+| Calculus I                    | MATH& 151 |
+| Calculus II                   | MATH& 152 |
+| Calculus III                  | MATH& 153 |
+| Calculus IV                   | MATH& 154 |
+| Statistics-Bus/Soc Sci        | MATH 256  |
+| Computer Science I C++        | CS& 131   |
+| Computer Science I Java       | CS& 141   |
+| Java 2                        | CS 145    |
+| General Physics w/ Lab        | PHYS& 114 |
+| General Chem w/ Lab           | CHEM& 161 |
+| Engineering Physics I w/ Lab  | PHYS& 221 |
+| Engineering Physics II w/ Lab | PHYS& 222 |
+| Spanish III                   | SPAN& 123 |
 
 
 ## End of middle school / outside high school
 
-| Code    | Name       | Description     | Grade | Notes |
-| ------- | ---------- | --------------- | ----- | ----- |
-| ABC 123 | Class name | This is a class | A+    | -     |
-
+| Name       | Code    |
+| ---------- | ------- |
+| Class name | ABC 123 |

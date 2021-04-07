@@ -84,17 +84,17 @@
 
 ## Frameworks & SDKs
 
-| Name                | Rank out of 5 stars |
-| ------------------- | ------------------- |
-| OpenGL (Ver. 1-4)   | :star::star::star::star: |
-| GLES                | :star::star::star: |
-| Bullet Physics      | :star::star::star::star: |
-| Win32               | :star::star::star::star: |
-| XLib                | :star::star::star::star: |
-| POSIX               | :star::star::star::star: |
-| Boost (C++)         | :star::star::star: |
-| Swing (Java)        | :star::star::star: |
-| JQuery (JS)         | :star::star::star: |
-| tiny-dnn (C++)      | :star::star::star::star: |
-| .NET core (C#)      | :star::star::star: |
-| .NET Framework (C#) | :star::star:             |
+| Name                 | Rank out of 5 stars |
+| -------------------- | ------------------- |
+| OpenGL (Ver. 1-4)    | :star::star::star::star: |
+| GLES                 | :star::star::star: |
+| Win32                | :star::star::star::star: |
+| XLib                 | :star::star::star::star: |
+| POSIX                | :star::star::star::star: |
+| Bullet Physics (C++) | :star::star::star::star: |
+| Boost (C++)          | :star::star::star: |
+| Swing (Java)         | :star::star::star: |
+| JQuery (JS)          | :star::star::star: |
+| tiny-dnn (C++)       | :star::star::star::star: |
+| .NET core (C#)       | :star::star::star: |
+| .NET Framework (C#)  | :star::star:             |
