@@ -29,6 +29,7 @@
 | Relaxing | :star::star::star::star::star: |
 
 ## Languages
+
 | Name                    | Rank out of 5 stars |
 | ----------------------- | ------------------- |
 | C                       | :star::star::star: |
@@ -48,14 +49,16 @@
 | Rust                    | - |
 
 ## Operating Systems / Platforms
+
 | Name         | Rank out of 5 stars |
 | ------------ | ------------------- |
-| Linux        | :star::star::star: |
-| Android      | :star::star::star: |
-| Windows      | :star::star::star: |
-| Raspberry Pi | :star::star: |
+| Linux        | :star::star::star:  |
+| Android      | :star::star::star:  |
+| Windows      | :star::star::star:  |
+| Raspberry Pi | :star::star:        |
 
 ## IDEs / Editors
+
 | Name          | Rank out of 5 stars |
 | ------------- | ------------------- |
 | IntelliJ | :star::star::star: |
@@ -65,6 +68,7 @@
 | LibreOffice | :star::star: |
 
 ## Services / Tools
+
 | Name          | Rank out of 5 stars |
 | ------------- | ------------------- |
 | Git           | :star::star::star: |
@@ -79,6 +83,7 @@
 | Redis         | :star::star::star::star: |
 
 ## Frameworks & SDKs
+
 | Name                | Rank out of 5 stars |
 | ------------------- | ------------------- |
 | OpenGL (Ver. 1-4)   | :star::star::star: |
