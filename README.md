@@ -3,7 +3,7 @@ Pronouns: She/her/they/them
 
 Mostly C++/Java/C#
 
-Last Updated: 29th of March, 2021
+Last Updated: 6th of April, 2021
 
 :phone:#: 253-431-0075
 
@@ -21,15 +21,14 @@ Last Updated: 29th of March, 2021
 - Worked on architecture and internal systems for Talent & Ads.
 - Worked on integrations with other companies & systems. Lots of data moving in & out for jobs.
 - Provided business insight by writing case-by-case parameterized SQL queries for dashboards.
+- Led an affinity group for women and other marginalized genders in tech. Focused on intersectionality, transparency, and camaraderie.
 
 ##### Full-Stack Software Engineer at McKinstry (June 2016 - May 2019)
 - Sole developer with many hats (spec, planning & design, project management, training)
 - Directly supervised another software engineer for a fast-tracked sub-application.
 - Migration of Excel-based data entry, storage, business code, and management to an in-house entity framework for big data, with a - website front-end.
 - Developed an enterprise-level, database centered infrastructure with ASP.NET, C#, SQL, JavaScript, and Python that is accessible - via website or existing tools via plugins
-- Fostering business development and teams to manage data in a centralized way
-- Track and store the performance of buildings throughout their operating life
-- The speed and reliability with which McKinstry shares information leaps tremendously
+- Developed standard practices with regards to building data management for teams and managers
 
 ##### Computer Science and Math Tutor (2015 - 2017)
 - Provided one on one personal tutoring to students who needed help or extra assistance with Computer Science, communication, and problem solving and reasoning.

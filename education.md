@@ -1,4 +1,4 @@
-# Education (what I learned)
+# Education (what I've learned)
 
 ## University of Washington, Tacoma (Sept. 2015 to June 2017)
 
