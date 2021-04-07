@@ -1,6 +1,6 @@
 # Education (what I learned)
 
-## UW Tacoma
+## University of Washington, Tacoma (Sept. 2015 to June 2017)
 
 | Name                                            | Code     |
 | ----------------------------------------------- | -------- |
@@ -21,7 +21,7 @@
 | Human Computer Interfaces                       | TCSS 452 |
 
 
-## Green River Community College
+## Green River Community College (Sept. 2013 to June 2015)
 
 | Name                          | Code      |
 | ----------------------------- | --------- |

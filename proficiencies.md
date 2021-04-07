@@ -24,7 +24,7 @@
 | Practical Physics | Basics of engineering physics, electromagnetism |
 | Theoretical Physics | :star: |
 | Chemistry | :star: |
-| Coffee & Espresso making | Where do I even begin? |
+| Coffee & Espresso | Where do I even begin? |
 | Cooking | :star::star: |
 | Relaxing | :star::star::star::star::star: |
 
