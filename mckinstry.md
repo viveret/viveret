@@ -1,4 +1,4 @@
-# Full-Stack Software Engineer at McKinstry (June 2016 - May 2019)
+## Full-Stack Software Engineer at McKinstry (June 2016 - May 2019)
 
 ## Team Structure & Dynamic
 

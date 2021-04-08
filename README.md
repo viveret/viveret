@@ -1,4 +1,4 @@
-# Full-Stack Software Developer at [Stack Overflow](https://stackoverflow.com/)
+## Full-Stack Software Developer at [Stack Overflow](https://stackoverflow.com/)
 Pronouns: She/her/they/them
 
 Mostly C++/Java/C#
