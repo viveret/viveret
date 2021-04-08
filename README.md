@@ -7,11 +7,11 @@ Last Updated: 7th of April, 2021
 
 ☎️ 253-431-0075
 
-📫 [viveret.amant.official@gmail.com](viveret.amant.official@gmail.com)
+📫 [viveret.amant.official@gmail.com](mailto:viveret.amant.official@gmail.com)
 
-🔗 [www.viveret.ninja](www.viveret.ninja)
+🔗 [www.viveret.ninja](https://www.viveret.ninja)
 
-💼 [www.linkedin.com/in/viveret](www.linkedin.com/in/viveret)
+💼 [www.linkedin.com/in/viveret](https://www.linkedin.com/in/viveret)
 
 ## Work Experience
 ### Full-Stack Software Developer at Stack Exchange / Stack Overflow (July 2019 - Present) ([Details](stackoverflow.md))
