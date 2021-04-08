@@ -141,6 +141,20 @@ section table {
     max-width: 700px;
 }
 
+
+#main-bg {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    background: radial-gradient(white 4%, transparent 0), radial-gradient(white 4%, transparent 0);
+    background-size: 60px 60px;
+    background-position: -15px -15px, 15px 15px;
+}
+
 @media screen and (max-width: 992px) {
 }
   
