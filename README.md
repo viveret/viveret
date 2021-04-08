@@ -14,7 +14,7 @@ Last Updated: 7th of April, 2021
 💼 [www.linkedin.com/in/viveret](https://www.linkedin.com/in/viveret)
 
 ## Work Experience
-### Full-Stack Software Developer at Stack Exchange / Stack Overflow (July 2019 - Present) ([Details](stackoverflow.md))
+### Full-Stack Software Developer at [Stack Exchange](https://stackexchange.com/) / [Stack Overflow](https://stackoverflow.com/) (July 2019 - Present) ([Details](stackoverflow.md))
 - Worked on Talent team for Developer Jobs, Developer Stories, and Company pages.
 - Helped improve the job board, hiring & brand awareness platform used worldwide by devs and software companies.
 - Provided insight on software development, project planning, and user centered design.
@@ -23,7 +23,7 @@ Last Updated: 7th of April, 2021
 - Provided business insight by writing case-by-case parameterized SQL queries for dashboards.
 - Led an affinity group for women and other marginalized genders in tech. Focused on intersectionality, transparency, and camaraderie.
 
-### Full-Stack Software Engineer at McKinstry (June 2016 - May 2019) ([Details](mckinstry.md))
+### Full-Stack Software Engineer at [McKinstry](https://www.mckinstry.com/) (June 2016 - May 2019) ([Details](mckinstry.md))
 - Started as an intern to develop an Excel script to push/pull data to/from SQL Server.
 - Researched problem space, conducted interviews to find and determine solutions.
 - Proposed solution as technical design document with tech stack, data schema, and architecture.
