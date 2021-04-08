@@ -14,7 +14,7 @@ Last Updated: 7th of April, 2021
 💼 [www.linkedin.com/in/viveret](www.linkedin.com/in/viveret)
 
 ## Work Experience
-### Full-Stack Software Developer at Stack Exchange / Stack Overflow (July 2019 - Present)
+### Full-Stack Software Developer at Stack Exchange / Stack Overflow (July 2019 - Present) ([Details](stackoverflow.md))
 - Worked on Talent team for Developer Jobs, Developer Stories, and Company pages.
 - Helped improve the job board, hiring & brand awareness platform used worldwide by devs and software companies.
 - Provided insight on software development, project planning, and user centered design.
@@ -22,9 +22,8 @@ Last Updated: 7th of April, 2021
 - Worked on integrations with other companies & systems. Lots of data moving in & out for jobs.
 - Provided business insight by writing case-by-case parameterized SQL queries for dashboards.
 - Led an affinity group for women and other marginalized genders in tech. Focused on intersectionality, transparency, and camaraderie.
-- See details [here](stackoverflow.md)
 
-### Full-Stack Software Engineer at McKinstry (June 2016 - May 2019)
+### Full-Stack Software Engineer at McKinstry (June 2016 - May 2019) ([Details](mckinstry.md))
 - Started as an intern to develop an Excel script to push/pull data to/from SQL Server.
 - Researched problem space, conducted interviews to find and determine solutions.
 - Proposed solution as technical design document with tech stack, data schema, and architecture.
@@ -34,7 +33,6 @@ Last Updated: 7th of April, 2021
 - Created documentation, presentations, workshops for engineers to use the software.
 - Besides the summer intern, I was the only developer on the team my entire duration.
 - I worked primarily with mechanical engineers, project managers, and data analysts.
-- See details [here](mckinstry.md)
 
 ### Computer Science and Math Tutor (2015 - 2017)
 - Provided one on one personal tutoring to students who needed help or extra assistance with Computer Science, communication, and problem solving and reasoning.
