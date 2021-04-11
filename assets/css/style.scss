@@ -502,4 +502,7 @@ a[href="https://stackoverflow.com/"] {
 
 section table {
     width: 100%;
+    tr:nth-child(odd) {
+        background-color:rgba(0, 0, 0, 0.05);
+    }
 }

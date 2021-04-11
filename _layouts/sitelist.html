@@ -17,7 +17,7 @@ layout: site
     <a href="{{ item_name | slugize }}.html"><small>View all</small></a>
     <ul>
       {% for post in site[slug][item_name] %}
-        <li><h4><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h4></li>
+        <li><h5><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h5></li>
       {% endfor %}
     </ul>
 {% endfor %}
