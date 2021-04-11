@@ -23,15 +23,17 @@
       <header class="ContentContainer">
         <div id="forkme_banner">
           <a href="{{ site.github.repository_url }}">View on GitHub</a>
-          <p class="extended">
-            <span class="copyright">Made by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>,</span>
-            <span title="Revision {{build_revision}}">published</span> with <a href="https://pages.github.com">GitHub Pages</a>
+          <div class="extended">
+            <p class="copyright">Made by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
+            <p>
+              <span title="Revision {{build_revision}}">using</span> <a href="https://pages.github.com">GitHub Pages</a>
+            </p>
             {% if page.date %}
-            <span>(last modified: {{ page.date | date: "%c" }})</span>
+            <p>(last modified: {{ page.date | date: "%c" }})</p>
             {% endif %}
-          </p>
+          </div>
         </div>
-        
+
         <div class="myPicture">
           <a class="crop" href="{{ site.github.url }}"><img src="{{ '/assets/images/photos/face.png' | relative_url }}"></a>
           <!-- <div>"I'm Viveret and @ViewData["CurrentPhrase"]"</div> -->

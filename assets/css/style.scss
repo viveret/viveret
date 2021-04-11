@@ -460,28 +460,34 @@ body {
 #forkme_banner {
     display:block;
     position:absolute;
+    overflow-y: hidden;
     top:0;
     right:10px;
     z-index:10;
-    padding:10px 50px 10px 10px;
+    padding: 5px 25px 5px 5px;
     font-weight:700;
     border-bottom-left-radius:2px;
     border-bottom-right-radius: 2px;
 
 
     color: $color-secondary;
-    background: url('../images/blacktocat.png') $color-accent no-repeat 95% 50%;
+    background: $color-accent;
     box-shadow: 0 0 10px rgba(0,0,0,.5);
     transition: all ease-in-out 1s;
 
-    .extended {
-        height: 0;
-        overflow-y: visible;
+    > a {
+        padding: 5px 25px 5px 5px;
+        background: url('../images/blacktocat.png') $color-accent no-repeat 95% 50%;
+    }
+    
+    a {
+        color: $color-secondary;
     }
 
-    &:hover .extended {
-        height: auto;
-        overflow-y: visible;
+    max-height: 3.4em;
+
+    &:hover {
+        max-height: initial;
     }
 }
   
