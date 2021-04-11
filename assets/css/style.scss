@@ -473,19 +473,20 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,.5);
     transition: all ease-in-out 1s;
 
-    max-height: 3.4em;
+    max-height: 2.8em;
 
     &:hover {
         max-height: initial;
     }
 
     > p {
-        padding: 10px 50px 10px 10px;
+        padding: .5rem 2rem .5rem .5rem;
     }
 
     > a {
-        padding: 10px 50px 10px 10px;
-        background: url('../images/blacktocat.png') $color-accent no-repeat 95% 50%;
+        padding: .5rem 2rem .5rem .5rem;
+        margin-bottom: 0;
+        background: url('../images/blacktocat.png') $color-accent no-repeat 95% 40%;
     }
     
     a {
