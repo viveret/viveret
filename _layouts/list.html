@@ -5,10 +5,10 @@ layout: site
 {% assign posts = site.categories[page.slug] | default:site.tags[page.slug] | default:site.posts %}
 
 <div id="main_content_wrap" class="outer">
-  <section id="main_content" class="inner" data-slug="{% page.slug %}">
+  <section id="main_content" class="inner">
     {{ content }}
 
-    <div class="list">
+    <div class="list" id="{% page.slug %}">
       {% for post in posts %}
         <div class="item {% if post.featured %}featured{% endif %}">
           <a href="{{ post.url | relative_url }}" class="{% if post.image %}has-image{% endif %}">
