@@ -8,7 +8,7 @@ layout: site
   <section id="main_content" class="inner">
     {{ content }}
 
-    <div class="list" id="{% page.slug %}">
+    <div class="list" id="{{ page.slug }}">
       {% for post in posts %}
         <div class="item {% if post.featured %}featured{% endif %}">
           <a href="{{ post.url | relative_url }}" class="{% if post.image %}has-image{% endif %}">
