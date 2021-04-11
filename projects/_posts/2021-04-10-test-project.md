@@ -1,10 +1,11 @@
 ---
-title: Test title
+title: Test project
 image: /assets/img/blog/test.jpg
 description: >
   Test description
 tags: [testtag]
 category: projects
+layout: post
 ---
 
 
