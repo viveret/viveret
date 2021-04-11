@@ -363,10 +363,21 @@ body .ContentContainer:last-child {
     grid-row: 12;
 }
 
+$flowerEmojis: [🐝 🌻 🌷 🌹 🌸 🌼 🌺];
+
 footer {
     @extend .ContentContainer;
     p {
         color: inherit;
+    }
+
+    ul {
+        li:before {
+            content: list.nth($flowerEmojis, random(length($flowerEmojis)));
+        }
+        li:after {
+            content: list.nth($flowerEmojis, random(length($flowerEmojis)));
+        }
     }
 }
 
