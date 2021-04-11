@@ -23,15 +23,13 @@
       <header class="ContentContainer">
         <div id="forkme_banner">
           <a href="{{ site.github.repository_url }}">View on GitHub</a>
-          <div class="extended">
-            <p class="copyright">Made by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
-            <p>
-              <span title="Revision {{build_revision}}">using</span> <a href="https://pages.github.com">GitHub Pages</a>
-            </p>
-            {% if page.date %}
-            <p>(last modified: {{ page.date | date: "%c" }})</p>
-            {% endif %}
-          </div>
+          <p class="copyright">Made by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
+          <p>
+            <span title="Revision {{build_revision}}">using</span> <a href="https://pages.github.com">GitHub Pages</a>
+          </p>
+          {% if page.date %}
+          <p>(last modified: {{ page.date | date: "%c" }})</p>
+          {% endif %}
         </div>
 
         <div class="myPicture">
