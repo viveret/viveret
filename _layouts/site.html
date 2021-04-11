@@ -46,8 +46,10 @@
       <footer class="ContentContainer">
         <p>
           <span class="copyright">Made by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>,</span>
-          <span title="Revision {{build_revision}}">published</span> with <a href="https://pages.github.com">GitHub Pages</a>,
-          <span>last modified: {{ page.date | date: "%c" }}</span>
+          <span title="Revision {{build_revision}}">published</span> with <a href="https://pages.github.com">GitHub Pages</a>
+          {% if page.date %}
+          <span>(last modified: {{ page.date | date: "%c" }})</span>
+          {% endif %}
         </p>
 
         <ul class="menu-bar text-center">
