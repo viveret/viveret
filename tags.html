@@ -7,7 +7,8 @@ title: Tags
 {% for tag in site.tags %}
   {% capture tag_name %}{{ tag | first }}{% endcapture %}
   <div class="ContentContainer">
-    <a href="{{ tag_name | slugize }}.html"><h3 id="#{{ tag_name | slugize }}">{{ tag_name }}</h3></a>
+    <h3 id="#{{ tag_name | slugize }}">{{ tag_name }}</h3>
+    <a href="{{ tag_name | slugize }}.html"><small>See more</small></a>
     {% for post in site.tags[tag_name] %}
     <article>
       <h4><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h4>
