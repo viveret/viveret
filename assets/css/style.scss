@@ -336,10 +336,6 @@ header.ContentContainer {
     margin-top: 28px;
 }
 
-ul {
-    text-align: center;
-}
-
 ul.ContentContainer {
     margin: 0 auto 0 auto;
     text-align: center;
@@ -506,21 +502,4 @@ a[href="https://stackoverflow.com/"] {
 
 section table {
     width: 100%;
-}
-
-.inner {
-    max-width: 1024px;
-}
-
-
-@media screen and (max-width: 992px) {
-    .inner {
-        max-width: 640px;
-    }
-}
-  
-@media screen and (max-width: 480px) {
-}
-
-@media screen and (max-width: 320px) {
 }
