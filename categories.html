@@ -7,8 +7,8 @@ title: Categories
 {% for category in site.categories %}
   {% capture category_name %}{{ category | first }}{% endcapture %}
   <div class="ContentContainer">
-    <h3 id="#{{ category_name | slugize }}">{{ category_name }}</h3>
-    <a href="{{ category_name | slugize }}.html"><small>See more</small></a>
+    <h3 class="d-inline-block" id="#{{ category_name | slugize }}">{{ category_name }}</h3>
+    <a href="{{ category_name | slugize }}.html"><small>View all</small></a>
     {% for post in site.categories[category_name] %}
     <article>
       <h4><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h4>
