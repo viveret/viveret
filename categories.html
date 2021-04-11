@@ -4,10 +4,9 @@ title: Categories
 ---
 <!-- From https://blog.webjeda.com/jekyll-categories/ -->
 
-<div>
 {% for category in site.categories %}
   {% capture category_name %}{{ category | first }}{% endcapture %}
-  <div>
+  <div class="ContentContainer">
     <a href="{{ category_name | slugize }}.html"><h3 id="#{{ category_name | slugize }}">{{ category_name }}</h3></a>
     {% for post in site.categories[category_name] %}
     <article>
@@ -16,4 +15,3 @@ title: Categories
     {% endfor %}
   </div>
 {% endfor %}
-</div>

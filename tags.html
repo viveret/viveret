@@ -4,10 +4,9 @@ title: Tags
 ---
 <!-- From https://blog.webjeda.com/jekyll-categories/ -->
 
-<div>
 {% for tag in site.tags %}
   {% capture tag_name %}{{ tag | first }}{% endcapture %}
-  <div>
+  <div class="ContentContainer">
     <a href="{{ tag_name | slugize }}.html"><h3 id="#{{ tag_name | slugize }}">{{ tag_name }}</h3></a>
     {% for post in site.tags[tag_name] %}
     <article>
@@ -16,4 +15,3 @@ title: Tags
     {% endfor %}
   </div>
 {% endfor %}
-</div>
