@@ -487,36 +487,6 @@ body {
     background: linear-gradient(to top, $color-primary-light, $color-primary);
 }
 
-#project_title_tagline, #project_title_tagline:hover {
-    text-decoration: none;
-}
-
-#project_title {
-    color: $color-secondary;
-}
-
-#project_tagline {
-    color: $color-secondary-light;
-}
-
-#main_content_wrap {
-    background: transparent;
-    border-top: 1px solid $color-secondary-dark;
-    border-bottom: 1px solid $color-secondary-dark;
-}
-
-#main_content h2 {
-    background: none;
-    border-bottom: 2px solid $color-accent;
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-    padding-bottom: 0;
-}
-
-#main_content h2:first-of-type {
-    margin-top: 0;
-}
-
 img.emoji {
     border: none;
     box-shadow: none;
