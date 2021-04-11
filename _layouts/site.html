@@ -22,18 +22,13 @@
     <div id="content">
       <header class="ContentContainer">
         <a id="forkme_banner" href="{{ site.github.repository_url }}">View on GitHub</a>
-        <a id="project_title_tagline" href="{{ site.github.url }}">
-            <h1 id="project_title">{{ site.title | default: site.github.repository_name }}</h1>
-            <h2 id="project_tagline">{{ site.description | default: site.github.project_tagline }}</h2>
-        </a>
-
         <div class="myPicture">
-          <a class="crop" href="/"><img src="{{ '/assets/images/photos/face.png' | relative_url }}"></a>
+          <a class="crop" href="{{ site.github.url }}"><img src="{{ '/assets/images/photos/face.png' | relative_url }}"></a>
           <!-- <div>"I'm Viveret and @ViewData["CurrentPhrase"]"</div> -->
         </div>
-        <a href="/" class="Title TitleLeft"><span>v</span><span>i</span><span>v</span><span>e</span><span>r</span><span>e</span><span>t</span></a>
-        <a href="/" class="Title TitleRight"><span>s</span><span>t</span><span>e</span><span>e</span><span>l</span><span>e</span></a>
-        <div class="Subtitle"><a href="software.html" title="My Software Engineering Career">software engineer</a>, <a href="freelance.html" title="Tutoring, Mentoring, Consulting, and Freelancing">freelancer</a>, <a href="artist.html" title="I'm also an artist">artist</a> in <a href="https://en.wikipedia.org/wiki/Seattle" target="_blank">🍎Seattle Area🌧️</a></div>
+        <a href="{{ site.github.url }}" class="Title TitleLeft"><span>v</span><span>i</span><span>v</span><span>e</span><span>r</span><span>e</span><span>t</span></a>
+        <a href="{{ site.github.url }}" class="Title TitleRight"><span>s</span><span>t</span><span>e</span><span>e</span><span>l</span><span>e</span></a>
+        <div class="Subtitle"><a href="software.html" title="My Software Engineering Career">software engineer</a>, <a href="freelance.html" title="Tutoring, Mentoring, Consulting, and Freelancing">freelancer</a>, <a href="artist.html" title="I'm also an artist">artist</a> in the <a href="https://en.wikipedia.org/wiki/Seattle" target="_blank">🍎Seattle Area🌧️</a></div>
       </header>
       <ul class="ContentContainer menu-bar">
         <li><a title="My StackOverflow Profile" href="https://stackoverflow.com/users/11765486/viveret-steele"><i class="fab fa-2x fa-stack-overflow"></i></a></li>
