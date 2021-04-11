@@ -175,7 +175,6 @@ figcaption {
 
 .myPicture {
     grid-row: 1;
-    grid-column: 1/4;
     width: 100%;
 }
 
@@ -513,40 +512,6 @@ body {
 
 #main_content h2:first-of-type {
     margin-top: 0;
-}
-
-#footer_wrap {
-    background: $color-primary;
-}
-
-footer p {
-  color: $color-secondary;
-}
-
-a {
-  text-decoration: none;
-  color: $color-accent;
-  text-shadow: none;
-
-  transition: color 0.5s ease;
-  transition: text-shadow 0.5s ease;
-  -webkit-transition: color 0.5s ease;
-  -webkit-transition: text-shadow 0.5s ease;
-  -moz-transition: color 0.5s ease;
-  -moz-transition: text-shadow 0.5s ease;
-  -o-transition: color 0.5s ease;
-  -o-transition: text-shadow 0.5s ease;
-  -ms-transition: color 0.5s ease;
-  -ms-transition: text-shadow 0.5s ease;
-}
-
-a:hover, a:focus {
-  text-decoration: underline;
-}
-
-footer a {
-  color: $color-secondary;
-  text-decoration: underline;
 }
 
 img.emoji {
