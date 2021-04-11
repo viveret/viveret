@@ -2,7 +2,7 @@
 layout: site
 ---
 
-{% assign slug = page.slug | default:page.title %}
+{% assign slug = page.name | remove_first: ".md" %}
 {% assign posts = site.categories[slug] | default:site.tags[slug] | default:site.posts %}
 
 <div id="main_content_wrap" class="outer">
