@@ -11,8 +11,8 @@ layout: site
   <h1>{{ page.title }}</h1>
   {{ content }}
 
-{% for item in items %}
-  {% capture item_name %}{{ item | first }}{% endcapture %}
+  {% for item in items %}
+    {% capture item_name %}{{ item | first }}{% endcapture %}
     <h3 class="d-inline-block mt-3" id="#{{ item_name | slugize }}">{{ item_name }}</h3>
     <a href="{{ item_name | slugize }}.html"><small>View all</small></a>
     <ul>
@@ -20,6 +20,5 @@ layout: site
         <li><h5><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h5></li>
       {% endfor %}
     </ul>
-{% endfor %}
-
+  {% endfor %}
 </div>

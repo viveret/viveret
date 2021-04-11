@@ -21,7 +21,17 @@
     <div id="content-bg"></div>
     <div id="content">
       <header class="ContentContainer">
-        <a id="forkme_banner" href="{{ site.github.repository_url }}">View on GitHub</a>
+        <div id="forkme_banner">
+          <a href="{{ site.github.repository_url }}">View on GitHub</a>
+          <p class="extended">
+            <span class="copyright">Made by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>,</span>
+            <span title="Revision {{build_revision}}">published</span> with <a href="https://pages.github.com">GitHub Pages</a>
+            {% if page.date %}
+            <span>(last modified: {{ page.date | date: "%c" }})</span>
+            {% endif %}
+          </p>
+        </div>
+        
         <div class="myPicture">
           <a class="crop" href="{{ site.github.url }}"><img src="{{ '/assets/images/photos/face.png' | relative_url }}"></a>
           <!-- <div>"I'm Viveret and @ViewData["CurrentPhrase"]"</div> -->
@@ -44,14 +54,6 @@
       {{ content }}
 
       <footer class="ContentContainer">
-        <p>
-          <span class="copyright">Made by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>,</span>
-          <span title="Revision {{build_revision}}">published</span> with <a href="https://pages.github.com">GitHub Pages</a>
-          {% if page.date %}
-          <span>(last modified: {{ page.date | date: "%c" }})</span>
-          {% endif %}
-        </p>
-
         <ul class="menu-bar text-center">
           <li><a href="https://www.linkedin.com/in/viveret/">LinkedIn</a></li>
           <li><a href="mailto:viveret.amant.official@gmail.com">viveret.amant.official@gmail.com</a></li>

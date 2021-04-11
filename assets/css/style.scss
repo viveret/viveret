@@ -472,6 +472,17 @@ body {
     color: $color-secondary;
     background: url('../images/blacktocat.png') $color-accent no-repeat 95% 50%;
     box-shadow: 0 0 10px rgba(0,0,0,.5);
+    transition: all ease-in-out 1s;
+
+    .extended {
+        height: 0;
+        overflow-y: visible;
+    }
+
+    &:hover .extended {
+        height: auto;
+        overflow-y: visible;
+    }
 }
   
 #header_wrap {
