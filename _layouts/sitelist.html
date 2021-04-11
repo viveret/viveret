@@ -9,17 +9,16 @@ layout: site
 
 <div class="ContentContainer">
   {{ content }}
-</div>
 
 {% for item in items %}
   {% capture item_name %}{{ item | first }}{% endcapture %}
-  <div class="ContentContainer">
     <h3 class="d-inline-block" id="#{{ item_name | slugize }}">{{ item_name }}</h3>
     <a href="{{ item_name | slugize }}.html"><small>View all</small></a>
-    {% for post in site[slug][item_name] %}
-      <article>
-        <h4><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h4>
-      </article>
-    {% endfor %}
-  </div>
+    <ul>
+      {% for post in site[slug][item_name] %}
+        <li><h4><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h4></li>
+      {% endfor %}
+    </ul>
 {% endfor %}
+
+</div>
