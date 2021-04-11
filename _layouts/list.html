@@ -5,7 +5,7 @@ layout: site
 {% assign posts = site.categories[page.slug] | default:site.tags[page.slug] | default:site.posts %}
 
 <div id="main_content_wrap" class="outer">
-  <section id="main_content" class="inner">
+  <section id="main_content" class="inner" data-slug="{% page.slug %}">
     {{ content }}
 
     <div class="list">
