@@ -427,15 +427,6 @@ footer {
     }
 }
 
-/* .navbar-default {
-    background: linear-gradient(to bottom, tan, 90%, #8B4513);
-    border-color: #8B4513;
-}
-
-.navbar-default .navbar-text {
-    color: #8B4513;
-} */
-
 
 #banner {
 	position: absolute;
@@ -460,7 +451,7 @@ h2 {
 }
 
 body {
-    color: $color-primary;
+    // color: $color-primary;
     // background: $color-secondary;
     background: linear-gradient(#BBD8FF, #BBFFEF, #BEFFBB, #F3FFBB, #FFD4BB, #FFBBD8);
 }
