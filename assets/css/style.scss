@@ -352,7 +352,6 @@ ul.ContentContainer {
     
     header.ContentContainer {
         grid-template-columns: 1fr 92px 1fr;
-        text-align: center;        
     }
     
     footer.ContentContainer {
@@ -471,12 +470,12 @@ body {
     color: $color-secondary;
     background: $color-accent;
     box-shadow: 0 0 10px rgba(0,0,0,.5);
-    transition: all ease-in-out 1s;
+    transition: all ease-in-out .2s;
 
-    max-height: 2.8em;
+    max-height: 2.5rem;
 
     &:hover {
-        max-height: initial;
+        max-height: 8rem;
     }
 
     > p {
