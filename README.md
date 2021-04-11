@@ -72,15 +72,20 @@ Associate's in Computer Science. Completed:
 - Calculus I - IV, Statistics, C++, and Java I & II
 - Chemistry with Lab, Engineering Physics with Lab I - III
 
+
+## Other Materials
+- [Project Highlights](project-highlights.md)
+- [Deliverable Highlights](deliverable-highlights.md)
+- [Blog Posts](blog-posts.md)
+- [Book Reviews](book-reviews.md)
+- [Design Patterns](design-patterns.md)
+
+
 <!--
 **viveret/viveret** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- ⚡ Fun fact: ...
+todo:
+- Projects / types of things implemented (anonymized / safe from NDA work)
+- Blog posts (like creating a resume using github pages)
+- Books I've read, why I recommend, my reviews / notes
 -->
