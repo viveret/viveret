@@ -372,14 +372,12 @@ footer {
     }
 }
 
-header, footer {
-    ul.menu-bar {
-        li::before {
-            content: nth($flowerEmojis, random(length($flowerEmojis)));
-        }
-        li::after {
-            content: nth($flowerEmojis, random(length($flowerEmojis)));
-        }
+ul.menu-bar {
+    li::before {
+        content: nth($flowerEmojis, random(length($flowerEmojis)));
+    }
+    li::after {
+        content: nth($flowerEmojis, random(length($flowerEmojis)));
     }
 }
 
@@ -408,6 +406,7 @@ header, footer {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+    text-align: center;
 }
 
 .menu-bar li {
