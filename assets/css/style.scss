@@ -371,11 +371,11 @@ footer {
         color: inherit;
     }
 
-    ul {
-        li:before {
+    ul.menu-bar {
+        li::before {
             content: nth($flowerEmojis, random(length($flowerEmojis)));
         }
-        li:after {
+        li::after {
             content: nth($flowerEmojis, random(length($flowerEmojis)));
         }
     }
