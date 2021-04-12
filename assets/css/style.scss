@@ -363,7 +363,7 @@ body .ContentContainer:last-child {
     grid-row: 12;
 }
 
-$flowerEmojis: [🐝 🌻 🌷 🌹 🌸 🌼 🌺];
+$flowerEmojis: 🐝 🌻 🌷 🌹 🌸 🌼 🌺;
 
 footer {
     @extend .ContentContainer;
@@ -373,10 +373,10 @@ footer {
 
     ul {
         li:before {
-            content: list.nth($flowerEmojis, random(length($flowerEmojis)));
+            content: nth($flowerEmojis, random(length($flowerEmojis)));
         }
         li:after {
-            content: list.nth($flowerEmojis, random(length($flowerEmojis)));
+            content: nth($flowerEmojis, random(length($flowerEmojis)));
         }
     }
 }
