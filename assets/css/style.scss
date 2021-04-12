@@ -370,7 +370,9 @@ footer {
     p {
         color: inherit;
     }
+}
 
+header, footer {
     ul.menu-bar {
         li::before {
             content: nth($flowerEmojis, random(length($flowerEmojis)));

@@ -73,14 +73,6 @@ Associate's in Computer Science. Completed:
 - Chemistry with Lab, Engineering Physics with Lab I - III
 
 
-## Other Materials
-- [Project Highlights](project-highlights.md)
-- [Deliverable Highlights](deliverable-highlights.md)
-- [Blog Posts](blog-posts.md)
-- [Book Reviews](book-reviews.md)
-- [Design Patterns](design-patterns.md)
-
-
 <!--
 **viveret/viveret** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
@@ -88,4 +80,6 @@ todo:
 - Projects / types of things implemented (anonymized / safe from NDA work)
 - Blog posts (like creating a resume using github pages)
 - Books I've read, why I recommend, my reviews / notes
+- pages from my previous site
+- mogai / lgbt lingo
 -->
