@@ -363,7 +363,7 @@ body .ContentContainer:last-child {
     grid-row: 12;
 }
 
-$flowerEmojis: 🐝 🌻 🌷 🌹 🌸 🌼 🌺;
+$flowerEmojis: '🐝' '🌻' '🌷' '🌹' '🌸' '🌼' '🌺';
 
 footer {
     @extend .ContentContainer;
