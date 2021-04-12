@@ -363,21 +363,10 @@ body .ContentContainer:last-child {
     grid-row: 12;
 }
 
-$flowerEmojis: '🐝' '🌻' '🌷' '🌹' '🌸' '🌼' '🌺';
-
 footer {
     @extend .ContentContainer;
     p {
         color: inherit;
-    }
-}
-
-ul.menu-bar {
-    li::before {
-        content: nth($flowerEmojis, random(length($flowerEmojis)));
-    }
-    li::after {
-        content: nth($flowerEmojis, random(length($flowerEmojis)));
     }
 }
 
@@ -422,6 +411,17 @@ ul.menu-bar {
                          content: '  ';
                          font-size: 14px;
                          padding-right: 5px; 
+}
+
+$flowerEmojis: '🐝' '🌻' '🌷' '🌹' '🌸' '🌼' '🌺';
+
+.menu-bar-emoji {
+    li::before {
+        content: nth($flowerEmojis, random(length($flowerEmojis)));
+    }
+    li::after {
+        content: nth($flowerEmojis, random(length($flowerEmojis)));
+    }
 }
 
 @media only screen and (max-width: 768px) {
