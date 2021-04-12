@@ -5,27 +5,26 @@ layout: site
 {% assign slug = page.name | remove_first: ".md" %}
 {% assign posts = site.categories[slug] | default:site.tags[slug] | default:site.posts %}
 
-<div id="main_content_wrap" class="outer">
-  <section id="main_content" class="inner">
-    {{ content }}
+<div class="ContentContainer">
+  <h1>{{ page.title }}</h1>
+  {{ content }}
 
-    <div class="list" id="{{ slug }}">
-      {% for post in posts %}
-        <div class="item {% if post.featured %}featured{% endif %}">
-          <a href="{{ post.url | relative_url }}" class="{% if post.image %}has-image{% endif %}">
-          </a>
-          <h3>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          </h3>
-          {% if post.description or post.tagline or post.caption %}
-            <p>
-              {{ post.tagline | default:post.caption | default:post.description }}
-            </p>
-          {% endif %}
-          {% assign text = "See full post (<!--post_title-->)" %}
-          <a href="{{ post.url | relative_url }}"><span>{{ text | replace:"<!--post_title-->", post.title }}</span></a>
-        </div>
-      {% endfor %}
-    </div>
-  </section>
+  <div class="list" id="{{ slug }}">
+    {% for post in posts %}
+      <div class="item {% if post.featured %}featured{% endif %}">
+        <a href="{{ post.url | relative_url }}" class="{% if post.image %}has-image{% endif %}">
+        </a>
+        <h3>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </h3>
+        {% if post.description or post.tagline or post.caption %}
+          <p>
+            {{ post.tagline | default:post.caption | default:post.description }}
+          </p>
+        {% endif %}
+        {% assign text = "See full post (<!--post_title-->)" %}
+        <a href="{{ post.url | relative_url }}"><span>{{ text | replace:"<!--post_title-->", post.title }}</span></a>
+      </div>
+    {% endfor %}
+  </div>
 </div>
