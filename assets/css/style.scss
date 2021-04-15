@@ -576,8 +576,19 @@ section table {
 
 a.cta {
     border-radius: 1000px;
-    padding: 1em;
-    box-shadow: 0 1em 0.5em rgba(0,0,0,0.23);
+    padding: .5em .75em;
+    box-shadow: 0 .25em 0.25em rgba(0,0,0,0.23);
     border: 1px solid $color-accent;
     background: linear-gradient(to right, $color-accent-light, $color-accent-dark);
+    margin: 0.5em 0 0;
+    display: inline-block;
+
+    &, &:hover, &:visited {
+        color: $color-secondary;
+        text-decoration: none;
+    }
+
+    &:hover {
+        filter: brightness(0.8);
+    }
 }
