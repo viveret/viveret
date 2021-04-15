@@ -280,14 +280,21 @@ a.Title:hover, a.Subtitle:hover, .Title a:hover, .Subtitle a:hover
     text-transform: uppercase;
 }
 
-@media only screen and (max-width: 640) {
+@media only screen and (max-width: 1024px) {
     .Title {
-        font-size: 18pt;
-        line-height: 18pt;
+        font-size: 64pt;
+        line-height: 64pt;
     }
 }
 
 @media only screen and (max-width: 768px) {
+    .Title {
+        font-size: 48pt;
+        line-height: 48pt;
+    }
+}
+
+@media only screen and (max-width: 640px) {
     .Title {
         font-size: 28pt;
         line-height: 28pt;
