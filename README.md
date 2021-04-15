@@ -11,7 +11,7 @@ Last Updated: 7th of April, 2021
 
 🔗 [www.viveret.ninja](https://www.viveret.ninja)
 
-💼 [www.linkedin.com/in/viveret](https://www.linkedin.com/in/viveret)
+💼 [www.linkedin.com/in/viveret](https://www.linkedin.com/in/viveret)q
 
 ## Work Experience
 ### Full-Stack Software Developer at [Stack Exchange](https://stackexchange.com/) / [Stack Overflow](https://stackoverflow.com/) (July 2019 - Present) ([Details](stackoverflow.md))
@@ -77,9 +77,26 @@ Associate's in Computer Science. Completed:
 **viveret/viveret** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
 todo:
-- Projects / types of things implemented (anonymized / safe from NDA work)
-- Blog posts (like creating a resume using github pages)
+- Showcase layout, different from list layout, but maybe similar (or uses conditional)
+- Printable version of resume page (using media query)? Or business card with link?
 - Books I've read, why I recommend, my reviews / notes
 - pages from my previous site
+  - Software
+  - Freelancer (for hire?)
+  - Artist // this might need custom layout
+  - Tutoring & Mentoring
+        does this go with freelancing?
+        or is there another category for contract work?
+        maybe one focuses on type of employment and one is about job duty
+- work preferences
+  - 100% remote (I primarily work at my residence)
+  - 90% async workflow (8 hours or so of internet video calls every 2 weeks)?
+  - Virtual tools for whiteboarding / ideation / design process
+  - 100% covered insurance (no deductible)
+  - Internet / home office stipend
+  - Conference / learning resources stipend
+  - If I have to travel, I can expense it and get an orca card
+  - Basically Stack Overflow's benefits
+  - Check notes on questions to ask
 - mogai / lgbt lingo
 -->

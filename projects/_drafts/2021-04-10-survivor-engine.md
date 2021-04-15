@@ -1,15 +1,12 @@
 ---
-date: 2021-04-11
-title: Test project
+date: 2021-04-13
+title: Survivor Engine
 image: /assets/img/blog/test.jpg
 description: >
-  Test description
+  Beep boop
 tags: [testtag]
 category: projects
 layout: post
 ---
 
-
-
-this is a test project
-hello world!
+eeeeee
