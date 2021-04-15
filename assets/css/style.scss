@@ -268,8 +268,8 @@ a.Title:hover, a.Subtitle:hover, .Title a:hover, .Subtitle a:hover
 
 .Title {
     font-weight: 100;
-    font-size: 72pt;
-    line-height: 72pt;
+    font-size: 64pt;
+    line-height: 62pt;
     margin: 8px 0 -8px 0;
     text-align: center;
     display: grid;
@@ -282,8 +282,15 @@ a.Title:hover, a.Subtitle:hover, .Title a:hover, .Subtitle a:hover
 
 @media only screen and (max-width: 1024px) {
     .Title {
-        font-size: 52pt;
-        line-height: 52pt;
+        font-size: 48pt;
+        line-height: 60pt;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .Title {
+        font-size: 38pt;
+        line-height: 32pt;
     }
 }
 
@@ -315,7 +322,7 @@ h3 {
 @media only screen and (max-width: 1024px) {
     .Subtitle {
         font-size: 9pt;
-        line-height: 4pt;
+        line-height: 8pt;
         padding: 4px 0;
     }
 }
@@ -323,7 +330,7 @@ h3 {
 @media only screen and (max-width: 768px) {
     .Subtitle {
         font-size: 14pt;
-        line-height: 6pt;
+        line-height: 28pt;
         padding: 2px 0;
     }
 }
