@@ -282,15 +282,8 @@ a.Title:hover, a.Subtitle:hover, .Title a:hover, .Subtitle a:hover
 
 @media only screen and (max-width: 1024px) {
     .Title {
-        font-size: 64pt;
-        line-height: 64pt;
-    }
-}
-
-@media only screen and (max-width: 768px) {
-    .Title {
-        font-size: 48pt;
-        line-height: 48pt;
+        font-size: 52pt;
+        line-height: 52pt;
     }
 }
 
@@ -319,11 +312,27 @@ h3 {
     color: inherit;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
     .Subtitle {
         font-size: 9pt;
         line-height: 4pt;
+        padding: 4px 0;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .Subtitle {
+        font-size: 14pt;
+        line-height: 6pt;
         padding: 2px 0;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .Subtitle {
+        font-size: 9pt;
+        line-height: 4pt;
+        padding: 1px 0;
     }
 }
 
