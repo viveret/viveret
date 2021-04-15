@@ -22,7 +22,6 @@ layout: site
         {{ post.tagline | default:post.caption | default:post.description }}
       </p>
     {% endif %}
-    {% assign text = "See full post (<!--post_title-->)" %}
-    <a href="{{ post.url | relative_url }}"><span>{{ text | replace:"<!--post_title-->", post.title }}</span></a>
+    <a class="cta" href="{{ post.url | relative_url }}">View entire post &raquo;</a>
   </div>
 {% endfor %}
