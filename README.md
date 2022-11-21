@@ -11,7 +11,7 @@ Last Updated: 7th of April, 2021
 
 🔗 [www.viveret.ninja](https://www.viveret.ninja)
 
-💼 [www.linkedin.com/in/viveret](https://www.linkedin.com/in/viveret)q
+💼 [www.linkedin.com/in/viveret](https://www.linkedin.com/in/viveret)
 
 ## Work Experience
 ### Full-Stack Software Developer at [Stack Exchange](https://stackexchange.com/) / [Stack Overflow](https://stackoverflow.com/) (July 2019 - Present) ([Details](stackoverflow.md))
