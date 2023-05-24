@@ -5,8 +5,6 @@ Mostly C++/Java/C#
 
 Last Updated: 7th of April, 2021
 
-☎️ 253-431-0075
-
 📫 [viveret.amant.official@gmail.com](mailto:viveret.amant.official@gmail.com)
 
 🔗 [www.viveret.ninja](https://www.viveret.ninja)
