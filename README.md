@@ -7,7 +7,7 @@ Last Updated: 7th of April, 2021
 
 📫 [viveret.amant.official@gmail.com](mailto:viveret.amant.official@gmail.com)
 
-🔗 [www.viveret.ninja](https://www.viveret.ninja)
+🔗 [https://tech.lgbt/@viveret](https://tech.lgbt/@viveret)
 
 💼 [www.linkedin.com/in/viveret](https://www.linkedin.com/in/viveret)
 
