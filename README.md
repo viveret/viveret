@@ -1,9 +1,9 @@
-## Full-Stack Software Developer at [Stack Overflow](https://stackoverflow.com/)
+## Ex Senior Full-Stack Software Developer at [Stack Overflow](https://stackoverflow.com/)
 Pronouns: She/her/they/them
 
-Mostly C++/Java/C#
+Mostly Rust/C#/C++/Java
 
-Last Updated: 7th of April, 2021
+Last Updated: 6th of August, 2024
 
 📫 [viveret.amant.official@gmail.com](mailto:viveret.amant.official@gmail.com)
 
@@ -12,13 +12,14 @@ Last Updated: 7th of April, 2021
 💼 [www.linkedin.com/in/viveret](https://www.linkedin.com/in/viveret)
 
 ## Work Experience
-### Full-Stack Software Developer at [Stack Exchange](https://stackexchange.com/) / [Stack Overflow](https://stackoverflow.com/) (July 2019 - Present) ([Details](stackoverflow.md))
+### Full-Stack Software Developer at [Stack Exchange](https://stackexchange.com/) / [Stack Overflow](https://stackoverflow.com/) (July 2019 - August 2024) ([Details](stackoverflow.md))
 - Worked on Talent team for Developer Jobs, Developer Stories, and Company pages.
 - Helped improve the job board, hiring & brand awareness platform used worldwide by devs and software companies.
 - Provided insight on software development, project planning, and user centered design.
 - Worked on architecture and internal systems for Talent & Ads.
 - Worked on integrations with other companies & systems. Lots of data moving in & out for jobs.
 - Provided business insight by writing case-by-case parameterized SQL queries for dashboards.
+- Worked on Stack Overflow for Teams (free, business, enterprise tiers)
 - Led an affinity group for women and other marginalized genders in tech. Focused on intersectionality, transparency, and camaraderie.
 
 ### Full-Stack Software Engineer at [McKinstry](https://www.mckinstry.com/) (June 2016 - May 2019) ([Details](mckinstry.md))
