@@ -1,0 +1,9 @@
+[package]
+name = "neoviveret"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pulldown-cmark = "0.13.0"
+serde_yaml = "0.9.34"
+serde = { version = "1.0", features = ["derive"] }
