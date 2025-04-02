@@ -1,9 +1,9 @@
-## Ex Senior Full-Stack Software Developer at [Stack Overflow](https://stackoverflow.com/)
+## Senior Full-Stack Software Developer
 Pronouns: She/her/they/them
 
 Mostly Rust/C#/C++/Java
 
-Last Updated: 6th of August, 2024
+Last Updated: 2nd of April, 2025
 
 📫 [viveret.amant.official@gmail.com](mailto:viveret.amant.official@gmail.com)
 

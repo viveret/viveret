@@ -1,0 +1,10 @@
+---
+layout: site
+---
+{{ foreach }}
+<div id="main_content_wrap" class="ContentContainer outer">
+  <section id="main_content" class="inner">
+    {{ content }}
+  </section>
+</div>
+{{ endforeach }}
