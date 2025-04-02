@@ -1,11 +1,11 @@
 use std::collections::HashMap;
-use std::fmt;
 use std::fs;
 use std::fs::File;
 use std::io::Read;
 use std::io::Write;
 use std::path::Path;
 use std::path::PathBuf;
+use std::rc::Rc;
 
 
 use pulldown_cmark::Parser;
@@ -23,12 +23,31 @@ enum TemplateNode {
 
 #[derive(Debug, Default)]
 struct TemplateContext {
-    strings: HashMap<String, String>,
-    nodes: HashMap<String, TemplateNode>,
+    pub strings: HashMap<String, String>,
+    pub nodes: HashMap<String, TemplateNode>,
+    pub parent: Option<Rc<TemplateContext>>,
+}
+
+impl TemplateContext {
+    pub fn new(parent: Rc<TemplateContext>) -> Self {
+        Self {
+            strings: HashMap::new(),
+            nodes: HashMap::new(),
+            parent: Some(parent),
+        }
+    }
+
+    pub fn new_root() -> Self {
+        Self {
+            strings: HashMap::new(),
+            nodes: HashMap::new(),
+            parent: None,
+        }
+    }
 }
 
 impl TemplateNode {
-    pub fn render(&self, context: &TemplateContext) -> String {
+    pub fn render(&self, context: &mut TemplateContext, global_context: &mut GlobalContext) -> String {
         match self {
             Self::Func(f) => f(context),
             Self::String(s) => {
@@ -38,18 +57,21 @@ impl TemplateNode {
                     output = output.replace(&format!("{{{}}}", key), value);
                 }
                 // Replace node references
-                for (key, node) in &context.nodes {
-		    if node != self {
-			output = output.replace(
-                            &format!("{{#{}}}", key),
-                            &node.render(context)
-			);
-		    }
+                for (key, node) in context.nodes.clone() {
+                    if node != *self {
+                        output = output.replace(
+                                        &format!("{{#{}}}", key),
+                                        &node.render(context, global_context)
+                        );
+                    }
                 }
                 output
             }
             Self::Composite(nodes) => {
-                nodes.iter().map(|node| node.render(context)).collect()
+                nodes.iter().map(|node| node.render(context, global_context)).collect()
+            }
+            Self::Page(pg) => {
+                pg.content.clone()
             }
         }
     }
@@ -69,60 +91,60 @@ impl TemplateNode {
     }
 
     pub fn page(page: Page) -> Self {
-	Self::Page(page)
+	    Self::Page(page)
     }
 }
 
-impl fmt::Display for TemplateNode {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.render(&TemplateContext::default()))
-    }
-}
-
-#[derive(Debug, serde::Deserialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize)]
 struct FrontMatter {
     title: String,
     layout: Option<String>,
     // Add other front matter fields as needed
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug, PartialEq)]
 struct Page {
     path: String,
     front_matter: FrontMatter,
     content: String,
     html_content: String,
     output_path: PathBuf,
-    layout_template: Rc<TemplateNode>,
+    layout_template: Option<Rc<TemplateNode>>,
 }
 
 struct GlobalContext {
-    pub layout_templates: HashMap<String, Rc<TeplateNode>>
+    pub output_base: &'static str,
+    pub layout_templates: HashMap<String, Rc<TemplateNode>>
+}
+
+impl GlobalContext {
+    pub fn new(
+        output_base: &'static str
+    ) -> Self { Self { output_base, layout_templates: HashMap::new() } }
 }
 
 
-fn get_or_load_layout_template(name: &String, g_ctx: &mut GlobalContext) {
-    if let Some(v) = g_ctx.layout_templates.try_get(name) {
-	Some(v.clone())
+fn get_or_load_layout_template(name: &String, g_ctx: &mut GlobalContext) -> Rc<TemplateNode> {
+    if let Some(v) = g_ctx.layout_templates.get(name) {
+	    v.clone()
     } else {
-	let s = process_html_file(name);
-	let x = Rc::new(TemplateNode::String(s));
-	g_ctx.layout_templates.put(name, x.clone());
-	x
+        let page = process_html_file(name, g_ctx);
+        let x = Rc::new(TemplateNode::Page(page));
+        g_ctx.layout_templates.insert(name.to_string(), x.clone());
+        x
     }
 }
 
 fn process_html_file(
     path: &String,
-    output_base: &str,
     global_context: &mut GlobalContext
 ) -> Page {
-    
+    println!("processing html file {}", path);
+    // rest of implementation   
 }
 
 fn process_markdown_file(
     path: &String,
-    output_base: &str,
     global_context: &mut GlobalContext,
 ) -> Result<Option<Page>, Box<dyn std::error::Error>> {
     println!("processing markdown file {}", path);
@@ -158,7 +180,7 @@ fn process_markdown_file(
     println!("front matter: {:?}", front_matter);
 
     // get layout template
-    let layout_template = front_matter.layout.map(|name| get_or_load_layout_template(name, global_context));
+    let layout_template = front_matter.layout.clone().map(|name| get_or_load_layout_template(&name, global_context));
 
     // Convert markdown to HTML
     let parser = Parser::new_ext(markdown, Options::all());
@@ -169,34 +191,40 @@ fn process_markdown_file(
     let cur_dir = std::env::current_dir().unwrap();
     let cur_dir = cur_dir.as_path();
     let stem_path = file_path_stem(cur_dir, path);
-    let output_path = cur_dir.join(output_base).join(
+    let output_path = cur_dir.join(global_context.output_base).join(
         stem_path.to_string() + ".html",
     );
     println!("stem: {}, out: {}", stem_path, output_path.as_path().to_str().unwrap());
 
     Ok(Some(Page {
-	path: path.clone(),
+	    path: path.clone(),
         front_matter,
         content: markdown.to_string(),
         html_content,
         output_path,
-	layout_template,
+	    layout_template,
     }))
 }
 
 
-fn render_page(page: &Page) -> Result<(), Box<dyn std::error::Error>> {
+fn render_page(
+    page: &Page,
+    global_context: &mut GlobalContext,
+) -> Result<(), Box<dyn std::error::Error>> {
     println!("render_page {}", page.path);
+
     // Create parent directory if needed
     if let Some(parent) = page.output_path.parent() {
-	println!("create parent {}", parent.to_str().unwrap());
-	fs::create_dir_all(parent)?;
+        println!("create parent {}", parent.to_str().unwrap());
+        fs::create_dir_all(parent)?;
     }     
 
-    let html_output = if let Some(template) = page.template {
-	page.template.render(page.html_content)
+    let html_output = if let Some(layout_template) = page.layout_template.clone() {
+        let mut ctx = TemplateContext::new_root();
+        ctx.nodes.insert("body".to_string(), TemplateNode::Page(page.clone()));
+	    layout_template.render(&mut ctx, global_context)
     } else {
-	page.html_content
+	    page.html_content.clone()
     };
     
     println!("writing to {}", page.output_path.as_path().to_str().unwrap());
@@ -232,20 +260,21 @@ fn get_md_files_recursive(path: &Path) -> Vec<String> {
 
 pub fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Create output directory
-    fs::create_dir_all("output")?;
+    let mut global_context = GlobalContext::new("output");
+    fs::create_dir_all(global_context.output_base)?;
 
     let cur_dir = std::env::current_dir().unwrap();
     let cur_dir = cur_dir.as_path();
     let files = get_md_files_recursive(cur_dir);
     println!("found {} md files", files.len());
     for path in files.iter() {
-	let stem = file_path_stem(cur_dir, path);
-	if stem.starts_with("/assets/") || stem.starts_with("assets/") {
-	    continue;
-	}
+        let stem = file_path_stem(cur_dir, path);
+        if stem.starts_with("/assets/") || stem.starts_with("assets/") {
+            continue;
+        }
 	
-	if let Some(page) = process_markdown_file(path, "output")? {
-            render_page(&page)?;
+	    if let Some(page) = process_markdown_file(path, &mut global_context)? {
+            render_page(&page, &mut global_context)?;
         }
     }
 
