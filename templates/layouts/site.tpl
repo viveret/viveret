@@ -8,12 +8,12 @@
     <meta name="viewport" content="width=device-width,maximum-scale=2">
     <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css">
     
-    <meta property="og:title" content="{{ if page.title }}{{ page.title }} - {{ site.title }}{{ else }}{{ site.title }}{{ endif }}" />
+    <meta property="og:title" content="{{ if title }}{{ title }} - {{ site.title }}{{ else }}{{ site.title }}{{ endif }}" />
     <meta property="og:type" content="{{ page.type }}" />
     <meta property="og:url" content="{{ page.url }}" />
     <meta property="og:image" content="{{ if page.image }}{{ page.image }}{{ else }}{{ site.image }}{{ endif }}" />
 
-    <title>{{ if page.title }}{{ page.title }} - {{ site.title }}{{ else }}{{ site.title }}{{ endif }}</title>
+    <title>{{ if title }}{{ title }} - {{ site.title }}{{ else }}{{ site.title }}{{ endif }}</title>
 
     <link rel="icon" type="image/png" href="/assets/favicon.png">
 
@@ -30,40 +30,42 @@
         <div id="forkme_banner">
           <a href="{{ site.github.repository_url }}">View on GitHub</a>
           <p class="copyright">Made by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
-          <p>
-            <span title="Revision {{ build_revision }}">using</span> <a href="https://pages.github.com">GitHub Pages</a>
-          </p>
-          {{ if page.date }}
-          <p>(last modified: {{ page.date }})</p>
-          {{ endif }}
+          <p>Revision {{ build_revision }}</p>
+          <p>(last modified: {{ datetime }})</p>
         </div>
 
         <div class="myPicture">
-          <a class="crop" href="{{ site.github.url }}"><img src="/assets/images/photos/face.png"></a>
+          <a class="crop" href="{{ site.url }}"><img src="/assets/images/photos/face.png"></a>
           <!--
             Could do the catchphrases again with JS / json and have the blurb animated            
             <div>"I'm Viveret and @ViewData["CurrentPhrase"]"</div>
           -->
         </div>
-        <a href="{{ site.github.url }}" class="Title TitleLeft"><span>v</span><span>i</span><span>v</span><span>e</span><span>r</span><span>e</span><span>t</span></a>
-        <a href="{{ site.github.url }}" class="Title TitleRight"><span>s</span><span>t</span><span>e</span><span>e</span><span>l</span><span>e</span></a>
+        <a href="{{ site.url }}" class="Title TitleLeft"><span>v</span><span>i</span><span>v</span><span>e</span><span>r</span><span>e</span><span>t</span></a>
+        <a href="{{ site.url }}" class="Title TitleRight"><span>s</span><span>t</span><span>e</span><span>e</span><span>l</span><span>e</span></a>
         <div class="Subtitle"><a href="software.html" title="My Software Engineering Career">software engineer</a>, <a href="freelance.html" title="Tutoring, Mentoring, Consulting, and Freelancing">freelancer</a>, <a href="artist.html" title="I'm also an artist">artist</a> in the <a href="https://en.wikipedia.org/wiki/Seattle" target="_blank">🍎 Seattle Area 🌧️</a></div>
       </header>
       <div class="ContentContainer">
         <ul class="menu-bar">
-          <!-- <li><a title="My Resume" href="https://docs.google.com/document/d/1PCpa_Kj_jrEFVHtKvLNzDoPzaZ3z-B8t368A1BUy-7I/edit?usp=sharing"><i class="far fa-2x fa-file-alt"></i></a></li> -->
+          <li><a title="My Resume" href="/README.html"><i class="far fa-2x fa-file-alt"></i></a></li>
           <li><a title="E-Mail Me!" href="mailto:viveret.amant.official@gmail.com"><i class="far fa-2x fa-envelope"></i></a></li>
           <li><a title="My LinkedIn" href="https://www.linkedin.com/in/viveret/"><i class="fab fa-2x fa-linkedin-in"></i></a></li>
-          <li><a title="My Google Play Publisher Page" href="https://play.google.com/store/apps/dev?id=5470531509913891565"><i class="fab fa-2x fa-google-play"></i></a></li>
           <li><a title="My GitHub" href="https://github.com/viveret"><i class="fab fa-2x fa-github"></i></a></li>
-          <li><a title="My Instagram" href="https://www.instagram.com/viveret.amant/"><i class="fab fa-2x fa-instagram"></i></a></li>
-          <!-- <li><a title="LGBTQ Lingo" href="/mogai.html" target="_blank"><i class="fas fa-2x fa-book"></i></a></li> -->
+          <li><a title="LGBTQ Lingo" href="https://viveret.github.io/lgbt-lingo/" target="_blank"><i class="fas fa-2x fa-book"></i></a></li>
         </ul>
         <ul class="menu-bar menu-bar-emoji mt-1">
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="projects.html">Projects</a></li>
+          <li><a href="README.html">My Resume</a></li>
+          <li><a href="projects.html">My Projects</a></li>
+<!--          <li><a href="blog.html">Blog</a></li>
           <li><a href="tags.html">Pages by Tag</a></li>
           <li><a href="categories.html">Pages by Category</a></li>
+-->
+          <li><a href="education.html">My Education</a></li>
+          <li><a href="proficiencies.html">My Skills</a></li>
+        </ul>
+        <ul class="menu-bar menu-bar-emoji mt-1">
+          <li><a href="mckinstry.html">My Work at McKinstry</a></li>
+          <li><a href="stackoverflow.html">My Work at StackOverflow</a></li>
         </ul>
       </div>
 
@@ -74,9 +76,8 @@
           <li><a href="https://www.linkedin.com/in/viveret/">LinkedIn</a></li>
           <li><a href="mailto:viveret.amant.official@gmail.com">viveret.amant.official@gmail.com</a></li>
           <li><a href="credits.html">Credits</a></li>
-          <li><a href="tags.html">Pages by Tag</a></li>
-          <li><a href="categories.html">Pages by Category</a></li>
         </ul>
+        <center><small><a target="_blank" href="https://github.com/viveret/viveret/commit/{{ build_revision }}">#{{ build_revision }}</a>, generated {{ datetime-pretty }}</small></center>
       </footer>
       <div class="BottomFiller"></div>
     </div>

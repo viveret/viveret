@@ -1,15 +1,15 @@
 use std::{
-    cell::RefCell, collections::HashMap, fs::{self, File}, 
-    path::{Path, PathBuf}, rc::Rc, time::SystemTime
+    cell::RefCell, collections::HashMap, fs::{self, File}, path::{Path, PathBuf}, process::Command, rc::Rc, time::SystemTime
 };
 
-use chrono::{DateTime, Local};
+use chrono::Local;
 use pulldown_cmark::{html, Options, Parser};
 use serde_yaml::Value;
 
 // ========== Data Structures ==========
 
 type FrontMatter = HashMap<String, String>;
+type TemplateFuncPtr = Rc<dyn Fn(&[String], Option<&str>, Rc<RefCell<TemplateContext>>, &GlobalContext) -> String>;
 
 #[derive(Debug)]
 struct TemplateContext {
@@ -30,19 +30,12 @@ impl TemplateContext {
     }
     
     pub fn add_front_matter(&mut self, front_matter: &FrontMatter) {
-        for (k, v) in front_matter.iter() {
-            self.strings.insert(k.clone(), v.clone());
-        }
+        self.strings.extend(front_matter.iter().map(|(k, v)| (k.clone(), v.clone())));
     }
     
-    pub fn get_string(&self, key: &String) -> Option<String> {
-        if let Some(s) = self.strings.get(key) {
-            Some(s.clone())
-        } else if let Some(parent) = self.parent.clone() {
-            parent.borrow().get_string(key)
-        } else {
-            None
-        }
+    pub fn get_string(&self, key: &str) -> Option<String> {
+        self.strings.get(key).cloned()
+            .or_else(|| self.parent.as_ref()?.borrow().get_string(key))
     }
 }
 
@@ -58,7 +51,7 @@ enum TemplateNode {
     Layout {
         name: String,
         front_matter: FrontMatter,
-        content: String,
+        content_node: Rc<TemplateNode>,
         parent: Option<Rc<TemplateNode>>,
     },
     IfBlock {
@@ -100,67 +93,54 @@ impl TemplateNode {
     pub fn new_layout(
         name: String,
         front_matter: FrontMatter,
-        content: String,
+        content_node: Rc<TemplateNode>,
         parent: Option<Rc<TemplateNode>>,
     ) -> Rc<Self> {
         Rc::new(Self::Layout {
             name,
             front_matter,
-            content,
+            content_node,
             parent,
         })
+    }
+
+    fn apply_all_substitutions(&self, s: String, context: Rc<RefCell<TemplateContext>>, global_context: &GlobalContext, front_matter: &FrontMatter) -> String {
+        context.borrow_mut().add_front_matter(front_matter);
+        let output = Self::perform_substitutions_strings(s, front_matter);
+        Self::apply_substitutions(&output, context, global_context)
     }
     
     pub fn render(&self, context: Rc<RefCell<TemplateContext>>, global_context: &GlobalContext) -> String {
         match self {
             Self::Page { content_node, parent, front_matter, .. } => {
-                // Create a new context for this page
                 let page_context = TemplateContext::new(Some(context.clone()));
-                
-                // Add front matter to context
-                page_context.borrow_mut().add_front_matter(front_matter);
-                
-                // Render the page content
-                let content_output = content_node.render(page_context.clone(), global_context);
-                
-                // If there's a parent layout, render it with our content
-                if let Some(parent) = parent {
-                    // Create a new context for the layout
+
+                let output = self.apply_all_substitutions(
+                    content_node.render(page_context.clone(), global_context),
+                    page_context.clone(),
+                    global_context,
+                    front_matter
+                );
+
+                parent.as_ref().map_or(output.clone(), |parent| {
                     let layout_context = TemplateContext::new(Some(page_context));
-                    
-                    // Add the rendered content as "content" in the context
-                    layout_context.borrow_mut().strings.insert("content".to_string(), content_output);
-                    
-                    // Render the parent layout
+                    layout_context.borrow_mut().strings.insert("content".to_string(), output);
                     parent.render(layout_context, global_context)
-                } else {
-                    // No parent layout, just return the content
-                    content_output
-                }
+                })
             }
-            Self::Layout { content, parent, front_matter, .. } => {
-                // let content_node = parse_control_blocks(content, global_context);
-                // let mut output = content_node.render(context.clone(), global_context);
-                // // let mut output = content.clone();
+            Self::Layout { content_node, parent, front_matter, .. } => {
+                let output = self.apply_all_substitutions(
+                    content_node.render(context.clone(), global_context),
+                    context.clone(),
+                    global_context,
+                    front_matter
+                );
                 
-                // if let Some(parent) = parent {
-                //     let parent_output = parent.render(context.clone(), global_context);
-                //     output = parent_output.replace("{{ content }}", &output);
-                // }
-                // output = Self::perform_substitutions_strings(output, front_matter);
-                // self.apply_substitutions(&output, context, global_context)
-                
-                let mut output = content.clone();
-                
-                if let Some(parent) = parent {
-                    let parent_output = parent.render(context.clone(), global_context);
-                    output = parent_output.replace("{{ content }}", &output);
-                }
-                output = Self::perform_substitutions_strings(output, front_matter);
-                output = self.apply_substitutions(&output, context.clone(), global_context);
-                
-                let content_node = parse_control_blocks(&output, global_context);
-                content_node.render(context, global_context)
+                parent.as_ref().map_or(output.clone(), |parent| {
+                    let layout_context = TemplateContext::new(Some(context.clone()));
+                    layout_context.borrow_mut().strings.insert("content".to_string(), output);
+                    parent.render(layout_context, global_context)
+                })
             }
             Self::IfBlock { condition, true_branch, false_branch } => {
                 let ctx = context.borrow();
@@ -210,90 +190,91 @@ impl TemplateNode {
     }
     
     fn perform_substitutions_str(s: String, k: &str, v: &str) -> String {
-        let mut s = s.to_string();
-        // spacing
-        for k in vec![format!(" {} ", k), k.to_string()] {
-            // formatting
-            for k in vec![format!("{{{{{}}}}}", k), format!("{{{}}}", k)] {
-                s = s.replace(&k, v);
+        let mut s = s;
+        for k in &[format!(" {} ", k), k.to_string()] {
+            for k in &[format!("{{{{{}}}}}", k), format!("{{{}}}", k)] {
+                s = s.replace(k, v);
             }
         }
         s
     }
     
     fn perform_substitutions_strings(s: String, strings: &HashMap<String, String>) -> String {
-        let mut output = s.clone();
-        for (key, value) in strings {
-            output = Self::perform_substitutions_str(output, key, value);
-        }
-        output
+        strings.iter().fold(s, |acc, (key, value)| {
+            Self::perform_substitutions_str(acc, key, value)
+        })
     }
     
-    fn apply_substitutions(&self, s: &str, context: Rc<RefCell<TemplateContext>>, global_context: &GlobalContext) -> String {
-        let mut output = s.to_string();
+    fn apply_substitutions(s: &str, context: Rc<RefCell<TemplateContext>>, global_context: &GlobalContext) -> String {
         let ctx = context.borrow();
+        let mut output = Self::perform_substitutions_strings(s.to_string(), &ctx.strings);
         
-        output = Self::perform_substitutions_strings(output, &ctx.strings);
-        
-        // Node substitutions
         let rendered = ctx.nodes.iter()
-        .map(|x| (x.0.clone(), x.1.render(context.clone(), global_context)))
-        .collect::<HashMap<String, String>>();
+            .map(|(k, v)| (k.clone(), v.render(context.clone(), global_context)))
+            .collect::<HashMap<_, _>>();
         output = Self::perform_substitutions_strings(output, &rendered);
         
-        // do with parent context
-        if let Some(parent) = context.borrow().parent.clone() {
-            self.apply_substitutions(&output, parent.clone(), global_context)
+        if let Some(parent) = ctx.parent.clone() {
+            Self::apply_substitutions(&output, parent, global_context)
         } else {
-            // apply root string substitutions
-            for (key, value) in &global_context.site_strings {
-                output = Self::perform_substitutions_str(output, key, value);
-            }
-            output
+            global_context.site_strings.iter()
+                .fold(output, |acc, (key, value)| Self::perform_substitutions_str(acc, key, value))
         }
-    }
-    
-    fn render_json_list(&self, key: &str, context: Rc<RefCell<TemplateContext>>, _: &GlobalContext) -> String {
-        context.borrow().json_data.get(key)
-        .and_then(|data| data.as_sequence())
-        .map(|items| {
-            items.iter().filter_map(|item| item.as_mapping()).fold(
-                String::from("<ul>\n"),
-                |mut output, obj| {
-                    output.push_str("<li>");
-                    if let Some(Value::String(title)) = obj.get("title") {
-                        output.push_str(&format!("<h3>{}</h3>", title));
-                    }
-                    if let Some(Value::String(desc)) = obj.get("description") {
-                        output.push_str(&format!("<p>{}</p>", desc));
-                    }
-                    output.push_str("</li>\n");
-                    output
-                },
-            ) + "</ul>"
-        })
-        .unwrap_or_default()
     }
     
     pub fn print_tree(&self, indent: usize) {
+        if let Some(parent) = self.get_parent() {
+            parent.print_tree(indent);
+            return;
+        }
+
         match self {
-            Self::Page { path, parent, .. } => {
+            Self::Page { path, content_node, .. } => {
                 println!("{:indent$}📄 {} (Page)", "", path, indent = indent);
-                if let Some(parent) = parent {
-                    parent.print_tree(indent + 2);
-                }
+                content_node.print_tree(indent + 1);
             }
-            Self::Layout { name, parent, .. } => {
+            Self::Layout { name, content_node, .. } => {
                 println!("{:indent$}📦 {} (Layout)", "", name, indent = indent);
-                if let Some(parent) = parent {
-                    parent.print_tree(indent + 2);
+                content_node.print_tree(indent + 1);
+            }
+            Self::IfBlock { condition, true_branch, false_branch } => {
+                println!("{:indent$}❓ if {} (Conditional)", "", condition, indent = indent);
+                println!("{:indent$}├── Then:", "", indent = indent + 2);
+                true_branch.print_tree(indent + 4);
+                if let Some(false_branch) = false_branch {
+                    println!("{:indent$}└── Else:", "", indent = indent + 2);
+                    false_branch.print_tree(indent + 4);
                 }
             }
-            Self::IfBlock { condition, true_branch, false_branch } => todo!(),
-            Self::ForEachBlock { key, item_name, body } => todo!(),
-            Self::Func { name, args, block_content } => todo!(),
-            Self::StringContent(_) => todo!(),
-            Self::Composite(template_nodes) => todo!(),
+            Self::ForEachBlock { key, item_name, body } => {
+                println!("{:indent$}🔄 foreach {} as {} (Loop)", "", key, item_name, indent = indent);
+                body.print_tree(indent + 2);
+            }
+            Self::Func { name, args, block_content } => {
+                println!("{:indent$}ƒ {} (Function)", "", name, indent = indent);
+                println!("{:indent$}├── Args: {:?}", "", args, indent = indent + 2);
+                if let Some(content) = block_content {
+                    println!("{:indent$}└── Block: {}...", "", content.replace("\n", "").chars().take(30).collect::<String>(), indent = indent + 2);
+                }
+            }
+            Self::StringContent(s) => {
+                println!("{:indent$}📝 {}...", "", s.replace("\n", "").chars().take(50).collect::<String>(), indent = indent);
+            }
+            Self::Composite(nodes) => {
+                if nodes.len() == 1 {
+                    nodes.first().unwrap().print_tree(indent)
+                } else {
+                    println!("{:indent$}🧩 Composite ({} items)", "", nodes.len(), indent = indent);
+                    nodes.iter().for_each(|node| node.print_tree(indent + 2));
+                }
+            }
+        }
+    }
+
+    fn get_parent(&self) -> Option<&Rc<TemplateNode>> {
+        match self {
+            Self::Page { parent, .. } | Self::Layout { parent, .. } => parent.as_ref(),
+            _ => None,
         }
     }
 }
@@ -309,6 +290,7 @@ fn parse_control_blocks(content: &str, global_context: &GlobalContext) -> Rc<Tem
         }
         
         let close_pos = remaining[open_pos..].find("}}").unwrap() + open_pos;
+        let complete_tag = &remaining[open_pos..close_pos+2];
         let tag = &remaining[open_pos+2..close_pos].trim();
         remaining = &remaining[close_pos+2..];
         
@@ -350,7 +332,19 @@ fn parse_control_blocks(content: &str, global_context: &GlobalContext) -> Rc<Tem
                 });
             },
             _ => {
-
+                if let Some((name, args)) = parse_function_call(tag) {
+                    if global_context.functions.contains_key(name) {
+                        nodes.push(TemplateNode::Func {
+                            name: name.to_string(),
+                            args: args.iter().map(|s| s.to_string()).collect(),
+                            block_content: None,
+                        });
+                    } else {
+                        nodes.push(TemplateNode::StringContent(complete_tag.to_string()));
+                    }
+                } else {
+                    nodes.push(TemplateNode::StringContent(complete_tag.to_string()));
+                }
             }
         }
     }
@@ -362,15 +356,15 @@ fn parse_control_blocks(content: &str, global_context: &GlobalContext) -> Rc<Tem
     Rc::new(TemplateNode::Composite(nodes))
 }
 
-fn parse_block_content<'a>(content: &'a str, end_tag: &'a str) -> (&'a str, &'a str) {
+fn parse_block_content<'a>(content: &'a str, end_tag: &str) -> (&'a str, &'a str) {
     let end_pattern = format!("{{{{ {end_tag} }}}}");
     let end_pos = content.find(&end_pattern).unwrap_or(content.len());
-    let args_start = end_pos + end_pattern.len();
-    if args_start < content.len() {
-        (&content[..end_pos], &content[args_start..])
-    } else {
-        (&content[..end_pos], "")
-    }
+    (&content[..end_pos], &content[end_pos + end_pattern.len()..])
+}
+
+fn parse_function_call(tag: &str) -> Option<(&str, Vec<&str>)> {
+    let mut parts = tag.split_whitespace();
+    parts.next().map(|name| (name, parts.collect()))
 }
 
 struct GlobalContext {
@@ -382,23 +376,89 @@ struct GlobalContext {
 
 impl GlobalContext {
     pub fn new(output_base: &str) -> Self {
-        let mut functions = HashMap::new();
-        
-        // Register built-in functions
-        // functions.insert("uppercase".to_string(), Rc::new(|args, _, _, _| {
-        //     args.get(0).map(|s| s.to_uppercase()).unwrap_or_default()
-        // }));
-        
-        // functions.insert("lowercase".to_string(), Rc::new(|args, _, _, _| {
-        //     args.get(0).map(|s| s.to_lowercase()).unwrap_or_default()
-        // }));
+        let mut site_strings = HashMap::new();
+        site_strings.insert("build_revision".to_string(), Self::get_git_revision());
         
         Self {
             output_base: output_base.to_string(),
             layout_cache: HashMap::new(),
-            site_strings: HashMap::new(),
-            functions,
+            site_strings,
+            functions: HashMap::new(),
         }
+    }
+
+    pub fn new_with_defaults(output_base: &str) -> Self {
+        let mut x = Self::new(output_base);
+        x.with_default_funcs();
+        x.load_site_data();
+        x
+    }
+
+    pub fn with_default_funcs(&mut self) -> &mut Self {
+        self.register_function(
+            "uppercase",
+            |args, _, _, _| args.first().map_or(String::new(), |s| s.to_uppercase()),
+        );
+        
+        self.register_function(
+            "lowercase",
+            |args, _, _, _| args.first().map_or(String::new(), |s| s.to_lowercase()),
+        );
+
+        self.register_function(
+            "date",
+            |_, _, _, _| Local::now().format("%Y-%m-%d").to_string(),
+        );
+
+        self.register_function(
+            "datetime",
+            |_, _, _, _| Local::now().format("%Y-%m-%d %H:%M:%S").to_string(),
+        );
+
+        self.register_function(
+            "datetime-pretty",
+            |_, _, _, _| Local::now().format("%c").to_string(),
+        );
+
+        self.register_function(
+            "json_list",
+            |args, block, ctx, _| {
+                let items_key = "items".to_string();
+                let key = args.first().unwrap_or(&items_key);
+                ctx.borrow().json_data.get(key)
+                    .and_then(Value::as_sequence)
+                    .map(|items| {
+                        block.map_or_else(|| {
+                            items.iter().filter_map(Value::as_mapping).fold(
+                                String::from("<ul>\n"),
+                                |mut output, obj| {
+                                    output.push_str("<li>");
+                                    if let Some(Value::String(title)) = obj.get("title") {
+                                        output.push_str(&format!("<h3>{}</h3>", title));
+                                    }
+                                    if let Some(Value::String(desc)) = obj.get("description") {
+                                        output.push_str(&format!("<p>{}</p>", desc));
+                                    }
+                                    output.push_str("</li>\n");
+                                    output
+                                },
+                            ) + "</ul>"
+                        }, |b| b.to_string())
+                    })
+                    .unwrap_or_default()
+            },
+        );
+        self
+    }
+
+    fn register_function<F>(
+        &mut self,
+        name: &str,
+        func: F,
+    ) where
+        F: Fn(&[String], Option<&str>, Rc<RefCell<TemplateContext>>, &GlobalContext) -> String + 'static,
+    {
+        self.functions.insert(name.to_string(), Rc::new(func));
     }
     
     pub fn get_layout(&mut self, name: &str) -> Rc<TemplateNode> {
@@ -411,18 +471,24 @@ impl GlobalContext {
         .unwrap_or_else(|_| panic!("Failed to read template: {}", name));
         
         let (front_matter, html) = parse_front_matter(&content);
-        let front_matter = parse_yaml_front_matter(front_matter).unwrap_or_default();
-        
+        let mut front_matter = parse_yaml_front_matter(front_matter).unwrap_or_default();
+        if front_matter.contains_key("layout") && name != "default" && name != "site" {
+            front_matter.insert("layout".to_string(), "default".to_string());
+        }
+
+        get_front_matter_json_data(&mut front_matter);
+
         // Check if this layout has a parent layout
-        let parent_layout = if name != "site" && name != "default" {
-            Some(self.get_layout("default"))
-        } else if name == "default" {
-            Some(self.get_layout("site"))
+        let parent_layout = if let Some(layout_name) = front_matter.get("layout") {
+            Some(self.get_layout(&layout_name))
         } else {
             None
         };
+    
+        // Parse control blocks in the content
+        let content_node = parse_control_blocks(&html, self);
         
-        let layout = TemplateNode::new_layout(name.to_string(), front_matter, html.to_string(), parent_layout);
+        let layout = TemplateNode::new_layout(name.to_string(), front_matter, content_node, parent_layout);
         self.layout_cache.insert(name.to_string(), layout.clone());
         layout
     }
@@ -448,6 +514,45 @@ impl GlobalContext {
             self.site_strings.insert(k.as_str().unwrap().to_string(), v);
         }
     }
+    
+    fn get_git_revision() -> String {
+        Command::new("git")
+            .args(&["rev-parse", "--short", "HEAD"])
+            .output()
+            .ok()
+            .and_then(|output| {
+                output.status.success().then(|| {
+                    String::from_utf8_lossy(&output.stdout).trim().to_string()
+                })
+            })
+            .or_else(|| {
+                Command::new("git")
+                    .args(&["rev-parse", "HEAD"])
+                    .output()
+                    .ok()
+                    .and_then(|output| {
+                        output.status.success().then(|| {
+                            String::from_utf8_lossy(&output.stdout).trim().to_string()
+                        })
+                    })
+            })
+            .unwrap_or_else(|| {
+                format!("nogit-{}", SystemTime::now()
+                    .duration_since(SystemTime::UNIX_EPOCH)
+                    .map_or("unknown_time".to_string(), |d| d.as_secs().to_string()))
+            })
+    }
+}
+
+fn get_front_matter_json_data(front_matter: &mut HashMap<String, String>) {
+    if let Some(json_path) = &front_matter.get("json_data") {
+        let json_path = std::env::current_dir().unwrap().join(json_path).to_string_lossy().to_string();
+        if let Ok(json_data) = load_json_data(json_path.as_str()) {
+            // todo: implement returning the json/yaml and put it into current context
+            // front_matter.insert("items".to_string(), format!("{:?}", json_data));
+            // front_matter.insert_node("json_list".to_string(), TemplateNode::Json("items"));
+        }
+    }
 }
 
 fn build_page(
@@ -466,6 +571,8 @@ fn build_page(
         front_matter.insert("title".to_string(), 
         Path::new(path).file_stem().unwrap().to_string_lossy().into_owned());
     }
+
+    get_front_matter_json_data(&mut front_matter);
     
     // Convert markdown to HTML
     let mut html_content = String::new();
@@ -493,25 +600,13 @@ fn build_page(
     ))
 }
 
-fn get_formatted_datetime() -> String {
-    let now_system_time = SystemTime::now(); // Get the current system time
-    let now_local_datetime: DateTime<Local> = DateTime::from(now_system_time); // Convert to local DateTime
-    now_local_datetime.format("%c").to_string()
-}
-
 // ========== Helper Functions ==========
 
 fn parse_front_matter(content: &str) -> (&str, &str) {
-    if content.starts_with("---") {
-        let parts: Vec<&str> = content.splitn(3, "---").collect();
-        if parts.len() >= 3 {
-            (parts[1].trim(), parts[2].trim())
-        } else {
-            ("", content)
-        }
-    } else {
-        ("", content)
-    }
+    content.strip_prefix("---")
+        .and_then(|s| s.split_once("---"))
+        .map(|(fm, rest)| (fm.trim(), rest.trim()))
+        .unwrap_or(("", content))
 }
 
 fn parse_yaml_front_matter(front_matter: &str) -> Option<FrontMatter> {
@@ -568,51 +663,34 @@ fn copy_assets(src: &str, dst: &str) -> Result<(), Box<dyn std::error::Error>> {
 }
 
 fn load_json_data(path: &str) -> Result<Value, Box<dyn std::error::Error>> {
-    let file = File::open(path)?;
-    Ok(serde_yaml::from_reader(file)?)
+    let file = File::open(path)
+        .map_err(|e| format!("Failed to open {}: {}", path, e))?;
+    serde_yaml::from_reader(file)
+        .map_err(|e| format!("Failed to parse YAML in {}: {}", path, e).into())
 }
 
 // ========== Main Function ==========
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let output_base = "output";
-    let mut global_context = GlobalContext::new(output_base);
-    global_context.load_site_data();
+    let mut global_context = GlobalContext::new_with_defaults(output_base);
     fs::create_dir_all(output_base)?;
     
     // Build and render all pages
-    for path in get_md_files_recursive(Path::new(".")) {
-        if !path.contains("/assets/") && !path.contains("assets/") {
-            if let Ok(page) = build_page(&path, &mut global_context) {
-                // Print the tree structure
-                println!("Template Tree Structure:");
-                page.print_tree(0);
-                
-                // Render the page
-                if let TemplateNode::Page { output_path, front_matter, .. } = &*page {
-                    // Create context
-                    let ctx = TemplateContext::new(None);
-                    ctx.borrow_mut().strings.insert("page.date".to_string(), get_formatted_datetime());
-                    ctx.borrow_mut().add_front_matter(&front_matter);
-                    
-                    // // Handle JSON data
-                    // if let Some(json_path) = front_matter.get("json_data") {
-                    //     if let Ok(json_data) = load_json_data(json_path) {
-                    //         context.borrow_mut().json_data.insert("items".to_string(), json_data);
-                    //         context.borrow_mut().nodes.insert(
-                    //             "json_list".to_string(),
-                    //             Rc::new(TemplateNode::JsonList("items".to_string())),
-                    //         );
-                    //     }
-                    // }
-                    
-                    let html = page.render(ctx, &global_context);
-                    if let Some(parent) = output_path.parent() {
-                        fs::create_dir_all(parent)?;
-                    }
-                    fs::write(output_path, html)?;
-                }
-            }
+    for path in get_md_files_recursive(Path::new("."))
+        .into_iter()
+        .filter(|p| !p.contains("/assets/") && !p.contains("assets/"))
+    {
+        let page = build_page(&path, &mut global_context)?;
+        // Print the tree structure
+        // page.print_tree(0);
+        
+        if let TemplateNode::Page { output_path, front_matter, .. } = &*page {
+            let ctx = TemplateContext::new(None);
+            ctx.borrow_mut().add_front_matter(front_matter);
+            
+            fs::create_dir_all(output_path.parent().unwrap())?;
+            fs::write(output_path, page.render(ctx, &global_context))?;
         }
     }
     

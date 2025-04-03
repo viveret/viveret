@@ -1,3 +1,6 @@
+---
+title: My Skills
+---
 # Proficiencies (what I'm good at)
 - ⭐ = entry level
 - ⭐⭐ = junior level

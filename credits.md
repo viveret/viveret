@@ -1,5 +1,4 @@
-# Credits
+# Credits / Tools
 
-- Base theme
+- Rust
 - Bootstrap, JQuery, font-awesome, Google Fonts
-- Jekyll, Github Pages
