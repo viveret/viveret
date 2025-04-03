@@ -9,7 +9,8 @@ use serde_yaml::Value;
 // ========== Data Structures ==========
 
 type FrontMatter = HashMap<String, String>;
-type TemplateFunc = dyn Fn(&[String], Option<&str>, Rc<RefCell<TemplateContext>>, &GlobalContext) -> String + 'static;
+type TemplateContextPtr = Rc<RefCell<TemplateContext>>;
+type TemplateFunc = dyn Fn(&[String], Option<&str>, TemplateContextPtr, &GlobalContext) -> String + 'static;
 type TemplateFuncPtr = Rc<TemplateFunc>;
 
 #[derive(Debug)]
@@ -17,7 +18,7 @@ struct TemplateContext {
     strings: HashMap<String, String>,
     nodes: HashMap<String, Rc<TemplateNode>>,
     json_data: HashMap<String, Value>,
-    parent: Option<Rc<RefCell<TemplateContext>>>,
+    parent: Option<TemplateContextPtr>,
 }
 
 #[derive(Debug)]
@@ -64,7 +65,7 @@ struct GlobalContext {
 // ========== Struct Implementations ====
 
 impl TemplateContext {
-    pub fn new(parent: Option<Rc<RefCell<TemplateContext>>>) -> Rc<RefCell<Self>> {
+    pub fn new(parent: Option<TemplateContextPtr>) -> Rc<RefCell<Self>> {
         Rc::new(RefCell::new(Self {
             strings: HashMap::new(),
             nodes: HashMap::new(),
@@ -114,13 +115,13 @@ impl TemplateNode {
         })
     }
 
-    fn apply_all_substitutions(&self, s: String, context: Rc<RefCell<TemplateContext>>, global_context: &GlobalContext, front_matter: &FrontMatter) -> String {
+    fn apply_all_substitutions(&self, s: String, context: TemplateContextPtr, global_context: &GlobalContext, front_matter: &FrontMatter) -> String {
         context.borrow_mut().add_front_matter(front_matter);
         let output = Self::perform_substitutions_strings(s, front_matter);
         Self::apply_substitutions(&output, context, global_context)
     }
     
-    pub fn render(&self, context: Rc<RefCell<TemplateContext>>, global_context: &GlobalContext) -> String {
+    pub fn render(&self, context: TemplateContextPtr, global_context: &GlobalContext) -> String {
         match self {
             Self::Page { content_node, parent, front_matter, .. } => {
                 let page_context = TemplateContext::new(Some(context.clone()));
@@ -215,7 +216,7 @@ impl TemplateNode {
         })
     }
     
-    fn apply_substitutions(s: &str, context: Rc<RefCell<TemplateContext>>, global_context: &GlobalContext) -> String {
+    fn apply_substitutions(s: &str, context: TemplateContextPtr, global_context: &GlobalContext) -> String {
         let ctx = context.borrow();
         let mut output = Self::perform_substitutions_strings(s.to_string(), &ctx.strings);
         
