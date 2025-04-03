@@ -408,7 +408,7 @@ impl GlobalContext {
     pub fn load_site_data(&mut self) {
         let path = std::env::current_dir().unwrap().join("data/site.yaml");
         let path = path.to_str().unwrap();
-        let site_yaml = load_json_data(path).expect("could not get data/site.yaml");
+        let site_yaml = load_yaml_data(path).expect("could not get data/site.yaml");
         if let Value::Mapping(mapping) = site_yaml {
             self.load_site_data_from_yaml_mapping(mapping)
         } else {
@@ -584,7 +584,7 @@ impl GlobalContext {
     fn get_front_matter_json_data(front_matter: &mut HashMap<String, String>) {
         if let Some(json_path) = &front_matter.get("json_data") {
             let json_path = std::env::current_dir().unwrap().join(json_path).to_string_lossy().to_string();
-            if let Ok(json_data) = load_json_data(json_path.as_str()) {
+            if let Ok(json_data) = load_yaml_data(json_path.as_str()) {
                 // todo: implement returning the json/yaml and put it into current context
                 // front_matter.insert("items".to_string(), format!("{:?}", json_data));
                 // front_matter.insert_node("json_list".to_string(), TemplateNode::Json("items"));
@@ -655,7 +655,7 @@ fn copy_assets(src: &str, dst: &str) -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn load_json_data(path: &str) -> Result<Value, Box<dyn std::error::Error>> {
+fn load_yaml_data(path: &str) -> Result<Value, Box<dyn std::error::Error>> {
     let file = File::open(path)
         .map_err(|e| format!("Failed to open {}: {}", path, e))?;
     serde_yaml::from_reader(file)
