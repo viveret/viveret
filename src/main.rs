@@ -291,22 +291,25 @@ impl TemplateNode {
 
 impl GlobalContext {
     pub fn new(output_base: &str) -> Self {
-        let mut site_strings = HashMap::new();
-        site_strings.insert("build_revision".to_string(), Self::get_git_revision());
-        
         Self {
             output_base: output_base.to_string(),
             layout_cache: HashMap::new(),
-            site_strings,
+            site_strings: HashMap::new(),
             functions: HashMap::new(),
         }
     }
 
     pub fn new_with_defaults(output_base: &str) -> Self {
         let mut x = Self::new(output_base);
+        x.with_default_strings();
         x.with_default_funcs();
         x.load_site_data();
         x
+    }
+
+    pub fn with_default_strings(&mut self) -> &mut Self {
+        self.site_strings.insert("build_revision".to_string(), Self::get_git_revision());
+        self
     }
 
     pub fn with_default_funcs(&mut self) -> &mut Self {
@@ -366,12 +369,7 @@ impl GlobalContext {
         self
     }
 
-    fn register_function(
-        &mut self,
-        name: &str,
-        func: &'static TemplateFunc,
-    )
-    {
+    fn register_function(&mut self, name: &str, func: &'static TemplateFunc) {
         self.functions.insert(name.to_string(), Rc::new(func));
     }
     
@@ -504,18 +502,17 @@ impl GlobalContext {
                     });
                 },
                 _ => {
-                    if let Some((name, args)) = Self::parse_function_call(tag) {
-                        if self.functions.contains_key(name) {
+                    match Self::parse_function_call(tag) {
+                        Some((name, args)) if self.functions.contains_key(name) => {
                             nodes.push(TemplateNode::Func {
                                 name: name.to_string(),
                                 args: args.iter().map(|s| s.to_string()).collect(),
                                 block_content: None,
                             });
-                        } else {
+                        }
+                        _ => {
                             nodes.push(TemplateNode::StringContent(complete_tag.to_string()));
                         }
-                    } else {
-                        nodes.push(TemplateNode::StringContent(complete_tag.to_string()));
                     }
                 }
             }
