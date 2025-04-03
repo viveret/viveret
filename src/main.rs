@@ -9,7 +9,8 @@ use serde_yaml::Value;
 // ========== Data Structures ==========
 
 type FrontMatter = HashMap<String, String>;
-type TemplateFuncPtr = Rc<dyn Fn(&[String], Option<&str>, Rc<RefCell<TemplateContext>>, &GlobalContext) -> String>;
+type TemplateFunc = dyn Fn(&[String], Option<&str>, Rc<RefCell<TemplateContext>>, &GlobalContext) -> String + 'static;
+type TemplateFuncPtr = Rc<TemplateFunc>;
 
 #[derive(Debug)]
 struct TemplateContext {
@@ -17,26 +18,6 @@ struct TemplateContext {
     nodes: HashMap<String, Rc<TemplateNode>>,
     json_data: HashMap<String, Value>,
     parent: Option<Rc<RefCell<TemplateContext>>>,
-}
-
-impl TemplateContext {
-    pub fn new(parent: Option<Rc<RefCell<TemplateContext>>>) -> Rc<RefCell<Self>> {
-        Rc::new(RefCell::new(Self {
-            strings: HashMap::new(),
-            nodes: HashMap::new(),
-            json_data: HashMap::new(),
-            parent,
-        }))
-    }
-    
-    pub fn add_front_matter(&mut self, front_matter: &FrontMatter) {
-        self.strings.extend(front_matter.iter().map(|(k, v)| (k.clone(), v.clone())));
-    }
-    
-    pub fn get_string(&self, key: &str) -> Option<String> {
-        self.strings.get(key).cloned()
-            .or_else(|| self.parent.as_ref()?.borrow().get_string(key))
-    }
 }
 
 #[derive(Debug)]
@@ -71,6 +52,35 @@ enum TemplateNode {
     },
     StringContent(String),
     Composite(Vec<TemplateNode>),
+}
+
+struct GlobalContext {
+    output_base: String,
+    layout_cache: HashMap<String, Rc<TemplateNode>>,
+    site_strings: HashMap<String, String>,
+    functions: HashMap<String, TemplateFuncPtr>,
+}
+
+// ========== Struct Implementations ====
+
+impl TemplateContext {
+    pub fn new(parent: Option<Rc<RefCell<TemplateContext>>>) -> Rc<RefCell<Self>> {
+        Rc::new(RefCell::new(Self {
+            strings: HashMap::new(),
+            nodes: HashMap::new(),
+            json_data: HashMap::new(),
+            parent,
+        }))
+    }
+    
+    pub fn add_front_matter(&mut self, front_matter: &FrontMatter) {
+        self.strings.extend(front_matter.iter().map(|(k, v)| (k.clone(), v.clone())));
+    }
+    
+    pub fn get_string(&self, key: &str) -> Option<String> {
+        self.strings.get(key).cloned()
+            .or_else(|| self.parent.as_ref()?.borrow().get_string(key))
+    }
 }
 
 impl TemplateNode {
@@ -279,101 +289,6 @@ impl TemplateNode {
     }
 }
 
-fn parse_control_blocks(content: &str, global_context: &GlobalContext) -> Rc<TemplateNode> {
-    let mut nodes = Vec::new();
-    let mut remaining = content;
-    
-    while let Some(open_pos) = remaining.find("{{") {
-        let before = &remaining[..open_pos];
-        if !before.is_empty() {
-            nodes.push(TemplateNode::StringContent(before.to_string()));
-        }
-        
-        let close_pos = remaining[open_pos..].find("}}").unwrap() + open_pos;
-        let complete_tag = &remaining[open_pos..close_pos+2];
-        let tag = &remaining[open_pos+2..close_pos].trim();
-        remaining = &remaining[close_pos+2..];
-        
-        match tag.split_whitespace().collect::<Vec<_>>().as_slice() {
-            ["if", condition] => {
-                let (inner_content, new_remaining) = parse_block_content(remaining, "endif");
-                remaining = new_remaining;
-                
-                // Split into if and else parts if needed
-                let (true_content, false_content) = match inner_content.split_once("{{ else }}") {
-                    Some((true_part, false_part)) => (true_part, Some(false_part)),
-                    None => (inner_content, None),
-                };
-                
-                let true_node = parse_control_blocks(true_content, global_context);
-                let false_node = false_content.map(|c| parse_control_blocks(c, global_context));
-                
-                nodes.push(TemplateNode::IfBlock {
-                    condition: condition.to_string(),
-                    true_branch: true_node,
-                    false_branch: false_node,
-                });
-            },
-            ["else"] => {
-                // Only warn if this isn't part of a string that looks like a real else
-                if !tag.starts_with("else ") && !tag.ends_with(" else") {
-                    eprintln!("Warning: found else without matching if in content: {:?}", tag);
-                }
-                // Skip this token and continue parsing
-            },
-            ["foreach", key, "as", item_name] => {
-                let (inner_content, new_remaining) = parse_block_content(remaining, "endforeach");
-                remaining = new_remaining;
-                let inner_node = parse_control_blocks(inner_content, global_context);
-                nodes.push(TemplateNode::ForEachBlock {
-                    key: key.to_string(),
-                    item_name: item_name.to_string(),
-                    body: inner_node,
-                });
-            },
-            _ => {
-                if let Some((name, args)) = parse_function_call(tag) {
-                    if global_context.functions.contains_key(name) {
-                        nodes.push(TemplateNode::Func {
-                            name: name.to_string(),
-                            args: args.iter().map(|s| s.to_string()).collect(),
-                            block_content: None,
-                        });
-                    } else {
-                        nodes.push(TemplateNode::StringContent(complete_tag.to_string()));
-                    }
-                } else {
-                    nodes.push(TemplateNode::StringContent(complete_tag.to_string()));
-                }
-            }
-        }
-    }
-    
-    if !remaining.is_empty() {
-        nodes.push(TemplateNode::StringContent(remaining.to_string()));
-    }
-    
-    Rc::new(TemplateNode::Composite(nodes))
-}
-
-fn parse_block_content<'a>(content: &'a str, end_tag: &str) -> (&'a str, &'a str) {
-    let end_pattern = format!("{{{{ {end_tag} }}}}");
-    let end_pos = content.find(&end_pattern).unwrap_or(content.len());
-    (&content[..end_pos], &content[end_pos + end_pattern.len()..])
-}
-
-fn parse_function_call(tag: &str) -> Option<(&str, Vec<&str>)> {
-    let mut parts = tag.split_whitespace();
-    parts.next().map(|name| (name, parts.collect()))
-}
-
-struct GlobalContext {
-    output_base: String,
-    layout_cache: HashMap<String, Rc<TemplateNode>>,
-    site_strings: HashMap<String, String>,
-    functions: HashMap<String, Rc<dyn Fn(&[String], Option<&str>, Rc<RefCell<TemplateContext>>, &GlobalContext) -> String>>,
-}
-
 impl GlobalContext {
     pub fn new(output_base: &str) -> Self {
         let mut site_strings = HashMap::new();
@@ -397,32 +312,32 @@ impl GlobalContext {
     pub fn with_default_funcs(&mut self) -> &mut Self {
         self.register_function(
             "uppercase",
-            |args, _, _, _| args.first().map_or(String::new(), |s| s.to_uppercase()),
+            &|args, _, _, _| args.first().map_or(String::new(), |s| s.to_uppercase()),
         );
         
         self.register_function(
             "lowercase",
-            |args, _, _, _| args.first().map_or(String::new(), |s| s.to_lowercase()),
+            &|args, _, _, _| args.first().map_or(String::new(), |s| s.to_lowercase()),
         );
 
         self.register_function(
             "date",
-            |_, _, _, _| Local::now().format("%Y-%m-%d").to_string(),
+            &|_, _, _, _| Local::now().format("%Y-%m-%d").to_string(),
         );
 
         self.register_function(
             "datetime",
-            |_, _, _, _| Local::now().format("%Y-%m-%d %H:%M:%S").to_string(),
+            &|_, _, _, _| Local::now().format("%Y-%m-%d %H:%M:%S").to_string(),
         );
 
         self.register_function(
             "datetime-pretty",
-            |_, _, _, _| Local::now().format("%c").to_string(),
+            &|_, _, _, _| Local::now().format("%c").to_string(),
         );
 
         self.register_function(
             "json_list",
-            |args, block, ctx, _| {
+            &|args, block, ctx, _| {
                 let items_key = "items".to_string();
                 let key = args.first().unwrap_or(&items_key);
                 ctx.borrow().json_data.get(key)
@@ -451,12 +366,11 @@ impl GlobalContext {
         self
     }
 
-    fn register_function<F>(
+    fn register_function(
         &mut self,
         name: &str,
-        func: F,
-    ) where
-        F: Fn(&[String], Option<&str>, Rc<RefCell<TemplateContext>>, &GlobalContext) -> String + 'static,
+        func: &'static TemplateFunc,
+    )
     {
         self.functions.insert(name.to_string(), Rc::new(func));
     }
@@ -476,7 +390,7 @@ impl GlobalContext {
             front_matter.insert("layout".to_string(), "default".to_string());
         }
 
-        get_front_matter_json_data(&mut front_matter);
+        Self::get_front_matter_json_data(&mut front_matter);
 
         // Check if this layout has a parent layout
         let parent_layout = if let Some(layout_name) = front_matter.get("layout") {
@@ -486,7 +400,7 @@ impl GlobalContext {
         };
     
         // Parse control blocks in the content
-        let content_node = parse_control_blocks(&html, self);
+        let content_node = self.parse_control_blocks(&html);
         
         let layout = TemplateNode::new_layout(name.to_string(), front_matter, content_node, parent_layout);
         self.layout_cache.insert(name.to_string(), layout.clone());
@@ -516,88 +430,170 @@ impl GlobalContext {
     }
     
     fn get_git_revision() -> String {
-        Command::new("git")
-            .args(&["rev-parse", "--short", "HEAD"])
-            .output()
-            .ok()
-            .and_then(|output| {
-                output.status.success().then(|| {
-                    String::from_utf8_lossy(&output.stdout).trim().to_string()
-                })
-            })
-            .or_else(|| {
-                Command::new("git")
-                    .args(&["rev-parse", "HEAD"])
-                    .output()
-                    .ok()
-                    .and_then(|output| {
-                        output.status.success().then(|| {
-                            String::from_utf8_lossy(&output.stdout).trim().to_string()
-                        })
-                    })
-            })
+        fn try_git_command(args: &[&str]) -> Option<String> {
+            Command::new("git")
+                .args(args)
+                .output()
+                .ok()
+                .filter(|output| output.status.success())
+                .map(|output| String::from_utf8_lossy(&output.stdout).trim().to_string())
+        }
+    
+        // Try short hash first, then full hash
+        try_git_command(&["rev-parse", "--short", "HEAD"])
+            .or_else(|| try_git_command(&["rev-parse", "HEAD"]))
             .unwrap_or_else(|| {
-                format!("nogit-{}", SystemTime::now()
+                let timestamp = SystemTime::now()
                     .duration_since(SystemTime::UNIX_EPOCH)
-                    .map_or("unknown_time".to_string(), |d| d.as_secs().to_string()))
+                    .map(|d| d.as_secs().to_string())
+                    .unwrap_or_else(|_| "unknown_time".to_string());
+                format!("nogit-{}", timestamp)
             })
     }
-}
 
-fn get_front_matter_json_data(front_matter: &mut HashMap<String, String>) {
-    if let Some(json_path) = &front_matter.get("json_data") {
-        let json_path = std::env::current_dir().unwrap().join(json_path).to_string_lossy().to_string();
-        if let Ok(json_data) = load_json_data(json_path.as_str()) {
-            // todo: implement returning the json/yaml and put it into current context
-            // front_matter.insert("items".to_string(), format!("{:?}", json_data));
-            // front_matter.insert_node("json_list".to_string(), TemplateNode::Json("items"));
+    fn parse_control_blocks(&self, content: &str) -> Rc<TemplateNode> {
+        let mut nodes = Vec::new();
+        let mut remaining = content;
+        
+        while let Some(open_pos) = remaining.find("{{") {
+            let before = &remaining[..open_pos];
+            if !before.is_empty() {
+                nodes.push(TemplateNode::StringContent(before.to_string()));
+            }
+            
+            let close_pos = remaining[open_pos..].find("}}").unwrap() + open_pos;
+            let complete_tag = &remaining[open_pos..close_pos+2];
+            let tag = &remaining[open_pos+2..close_pos].trim();
+            remaining = &remaining[close_pos+2..];
+            
+            match tag.split_whitespace().collect::<Vec<_>>().as_slice() {
+                ["if", condition] => {
+                    let (inner_content, new_remaining) = Self::parse_block_content(remaining, "endif");
+                    remaining = new_remaining;
+                    
+                    // Split into if and else parts if needed
+                    let (true_content, false_content) = match inner_content.split_once("{{ else }}") {
+                        Some((true_part, false_part)) => (true_part, Some(false_part)),
+                        None => (inner_content, None),
+                    };
+                    
+                    let true_node = self.parse_control_blocks(true_content);
+                    let false_node = false_content.map(|c| self.parse_control_blocks(c));
+                    
+                    nodes.push(TemplateNode::IfBlock {
+                        condition: condition.to_string(),
+                        true_branch: true_node,
+                        false_branch: false_node,
+                    });
+                },
+                ["else"] => {
+                    // Only warn if this isn't part of a string that looks like a real else
+                    if !tag.starts_with("else ") && !tag.ends_with(" else") {
+                        eprintln!("Warning: found else without matching if in content: {:?}", tag);
+                    }
+                    // Skip this token and continue parsing
+                },
+                ["foreach", key, "as", item_name] => {
+                    let (inner_content, new_remaining) = Self::parse_block_content(remaining, "endforeach");
+                    remaining = new_remaining;
+                    let inner_node = self.parse_control_blocks(inner_content);
+                    nodes.push(TemplateNode::ForEachBlock {
+                        key: key.to_string(),
+                        item_name: item_name.to_string(),
+                        body: inner_node,
+                    });
+                },
+                _ => {
+                    if let Some((name, args)) = Self::parse_function_call(tag) {
+                        if self.functions.contains_key(name) {
+                            nodes.push(TemplateNode::Func {
+                                name: name.to_string(),
+                                args: args.iter().map(|s| s.to_string()).collect(),
+                                block_content: None,
+                            });
+                        } else {
+                            nodes.push(TemplateNode::StringContent(complete_tag.to_string()));
+                        }
+                    } else {
+                        nodes.push(TemplateNode::StringContent(complete_tag.to_string()));
+                    }
+                }
+            }
+        }
+        
+        if !remaining.is_empty() {
+            nodes.push(TemplateNode::StringContent(remaining.to_string()));
+        }
+        
+        Rc::new(TemplateNode::Composite(nodes))
+    }
+
+    fn parse_block_content<'a>(content: &'a str, end_tag: &str) -> (&'a str, &'a str) {
+        let end_pattern = format!("{{{{ {end_tag} }}}}");
+        let end_pos = content.find(&end_pattern).unwrap_or(content.len());
+        (&content[..end_pos], &content[end_pos + end_pattern.len()..])
+    }
+
+    fn parse_function_call(tag: &str) -> Option<(&str, Vec<&str>)> {
+        let mut parts = tag.split_whitespace();
+        parts.next().map(|name| (name, parts.collect()))
+    }
+
+    fn build_page(
+        &mut self,
+        path: &str,
+    ) -> Result<Rc<TemplateNode>, Box<dyn std::error::Error>> {
+        let content = fs::read_to_string(path)?;
+        let (front_matter, markdown) = parse_front_matter(&content);
+        let mut front_matter = parse_yaml_front_matter(front_matter).unwrap_or_default();
+        
+        // Set defaults
+        if !front_matter.contains_key("layout") {
+            front_matter.insert("layout".to_string(), "default".to_string());
+        }
+        if !front_matter.contains_key("title") {
+            front_matter.insert("title".to_string(), 
+            Path::new(path).file_stem().unwrap().to_string_lossy().into_owned());
+        }
+
+        Self::get_front_matter_json_data(&mut front_matter);
+        
+        // Convert markdown to HTML
+        let mut html_content = String::new();
+        html::push_html(&mut html_content, Parser::new_ext(markdown, Options::all()));
+        
+        // Parse control blocks in the content
+        let content_node = self.parse_control_blocks(&html_content);
+        
+        // Create output path
+        let output_path = PathBuf::from(&self.output_base)
+        .join(file_path_stem(Path::new("."), path))
+        .with_extension("html");
+        
+        // Get the layout hierarchy
+        let layout_name = front_matter.get("layout").unwrap();
+        let layout = self.get_layout(layout_name);
+        
+        // Create the page with the layout as parent
+        Ok(TemplateNode::new_page(
+            path.to_string(),
+            front_matter,
+            content_node,
+            output_path,
+            Some(layout),
+        ))
+    }
+
+    fn get_front_matter_json_data(front_matter: &mut HashMap<String, String>) {
+        if let Some(json_path) = &front_matter.get("json_data") {
+            let json_path = std::env::current_dir().unwrap().join(json_path).to_string_lossy().to_string();
+            if let Ok(json_data) = load_json_data(json_path.as_str()) {
+                // todo: implement returning the json/yaml and put it into current context
+                // front_matter.insert("items".to_string(), format!("{:?}", json_data));
+                // front_matter.insert_node("json_list".to_string(), TemplateNode::Json("items"));
+            }
         }
     }
-}
-
-fn build_page(
-    path: &str,
-    global_context: &mut GlobalContext,
-) -> Result<Rc<TemplateNode>, Box<dyn std::error::Error>> {
-    let content = fs::read_to_string(path)?;
-    let (front_matter, markdown) = parse_front_matter(&content);
-    let mut front_matter = parse_yaml_front_matter(front_matter).unwrap_or_default();
-    
-    // Set defaults
-    if !front_matter.contains_key("layout") {
-        front_matter.insert("layout".to_string(), "default".to_string());
-    }
-    if !front_matter.contains_key("title") {
-        front_matter.insert("title".to_string(), 
-        Path::new(path).file_stem().unwrap().to_string_lossy().into_owned());
-    }
-
-    get_front_matter_json_data(&mut front_matter);
-    
-    // Convert markdown to HTML
-    let mut html_content = String::new();
-    html::push_html(&mut html_content, Parser::new_ext(markdown, Options::all()));
-    
-    // Parse control blocks in the content
-    let content_node = parse_control_blocks(&html_content, global_context);
-    
-    // Create output path
-    let output_path = PathBuf::from(&global_context.output_base)
-    .join(file_path_stem(Path::new("."), path))
-    .with_extension("html");
-    
-    // Get the layout hierarchy
-    let layout_name = front_matter.get("layout").unwrap();
-    let layout = global_context.get_layout(layout_name);
-    
-    // Create the page with the layout as parent
-    Ok(TemplateNode::new_page(
-        path.to_string(),
-        front_matter,
-        content_node,
-        output_path,
-        Some(layout),
-    ))
 }
 
 // ========== Helper Functions ==========
@@ -681,7 +677,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .into_iter()
         .filter(|p| !p.contains("/assets/") && !p.contains("assets/"))
     {
-        let page = build_page(&path, &mut global_context)?;
+        let page = global_context.build_page(&path)?;
         // Print the tree structure
         // page.print_tree(0);
         
