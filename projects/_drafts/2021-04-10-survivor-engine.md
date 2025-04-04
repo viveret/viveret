@@ -4,7 +4,7 @@ title: Survivor Engine
 image: /assets/img/blog/test.jpg
 description: >
   Beep boop
-tags: [testtag]
+tags: testtag
 category: projects
 layout: post
 ---

@@ -6,11 +6,23 @@ use chrono::Local;
 use pulldown_cmark::{html, Options, Parser};
 use serde_yaml::Value;
 
+/**
+ * TODO / Bug Fixes:
+ * - When markdown is converted to HTML, fix urls
+ * - more fun things
+ * - more warnings and error messages
+ * - break up project into different files
+ * - scripting with something like lua?
+ * - page tags and categories
+ * - index to view all pages with tags/categories
+ */
+
+
 // ========== Data Structures ==========
 
 type FrontMatter = HashMap<String, String>;
 type TemplateContextPtr = Rc<RefCell<TemplateContext>>;
-type TemplateFunc = dyn Fn(&[String], Option<&str>, TemplateContextPtr, &GlobalContext) -> String + 'static;
+type TemplateFunc = dyn Fn(&[String], Option<&str>, TemplateContextPtr, &mut GlobalContext) -> String + 'static;
 type TemplateFuncPtr = Rc<TemplateFunc>;
 
 #[derive(Debug)]
@@ -115,13 +127,13 @@ impl TemplateNode {
         })
     }
 
-    fn apply_all_substitutions(&self, s: String, context: TemplateContextPtr, global_context: &GlobalContext, front_matter: &FrontMatter) -> String {
+    fn apply_all_substitutions(&self, s: String, context: TemplateContextPtr, global_context: &mut GlobalContext, front_matter: &FrontMatter) -> String {
         context.borrow_mut().add_front_matter(front_matter);
         let output = Self::perform_substitutions_strings(s, front_matter);
         Self::apply_substitutions(&output, context, global_context)
     }
     
-    pub fn render(&self, context: TemplateContextPtr, global_context: &GlobalContext) -> String {
+    pub fn render(&self, context: TemplateContextPtr, global_context: &mut GlobalContext) -> String {
         match self {
             Self::Page { content_node, parent, front_matter, .. } => {
                 let page_context = TemplateContext::new(Some(context.clone()));
@@ -184,7 +196,7 @@ impl TemplateNode {
                 }
             }
             Self::Func { name, args, block_content } => {
-                if let Some(func) = global_context.functions.get(name) {
+                if let Some(func) = global_context.functions.get(name).cloned() {
                     func(args, block_content.as_deref(), context, global_context)
                 } else {
                     name.clone()
@@ -216,7 +228,7 @@ impl TemplateNode {
         })
     }
     
-    fn apply_substitutions(s: &str, context: TemplateContextPtr, global_context: &GlobalContext) -> String {
+    fn apply_substitutions(s: &str, context: TemplateContextPtr, global_context: &mut GlobalContext) -> String {
         let ctx = context.borrow();
         let mut output = Self::perform_substitutions_strings(s.to_string(), &ctx.strings);
         
@@ -351,6 +363,35 @@ impl GlobalContext {
         );
 
         self.register_function(
+            "list_md",
+            &|args, block, ctx, global| {
+                let path = args.get(0).expect("list_md requires a path argument");
+                let template_name = args.get(1); // Optional template name
+
+                // println!("called list_md with {} and {:?}", path, template_name);
+                
+                let mut items = vec![];
+                
+                // Read directory and process markdown files
+                if let Ok(entries) = fs::read_dir(path) {
+                    for entry in entries.filter_map(|e| e.ok()) {
+                        items.push(
+                            match global.build_page(entry.path().to_str().unwrap()) {
+                                Ok(f) => f,
+                                Err(e) => Rc::new(TemplateNode::StringContent(format!("error: {:?}", e))),
+                            }
+                        );
+                    }
+                }
+                
+                items.iter()
+                    .map(|x| x.render(ctx.clone(), global))
+                    .collect::<Vec<String>>()
+                    .join("")
+            },
+        );
+
+        self.register_function(
             "json_list",
             &|args, block, ctx, _| {
                 let items_key = "items".to_string();
@@ -386,6 +427,7 @@ impl GlobalContext {
     }
     
     pub fn get_layout(&mut self, name: &str) -> Rc<TemplateNode> {
+        // println!("get_layout {}", name);
         if let Some(layout) = self.layout_cache.get(name) {
             return layout.clone();
         }
@@ -396,7 +438,8 @@ impl GlobalContext {
         
         let (front_matter, html) = parse_front_matter(&content);
         let mut front_matter = parse_yaml_front_matter(front_matter).unwrap_or_default();
-        if front_matter.contains_key("layout") && name != "default" && name != "site" {
+        // println!("{} front_matter.contains_key(\"layout\"): {}", name, front_matter.contains_key("layout"));
+        if !front_matter.contains_key("layout") && name != "default" && name != "site" {
             front_matter.insert("layout".to_string(), "default".to_string());
         }
 
@@ -404,7 +447,11 @@ impl GlobalContext {
 
         // Check if this layout has a parent layout
         let parent_layout = if let Some(layout_name) = front_matter.get("layout") {
-            Some(self.get_layout(&layout_name))
+            if layout_name.is_empty() {
+                None
+            } else {
+                Some(self.get_layout(&layout_name))
+            }
         } else {
             None
         };
@@ -554,9 +601,10 @@ impl GlobalContext {
     ) -> Result<Rc<TemplateNode>, Box<dyn std::error::Error>> {
         let content = fs::read_to_string(path)?;
         let (front_matter, markdown) = parse_front_matter(&content);
-        let mut front_matter = parse_yaml_front_matter(front_matter).unwrap_or_default();
+        let mut front_matter = parse_yaml_front_matter(front_matter)?;
         
         // Set defaults
+        // println!("page {} front_matter.keys: {}", path, front_matter.keys().into_iter().cloned().collect::<Vec<String>>().join(", "));
         if !front_matter.contains_key("layout") {
             front_matter.insert("layout".to_string(), "default".to_string());
         }
@@ -580,8 +628,15 @@ impl GlobalContext {
         .with_extension("html");
         
         // Get the layout hierarchy
-        let layout_name = front_matter.get("layout").unwrap();
-        let layout = self.get_layout(layout_name);
+        let layout = if let Some(layout_name) = front_matter.get("layout") {
+            if layout_name.is_empty() {
+                None
+            } else {
+                Some(self.get_layout(layout_name))
+            }
+        } else {
+            None
+        };
         
         // Create the page with the layout as parent
         Ok(TemplateNode::new_page(
@@ -589,7 +644,7 @@ impl GlobalContext {
             front_matter,
             content_node,
             output_path,
-            Some(layout),
+            layout,
         ))
     }
 
@@ -614,11 +669,13 @@ fn parse_front_matter(content: &str) -> (&str, &str) {
         .unwrap_or(("", content))
 }
 
-fn parse_yaml_front_matter(front_matter: &str) -> Option<FrontMatter> {
+fn parse_yaml_front_matter(front_matter: &str) -> Result<FrontMatter, Box<dyn std::error::Error>> {
     if front_matter.is_empty() {
-        None
+        // println!("front_matter is empty");
+        Ok(FrontMatter::new())
     } else {
-        serde_yaml::from_str(front_matter).ok()
+        serde_yaml::from_str(front_matter)
+            .map_err(|e| e.into())
     }
 }
 
@@ -695,7 +752,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             ctx.borrow_mut().add_front_matter(front_matter);
             
             fs::create_dir_all(output_path.parent().unwrap())?;
-            fs::write(output_path, page.render(ctx, &global_context))?;
+            fs::write(output_path, page.render(ctx, &mut global_context))?;
+        } else {
+            panic!("could not build page {}", path);
         }
     }
     

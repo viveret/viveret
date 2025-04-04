@@ -4,7 +4,7 @@ title: McKinstry - Project Spider Silk
 image: /assets/img/blog/test.jpg
 description: >
   More details about the projects I worked on at McKinstry
-tags: [testtag]
+tags: testtag
 category: projects
 layout: post
 ---

@@ -29,7 +29,6 @@
       <header class="ContentContainer">
         <div id="forkme_banner">
           <a href="{{ site.github.repository_url }}">View on GitHub</a>
-          <p class="copyright">Made by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
           <p>Revision {{ build_revision }}</p>
           <p>(last modified: {{ datetime }})</p>
         </div>
@@ -48,10 +47,10 @@
       <div class="ContentContainer">
         <ul class="menu-bar">
           <li><a title="My Resume" href="{{ relative-url /README.html }}"><i class="far fa-2x fa-file-alt"></i></a></li>
-          <li><a title="E-Mail Me!" href="mailto:viveret.amant.official@gmail.com"><i class="far fa-2x fa-envelope"></i></a></li>
-          <li><a title="My LinkedIn" href="https://www.linkedin.com/in/viveret/"><i class="fab fa-2x fa-linkedin-in"></i></a></li>
-          <li><a title="My GitHub" href="https://github.com/viveret"><i class="fab fa-2x fa-github"></i></a></li>
-          <li><a title="LGBTQ Lingo" href="https://viveret.github.io/lgbt-lingo/" target="_blank"><i class="fas fa-2x fa-book"></i></a></li>
+          <li><a title="E-Mail Me!" href="mailto:{{ site.owner_email }}"><i class="far fa-2x fa-envelope"></i></a></li>
+          <li><a title="My LinkedIn" href="{{ site.linkedin_url }}"><i class="fab fa-2x fa-linkedin-in"></i></a></li>
+          <li><a title="My GitHub" href="{{ site.github.owner_url }}"><i class="fab fa-2x fa-github"></i></a></li>
+          <li><a title="LGBTQ Lingo" href="{{ lgbtlingo_url }}" target="_blank"><i class="fas fa-2x fa-book"></i></a></li>
         </ul>
         <ul class="menu-bar menu-bar-emoji mt-1">
           <li><a href="{{ relative-url README.html }}">My Resume</a></li>
@@ -73,11 +72,12 @@
 
       <footer class="ContentContainer">
         <ul class="menu-bar menu-bar-emoji">
-          <li><a href="https://www.linkedin.com/in/viveret/">LinkedIn</a></li>
-          <li><a href="mailto:viveret.amant.official@gmail.com">viveret.amant.official@gmail.com</a></li>
+          <li><a href="{{ site.github.owner_url }}">My GitHub</a></li>
+          <li><a href="{{ site.linkedin_url }}">My LinkedIn</a></li>
+          <li><a href="mailto:{{ site.owner_email }}">{{ site.owner_email }}</a></li>
           <li><a href="{{ relative-url credits.html }}">Credits</a></li>
         </ul>
-        <center><small><a target="_blank" href="https://github.com/viveret/viveret/commit/{{ build_revision }}">#{{ build_revision }}</a>, generated {{ datetime-pretty }}</small></center>
+        <center><small><a target="_blank" href="{{ site.github.repository_url }}/commit/{{ build_revision }}">#{{ build_revision }}</a>, generated {{ datetime-pretty }}</small></center>
       </footer>
       <div class="BottomFiller"></div>
     </div>
