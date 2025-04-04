@@ -1,12 +1,17 @@
 @font-face {
     font-family: 'Quicksand';
-    src: url('../fonts/Quicksand-Regular.ttf') format('truetype');
+    src: url('../fonts/quicksand/Quicksand-Regular.ttf') format('truetype');
 }
 
-@import url(https://fonts.googleapis.com/css?family=Dosis:400,700);
-@import url(https://fonts.googleapis.com/css?family=Martel+Sans);
-@import url(https://fonts.googleapis.com/css?family=Sue+Ellen+Francisco);
-@import url(https://fonts.googleapis.com/css?family=Poiret+One);
+@font-face {
+    font-family: 'Sue Ellen Francisco';
+    src: url('../fonts/Sue_Ellen_Francisco/SueEllenFrancisco-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poiret One';
+    src: url('../fonts/Poiret_One/PoiretOne-Regular.ttf') format('truetype');
+}
 
 @font-face {
     font-family: 'socicon';
@@ -35,6 +40,19 @@ html, body {
 
 body {
     background: linear-gradient(#BBD8FF, #BBFFEF, #BEFFBB, #F3FFBB, #FFD4BB, #FFBBD8);
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(
+            #1a3a6a,       /* Deep navy blue */
+            #1a6a5a,       /* Dark teal */
+            #1a6a2a,       /* Deep forest green */
+            #6a5a1a,       /* Dark gold */
+            #6a3a1a,       /* Burnt orange */
+            #6a1a3a        /* Deep magenta */
+        );
+    }
 }
 
 img {
@@ -155,6 +173,12 @@ figcaption {
     display: inline-block;
 }
 
+@media (prefers-color-scheme: dark) {
+    .myPicture .crop {
+        border: 12px solid black;
+    }
+}
+
 .myPicture div:last-child {
     margin-top: -16px;
     font-family: Cookie;
@@ -176,6 +200,11 @@ figcaption {
         width: 92px;
         height: 92px;
         border: 4px solid white;
+    }
+    @media (prefers-color-scheme: dark) {
+        .myPicture .crop {
+            border: 4px solid black;
+        }
     }
     .myPicture div:last-child {
         font-size: 12px;
@@ -325,6 +354,14 @@ h3 {
     background: white;
 }
 
+@media (prefers-color-scheme: dark) {
+    .ContentContainer {
+        color: white;
+        box-shadow: 0 3px 6px rgba(255, 255, 255, 0.16), 0 3px 6px rgba(255, 255, 255, 0.23);
+        background: black;
+    }
+}
+
 header.ContentContainer {
     display: grid;
     grid-template-rows: auto;
@@ -367,6 +404,14 @@ footer {
     grid-column: 2;
     color: black;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+@media (prefers-color-scheme: dark) {
+    footer {
+        background: black;
+        color: white;
+        box-shadow: 0 3px 6px rgba(255, 255, 255, 0.16), 0 3px 6px rgba(255, 255, 255, 0.23);
+    }
 }
 
 footer p {
@@ -417,6 +462,14 @@ footer p {
     padding-right: 5px;
 }
 
+.menu-bar-emoji li::before {
+    content:"🌸"
+}
+
+.menu-bar-emoji li::after {
+    content:"🐝"
+}
+
 @media only screen and (max-width: 768px) {
     .menu-bar li:before {
         font-size: 12px;
@@ -436,8 +489,14 @@ footer p {
     z-index: -1;
     border-radius: 25px 0px 0px 25px;
     background: url(/images/mogai/lgbt-banner-background.png);
-    border: 2px solid #000000;
+    border: 2px solid black;
     margin-left: 82px;
+}
+
+@media (prefers-color-scheme: dark) {
+    #banner {
+        border: 2px solid white;
+    }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -446,10 +505,6 @@ h1, h2, h3, h4, h5, h6 {
 
 h2 {
     font-size: 31px;
-}
-
-body {
-    background: linear-gradient(#BBD8FF, #BBFFEF, #BEFFBB, #F3FFBB, #FFD4BB, #FFBBD8);
 }
 
 .outer {
@@ -515,11 +570,6 @@ img.emoji {
 
 td > img.emoji {
     vertical-align: bottom;
-}
-
-a[href="https://stackoverflow.com/"] {
-    color: rgb(244, 128, 36);
-    white-space: nowrap;
 }
 
 section table {
