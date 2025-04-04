@@ -175,7 +175,7 @@ figcaption {
 
 @media (prefers-color-scheme: dark) {
     .myPicture .crop {
-        border: 12px solid black;
+        border: 12px solid #1a1a1a;
     }
 }
 
@@ -203,7 +203,7 @@ figcaption {
     }
     @media (prefers-color-scheme: dark) {
         .myPicture .crop {
-            border: 4px solid black;
+            border: 4px solid #1a1a1a;
         }
     }
     .myPicture div:last-child {
@@ -358,7 +358,7 @@ h3 {
     .ContentContainer {
         color: white;
         box-shadow: 0 3px 6px rgba(255, 255, 255, 0.16), 0 3px 6px rgba(255, 255, 255, 0.23);
-        background: black;
+        background: #1a1a1a;
     }
 }
 
@@ -578,6 +578,12 @@ section table {
 
 section table tr:nth-child(odd) {
     background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+    section table tr:nth-child(odd) {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
 }
 
 a.cta {
