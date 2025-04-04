@@ -17,6 +17,7 @@ use serde_yaml::Value;
  * - control block tags, helper functions
  * - build, clean, new project
  * - Live reload / watch and rebuild
+ * - List of posts / markdown entries as a view
  */
 
 
