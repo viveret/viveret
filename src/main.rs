@@ -1,24 +1,36 @@
 use std::{
-    cell::RefCell, collections::HashMap, fs::{self, File}, path::{Path, PathBuf}, process::Command, rc::Rc, time::SystemTime
+    cell::RefCell, collections::HashMap, error::Error, fs::{self, File}, io::Write, path::{Path, PathBuf}, process::Command, rc::Rc, time::SystemTime
 };
 
 use chrono::Local;
-use pulldown_cmark::{html, Options, Parser};
+use clap::Parser;
+use pulldown_cmark::{html, Event, Options, Tag};
+use serde::{Deserialize, Serialize};
 use serde_yaml::Value;
 
 /**
  * TODO / Bug Fixes:
- * - When markdown is converted to HTML, fix urls
- * - more fun things
+ * - more fun things (interactive or social)
+ * - different styles and style pallet
  * - more warnings and error messages
  * - break up project into different files
  * - scripting with something like lua?
  * - page tags and categories
  * - index to view all pages with tags/categories
+ * - verbosity to output for debugging without rebuilding/changing code
  */
 
 
 // ========== Data Structures ==========
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct Config {
+    pub config_path: Option<String>,
+    pub input_dir: String,
+    pub output_dir: String,
+    pub watch: bool,
+    pub port: u16,
+}
 
 type FrontMatter = HashMap<String, String>;
 type TemplateContextPtr = Rc<RefCell<TemplateContext>>;
@@ -68,7 +80,7 @@ enum TemplateNode {
 }
 
 struct GlobalContext {
-    output_base: String,
+    cfg: Config,
     layout_cache: HashMap<String, Rc<TemplateNode>>,
     site_strings: HashMap<String, String>,
     functions: HashMap<String, TemplateFuncPtr>,
@@ -303,17 +315,18 @@ impl TemplateNode {
 }
 
 impl GlobalContext {
-    pub fn new(output_base: &str) -> Self {
+    pub fn new(cfg: Config) -> Self {
         Self {
-            output_base: output_base.to_string(),
+            cfg,
+            // output_base: output_base.to_string(),
             layout_cache: HashMap::new(),
             site_strings: HashMap::new(),
             functions: HashMap::new(),
         }
     }
 
-    pub fn new_with_defaults(output_base: &str) -> Self {
-        let mut x = Self::new(output_base);
+    pub fn new_with_defaults(cfg: Config) -> Self {
+        let mut x = Self::new(cfg);
         x.with_default_strings();
         x.with_default_funcs();
         x.load_site_data();
@@ -354,11 +367,7 @@ impl GlobalContext {
         self.register_function(
             "relative-url",
             &|args, _, _, ctx| {
-                let mut base = ctx.site_strings.get("site.url").unwrap().to_owned();
-                base = base.trim_end_matches('/').to_string();
-                let mut path = args.get(0).unwrap().to_string();
-                path = path.trim_start_matches('/').to_string();
-                format!("{}/{}", base, path)
+                ctx.relative_url(args.get(0).unwrap())
             },
         );
 
@@ -366,6 +375,7 @@ impl GlobalContext {
             "list_md",
             &|args, block, ctx, global| {
                 let path = args.get(0).expect("list_md requires a path argument");
+                let path = global.cfg.relative_to_config_path(&PathBuf::from(path));
                 let template_name = args.get(1); // Optional template name
 
                 // println!("called list_md with {} and {:?}", path, template_name);
@@ -432,9 +442,10 @@ impl GlobalContext {
             return layout.clone();
         }
         
-        let path = Path::new("templates/layouts").join(format!("{}.tpl.html", name));
+        let path = PathBuf::from("templates").join(format!("{}.tpl.html", name));
+        let path = self.cfg.relative_to_config_path(&path);
         let content = fs::read_to_string(&path)
-        .unwrap_or_else(|_| panic!("Failed to read template: {}", name));
+        .unwrap_or_else(|_| panic!("Failed to read template: {} at {}", name, path.to_str().unwrap()));
         
         let (front_matter, html) = parse_front_matter(&content);
         let mut front_matter = parse_yaml_front_matter(front_matter).unwrap_or_default();
@@ -465,9 +476,9 @@ impl GlobalContext {
     }
     
     pub fn load_site_data(&mut self) {
-        let path = std::env::current_dir().unwrap().join("data/site.yaml");
+        let path = self.cfg.relative_to_config_path(&PathBuf::from("data/site.yaml"));
         let path = path.to_str().unwrap();
-        let site_yaml = load_yaml_data(path).expect("could not get data/site.yaml");
+        let site_yaml = load_yaml_data(path).expect(&format!("could not get {}", path));
         if let Value::Mapping(mapping) = site_yaml {
             self.load_site_data_from_yaml_mapping(mapping)
         } else {
@@ -598,7 +609,7 @@ impl GlobalContext {
     fn build_page(
         &mut self,
         path: &str,
-    ) -> Result<Rc<TemplateNode>, Box<dyn std::error::Error>> {
+    ) -> Result<Rc<TemplateNode>, Box<dyn Error>> {
         let content = fs::read_to_string(path)?;
         let (front_matter, markdown) = parse_front_matter(&content);
         let mut front_matter = parse_yaml_front_matter(front_matter)?;
@@ -617,13 +628,30 @@ impl GlobalContext {
         
         // Convert markdown to HTML
         let mut html_content = String::new();
-        html::push_html(&mut html_content, Parser::new_ext(markdown, Options::all()));
+        let parser = pulldown_cmark::Parser::new_ext(markdown, Options::all())
+            .map(|event| match event {
+                // Rewrite links
+                Event::Start(Tag::Link { dest_url, link_type, title, id }) => {
+                    // println!("found link {}", dest_url);
+                    let new_dest = self.relative_url(dest_url.as_ref());
+                    Event::Start(Tag::Link { link_type, dest_url: new_dest.into(), title, id })
+                }
+                // Rewrite images
+                Event::Start(Tag::Image { dest_url, link_type, title, id }) => {
+                    // println!("found img {}", dest_url);
+                    let new_dest = self.relative_url(dest_url.as_ref());
+                    Event::Start(Tag::Image { link_type, dest_url: new_dest.into(), title, id })
+                }
+                // Pass through other events unchanged
+                _ => event,
+            });
+        html::push_html(&mut html_content, parser);
         
         // Parse control blocks in the content
         let content_node = self.parse_control_blocks(&html_content);
         
         // Create output path
-        let output_path = PathBuf::from(&self.output_base)
+        let output_path = PathBuf::from(&self.cfg.output_dir)
         .join(file_path_stem(Path::new("."), path))
         .with_extension("html");
         
@@ -658,6 +686,17 @@ impl GlobalContext {
             }
         }
     }
+
+    fn relative_url(&self, path: &str) -> String {
+        if has_protocol(path) || path.starts_with('#') {
+            return path.to_string();
+        }
+        
+        let mut base = self.site_strings.get("site.url").unwrap().to_owned();
+        base = base.trim_end_matches('/').to_string();
+        let path = path.trim_start_matches('/').to_string();
+        format!("{}/{}", base, path)
+    }
 }
 
 // ========== Helper Functions ==========
@@ -669,7 +708,7 @@ fn parse_front_matter(content: &str) -> (&str, &str) {
         .unwrap_or(("", content))
 }
 
-fn parse_yaml_front_matter(front_matter: &str) -> Result<FrontMatter, Box<dyn std::error::Error>> {
+fn parse_yaml_front_matter(front_matter: &str) -> Result<FrontMatter, Box<dyn Error>> {
     if front_matter.is_empty() {
         // println!("front_matter is empty");
         Ok(FrontMatter::new())
@@ -678,24 +717,46 @@ fn parse_yaml_front_matter(front_matter: &str) -> Result<FrontMatter, Box<dyn st
             .map_err(|e| e.into())
     }
 }
-
 fn get_md_files_recursive(path: &Path) -> Vec<String> {
+    // List of directories to ignore
+    const IGNORED_DIRS: &[&str] = &["assets", "templates", "data"];
+    
     fs::read_dir(path).ok()
-    .map(|entries| {
-        entries.filter_map(|entry| entry.ok())
-        .flat_map(|entry| {
-            let path = entry.path();
-            if path.is_dir() {
-                get_md_files_recursive(&path)
-            } else if path.extension().map_or(false, |ext| ext == "md") {
-                path.to_str().map(|s| s.to_string()).into_iter().collect()
-            } else {
-                Vec::new()
-            }
+        .map(|entries| {
+            entries.filter_map(|entry| entry.ok())
+                .flat_map(|entry| {
+                    let path = entry.path();
+                    
+                    // Skip if filename starts with '_'
+                    if path.file_name()
+                        .and_then(|n| n.to_str())
+                        .map(|s| s.starts_with('_'))
+                        .unwrap_or(false) 
+                    {
+                        return Vec::new();
+                    }
+                    
+                    // Skip if it's an ignored directory
+                    if path.is_dir() && path.file_name()
+                        .and_then(|n| n.to_str())
+                        .map(|name| IGNORED_DIRS.contains(&name))
+                        .unwrap_or(false)
+                    {
+                        return Vec::new();
+                    }
+                    
+                    // Process directory or markdown file
+                    if path.is_dir() {
+                        get_md_files_recursive(&path)
+                    } else if path.extension().map_or(false, |ext| ext == "md") {
+                        path.to_str().map(|s| s.to_string()).into_iter().collect()
+                    } else {
+                        Vec::new()
+                    }
+                })
+                .collect()
         })
-        .collect()
-    })
-    .unwrap_or_default()
+        .unwrap_or_default()
 }
 
 fn file_path_stem(base_path: &Path, full_path: &str) -> String {
@@ -704,19 +765,36 @@ fn file_path_stem(base_path: &Path, full_path: &str) -> String {
     .unwrap_or_else(|_| full_path.to_string())
 }
 
-fn copy_assets(src: &str, dst: &str) -> Result<(), Box<dyn std::error::Error>> {
+fn has_protocol(url: &str) -> bool {
+    // Split at first colon to check for protocol
+    if let Some(colon_pos) = url.find(':') {
+        // Ensure there's at least one character before colon
+        if colon_pos > 0 {
+            // Check if the part before colon is all alphabetic (protocol name)
+            let protocol = &url[..colon_pos];
+            protocol.chars().all(|c| c.is_ascii_alphabetic())
+        } else {
+            false
+        }
+    } else {
+        false
+    }
+}
+
+fn copy_assets(src: &str, dst: &str, verbose: bool) -> Result<(), Box<dyn Error>> {
     if !Path::new(src).exists() {
+        println!("input assets dir {} does not exist", src);
         return Ok(());
     }
     
-    fs::create_dir_all(dst)?;
+    create_dir(&Path::new(dst), verbose)?;
     for entry in fs::read_dir(src)? {
         let entry = entry?;
         let path = entry.path();
         let dest_path = Path::new(dst).join(entry.file_name());
         
         if path.is_dir() {
-            copy_assets(path.to_str().unwrap(), dest_path.to_str().unwrap())?;
+            copy_assets(path.to_str().unwrap(), dest_path.to_str().unwrap(), verbose)?;
         } else {
             fs::copy(path, dest_path)?;
         }
@@ -724,7 +802,7 @@ fn copy_assets(src: &str, dst: &str) -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn load_yaml_data(path: &str) -> Result<Value, Box<dyn std::error::Error>> {
+fn load_yaml_data(path: &str) -> Result<Value, Box<dyn Error>> {
     let file = File::open(path)
         .map_err(|e| format!("Failed to open {}: {}", path, e))?;
     serde_yaml::from_reader(file)
@@ -733,13 +811,135 @@ fn load_yaml_data(path: &str) -> Result<Value, Box<dyn std::error::Error>> {
 
 // ========== Main Function ==========
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let output_base = "output";
-    let mut global_context = GlobalContext::new_with_defaults(output_base);
-    fs::create_dir_all(output_base)?;
+fn main() -> Result<(), Box<dyn Error>> {
+    let cli = Cli::parse();
+    
+    // Load config file if specified
+    let config = if let Some(config_path) = &cli.config {
+        Config::from_file(config_path)?
+    } else {
+        // Try default config locations or create empty
+        Config::default()
+    };
+    
+    if cli.verbose {
+        println!("Starting with config: {:#?}", config);
+    }
+
+    match &cli.command {
+        Some(Commands::Build { output, clean }) => {
+            if *clean {
+                clean_output_dir(output)?;
+            }
+            build_site(output, &config, cli.verbose)?;
+        }
+        Some(Commands::Watch { port }) => {
+            watch_and_rebuild(*port, &config, cli.verbose)?;
+        }
+        Some(Commands::New { name, default }) => {
+            create_new_project(name, *default, cli.verbose)?;
+        }
+        None => {
+            // Default to build command
+            build_site(&PathBuf::from("output"), &config, cli.verbose)?;
+        }
+    }
+    Ok(())
+}
+
+fn watch_and_rebuild(port: u16, config: &Config, verbose: bool) -> Result<(), Box<dyn std::error::Error>> {
+    todo!()
+}
+
+pub fn create_new_project(
+    name: &str,
+    use_default_template: bool,
+    verbose: bool,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let project_dir = Path::new(name);
+    
+    // Create project directory structure
+    create_dir(project_dir, verbose)?;
+    create_dir(&project_dir.join("assets"), verbose)?;
+    create_dir(&project_dir.join("templates"), verbose)?;
+
+    // Create default files
+    create_file(
+        &project_dir.join("meowstatic.yml"),
+        include_str!("../_default-data/default_config.yml"),
+        verbose,
+    )?;
+
+    create_file(
+        &project_dir.join("content/index.md"),
+        include_str!("../_default-data/default_index.md"),
+        verbose,
+    )?;
+
+    if use_default_template {
+        create_file(
+            &project_dir.join("templates/default.tpl"),
+            include_str!("../_default-data/templates/default_layout.tpl.html"),
+            verbose,
+        )?;
+        
+        create_file(
+            &project_dir.join("assets/style.css"),
+            include_str!("../_default-data/assets/default_style.css"),
+            verbose,
+        )?;
+    }
+
+    println!("{} {}", 
+        emojis::get_by_shortcode("sparkles").unwrap().as_str(),
+        format!("Created new project '{}' successfully!", name)//.green().bold()
+    );
+
+    if !use_default_template {
+        println!("{} {}", 
+            emojis::get_by_shortcode("warning").unwrap().as_str(),
+            "No templates were included. Add your own in templates/"//.yellow()
+        );
+    }
+
+    Ok(())
+}
+
+// Helper function to create directory with verbose output
+fn create_dir(path: &Path, verbose: bool) -> std::io::Result<()> {
+    if verbose {
+        println!("Creating directory: {}", path.display());
+    }
+    fs::create_dir_all(path)
+}
+
+// Helper function to create file with verbose output
+fn create_file(path: &Path, content: &str, verbose: bool) -> std::io::Result<()> {
+    if verbose {
+        println!("Creating file: {}", path.display());
+    }
+    let mut file = File::create(path)?;
+    file.write_all(content.as_bytes())?;
+    Ok(())
+}
+
+fn clean_output_dir(output: &PathBuf) -> Result<(), Box<dyn Error>> {
+    fs::remove_dir_all(output)
+        .map_err(|e| e.into())
+}
+
+fn build_site(output_base: &PathBuf, config: &Config, verbose: bool) -> Result<(), Box<dyn Error>> {
+    let output_base = config.relative_to_config_path(output_base);
+    if verbose {
+        println!("outputting to {}", output_base.to_str().unwrap());
+    }
+
+    let mut global_context = GlobalContext::new_with_defaults(config.clone());
+    create_dir(&output_base, verbose)?;
     
     // Build and render all pages
-    for path in get_md_files_recursive(Path::new("."))
+    let input_dir = PathBuf::from(&config.input_dir);
+    for path in get_md_files_recursive(&input_dir)
         .into_iter()
         .filter(|p| !p.contains("/assets/") && !p.contains("assets/"))
     {
@@ -751,14 +951,95 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let ctx = TemplateContext::new(None);
             ctx.borrow_mut().add_front_matter(front_matter);
             
-            fs::create_dir_all(output_path.parent().unwrap())?;
+            create_dir(output_path.parent().unwrap(), verbose)?;
+
+            // if verbose {
+            //     println!("writing html to {}", output_path.to_str().unwrap());
+            // }
             fs::write(output_path, page.render(ctx, &mut global_context))?;
         } else {
             panic!("could not build page {}", path);
         }
     }
     
-    copy_assets("assets", &format!("{}/assets", output_base))?;
+    copy_assets(
+        config.relative_to_config_path(&PathBuf::from("assets")).to_str().unwrap(), 
+        output_base.join("assets").to_str().unwrap(), 
+        verbose
+    )?;
     println!("Site generation complete!");
     Ok(())
+}
+
+#[derive(Parser)]
+#[command(name = "MeowStatic")]
+#[command(version = "1.0")]
+#[command(about = "A purr-fect static site generator", long_about = None)]
+struct Cli {
+    #[command(subcommand)]
+    command: Option<Commands>,
+    
+    /// Path to config file (optional)
+    #[arg(short, long)]
+    config: Option<PathBuf>,
+    
+    /// Verbose output
+    #[arg(short, long)]
+    verbose: bool,
+}
+
+#[derive(clap::Subcommand)]
+enum Commands {
+    /// Build the site
+    Build {
+        /// Output directory
+        #[arg(short, long, default_value = "output")]
+        output: PathBuf,
+        
+        /// Clean output directory before building
+        #[arg(short, long)]
+        clean: bool,
+    },
+    /// Watch for changes and rebuild
+    Watch {
+        /// Port for live reload
+        #[arg(short, long, default_value_t = 3000)]
+        port: u16,
+    },
+    /// Create a new project
+    New {
+        /// Project name
+        name: String,
+        
+        /// Use default template
+        #[arg(short, long)]
+        default: bool,
+    },
+}
+
+impl Default for Config {
+    fn default() -> Self {
+        Self {
+            config_path: None,
+            input_dir: "./".to_string(),
+            output_dir: "output".to_string(),
+            watch: false,
+            port: 3000,
+        }
+    }
+}
+
+impl Config {
+    pub fn from_file(path: &Path) -> Result<Self, Box<dyn std::error::Error>> {
+        let content = fs::read_to_string(path)?;
+        Ok(serde_yaml::from_str(&content)?)
+    }
+    
+    fn relative_to_config_path(&self, path: &PathBuf) -> PathBuf {
+        if let Some(p) = self.config_path.clone() {
+            PathBuf::from(p.as_str()).parent().unwrap().into()
+        } else {
+            std::env::current_dir().unwrap()
+        }.join(path)
+    }
 }
