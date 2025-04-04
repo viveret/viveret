@@ -41,7 +41,6 @@ pub struct Config {
     pub input_dir: String,
     pub output_dir: String,
     pub watch: bool,
-    pub port: u16,
 }
 
 type FrontMatter = HashMap<String, String>;
@@ -843,7 +842,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
             build_site(output, &config, cli.verbose)?;
         }
-        Some(Commands::Watch { port }) => {
+        Some(Commands::Watch { }) => {
             watch_and_rebuild(&config, cli.verbose)?;
         }
         Some(Commands::New { name, default }) => {
@@ -1085,11 +1084,7 @@ enum Commands {
         clean: bool,
     },
     // Watch for changes and rebuild
-    Watch {
-        // Port for live reload
-        #[arg(short, long, default_value_t = 3000)]
-        port: u16,
-    },
+    Watch { },
     // Create a new project
     New {
         // Project name
@@ -1108,7 +1103,6 @@ impl Default for Config {
             input_dir: "./".to_string(),
             output_dir: "output".to_string(),
             watch: false,
-            port: 3000,
         }
     }
 }
