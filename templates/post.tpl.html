@@ -3,17 +3,20 @@ layout:
 ---
 <div class="ContentContainer">
     <section>
-        <h1>{title}</h1>
+        <h1>{{ title }}</h1>
         
-        {tags_html}
-        
-        {categories_html}
+        {{ date_html }} 
 
-        {image_html}
+        {{ tags_html }}
         
-        {date_html}
+        {{ categories_html }}
+
+        <p><i>{{ description }}</i></p>
+
+        {{ image_html }}
 
         <hr />
-        {content}
+        
+        {{ content }}
     </section>
 </div>

@@ -544,7 +544,7 @@ h2 {
 
 #forkme_banner > a {
     padding: 0.5rem 2rem 0.5rem 0.5rem;
-    background: url('../images/blacktocat.png') #c6538c no-repeat 95% 40%;
+    background: #c6538c;
     display: block;
 }
 

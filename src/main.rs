@@ -375,11 +375,53 @@ impl GlobalContext {
         );
 
         self.register_function(
+            "date_html",
+            &|_, _, ctx, _| {
+                if let Some(date_str) = ctx.borrow().get_string("date") {
+                    format!("<p><b>Date:</b> {}</p>", date_str)
+                } else {
+                    "".to_string()
+                }
+            },
+        );
+
+        self.register_function(
+            "tags_html",
+            &|_, _, ctx, _| {
+                if let Some(tags_str) = ctx.borrow().get_string("tags") {
+                    format!("<p><b>Tags:</b> {}</p>", tags_str)
+                } else {
+                    "".to_string()
+                }
+            },
+        );
+
+        self.register_function(
+            "categories_html",
+            &|_, _, ctx, _| {
+                if let Some(categories_str) = ctx.borrow().get_string("categories") {
+                    format!("<p><b>Categories:</b> {}</p>", categories_str)
+                } else {
+                    "".to_string()
+                }
+            },
+        );
+
+        self.register_function(
             "relative-url",
             &|args, _, _, ctx| {
                 ctx.relative_url(args.get(0).unwrap())
             },
         );
+
+        self.register_function("image_html", &|_, _, ctx, global| {
+            if let Some(url) = ctx.borrow().get_string("image") {
+                let url = global.relative_url(&url);
+                format!("<img src=\"{}\" />", url)
+            } else {
+                "".to_string()
+            }
+        });
 
         self.register_function(
             "list_md",
@@ -527,6 +569,7 @@ impl GlobalContext {
                 format!("nogit-{}", timestamp)
             })
     }
+    
 
     fn parse_control_blocks(&self, content: &str) -> Rc<TemplateNode> {
         let mut nodes = Vec::new();
