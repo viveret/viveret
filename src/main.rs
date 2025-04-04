@@ -340,6 +340,17 @@ impl GlobalContext {
         );
 
         self.register_function(
+            "relative-url",
+            &|args, _, _, ctx| {
+                let mut base = ctx.site_strings.get("site.url").unwrap().to_owned();
+                base = base.trim_end_matches('/').to_string();
+                let mut path = args.get(0).unwrap().to_string();
+                path = path.trim_start_matches('/').to_string();
+                format!("{}/{}", base, path)
+            },
+        );
+
+        self.register_function(
             "json_list",
             &|args, block, ctx, _| {
                 let items_key = "items".to_string();
@@ -379,7 +390,7 @@ impl GlobalContext {
             return layout.clone();
         }
         
-        let path = Path::new("templates/layouts").join(format!("{}.tpl", name));
+        let path = Path::new("templates/layouts").join(format!("{}.tpl.html", name));
         let content = fs::read_to_string(&path)
         .unwrap_or_else(|_| panic!("Failed to read template: {}", name));
         
