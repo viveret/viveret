@@ -1,8 +1,8 @@
 ---
-title: "Welcome to MeowStatic!"
+title: "Welcome to my website!"
 layout: "default"
 ---
 
 # Hello World! :3
 
-This is your new MeowStatic site. Start editing this file at `content/index.md`.
+This is your new site. Start editing this file at `index.md`.

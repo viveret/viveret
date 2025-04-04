@@ -1,12 +1,24 @@
 use std::{
-    cell::RefCell, collections::HashMap, error::Error, fs::{self, File}, io::Write, path::{Path, PathBuf}, process::Command, rc::Rc, time::SystemTime
+    cell::RefCell, collections::HashMap, error::Error, fs::{self, File}, io::Write, path::{Path, PathBuf}, process::Command, rc::Rc, time::{Duration, SystemTime}
 };
 
 use chrono::Local;
 use clap::Parser;
+use notify::{RecommendedWatcher, Watcher};
 use pulldown_cmark::{html, Event, Options, Tag};
 use serde::{Deserialize, Serialize};
 use serde_yaml::Value;
+
+
+/**
+ * Features:
+ * - make static websites
+ * - HTML templates, markdown to HTML, copy assets to output
+ * - control block tags, helper functions
+ * - build, clean, new project
+ * - Live reload / watch and rebuild
+ */
+
 
 /**
  * TODO / Bug Fixes:
@@ -318,7 +330,6 @@ impl GlobalContext {
     pub fn new(cfg: Config) -> Self {
         Self {
             cfg,
-            // output_base: output_base.to_string(),
             layout_cache: HashMap::new(),
             site_strings: HashMap::new(),
             functions: HashMap::new(),
@@ -449,7 +460,6 @@ impl GlobalContext {
         
         let (front_matter, html) = parse_front_matter(&content);
         let mut front_matter = parse_yaml_front_matter(front_matter).unwrap_or_default();
-        // println!("{} front_matter.contains_key(\"layout\"): {}", name, front_matter.contains_key("layout"));
         if !front_matter.contains_key("layout") && name != "default" && name != "site" {
             front_matter.insert("layout".to_string(), "default".to_string());
         }
@@ -834,7 +844,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             build_site(output, &config, cli.verbose)?;
         }
         Some(Commands::Watch { port }) => {
-            watch_and_rebuild(*port, &config, cli.verbose)?;
+            watch_and_rebuild(&config, cli.verbose)?;
         }
         Some(Commands::New { name, default }) => {
             create_new_project(name, *default, cli.verbose)?;
@@ -847,8 +857,79 @@ fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-fn watch_and_rebuild(port: u16, config: &Config, verbose: bool) -> Result<(), Box<dyn std::error::Error>> {
-    todo!()
+pub fn watch_and_rebuild(
+    config: &Config,
+    verbose: bool,
+) -> Result<(), Box<dyn std::error::Error>> {
+    println!("🔭 {} {}", 
+        "Watching for changes...",
+        "(Press Ctrl+C to stop)"
+    );
+
+    // Create channel for file change events
+    let (tx, rx) = std::sync::mpsc::channel();
+    let mut watcher: RecommendedWatcher = Watcher::new(
+        tx, 
+        notify::Config::default()
+            .with_poll_interval(Duration::from_secs(1)) // Debounce time
+    )?;
+
+    // Watch relevant directories
+    let watch_dirs = [
+        Path::new(&config.input_dir),
+        Path::new("assets"),
+    ];
+
+    for dir in watch_dirs {
+        if dir.exists() {
+            watcher.watch(dir, notify::RecursiveMode::Recursive)?;
+            if verbose {
+                println!("👀 {}", format!("Watching: {}", dir.display()));
+            }
+        }
+    }
+
+    // Track last build time to avoid rapid rebuilds
+    let mut last_build = std::time::Instant::now();
+    let min_rebuild_interval = Duration::from_secs(2);
+
+    loop {
+        match rx.recv() {
+            Ok(Ok(notify::Event { kind: notify::EventKind::Modify(_), paths, .. })) => {
+                // Filter relevant changes
+                if should_trigger_rebuild(&paths) && last_build.elapsed() > min_rebuild_interval {
+                    if verbose {
+                        println!("\n📡 {} {:?}", 
+                            "Change detected in:",
+                            paths.iter().map(|p| p.display()).collect::<Vec<_>>()
+                        );
+                    }
+
+                    match build_site(&PathBuf::from(&config.output_dir), config, verbose) {
+                        Ok(_) => {
+                            println!("✅ {}", "Rebuild successful!");
+                            last_build = std::time::Instant::now();
+                        }
+                        Err(e) => {
+                            println!("❌ {}: {}", "Build failed", e);
+                        }
+                    }
+                }
+            }
+            Ok(Err(e)) => println!("⚠️ {}: {}", "Watch error", e),
+            _ => {}
+        }
+    }
+}
+
+fn should_trigger_rebuild(paths: &[PathBuf]) -> bool {
+    paths.iter().any(|p| {
+        // Only trigger for these file types
+        match p.extension().and_then(|e| e.to_str()) {
+            Some("md" | "tpl" | "html" | "css" | "js" | "yml" | "yaml" | "json" | "csv") => true,
+            _ => false
+        }
+    })
 }
 
 pub fn create_new_project(
@@ -865,13 +946,19 @@ pub fn create_new_project(
 
     // Create default files
     create_file(
-        &project_dir.join("meowstatic.yml"),
-        include_str!("../_default-data/default_config.yml"),
+        &project_dir.join("data/site.yaml"),
+        include_str!("../_default-data/data/default_site.yaml"),
         verbose,
     )?;
 
     create_file(
-        &project_dir.join("content/index.md"),
+        &project_dir.join("config.yaml"),
+        include_str!("../_default-data/default_config.yaml"),
+        verbose,
+    )?;
+
+    create_file(
+        &project_dir.join("index.md"),
         include_str!("../_default-data/default_index.md"),
         verbose,
     )?;
@@ -890,16 +977,10 @@ pub fn create_new_project(
         )?;
     }
 
-    println!("{} {}", 
-        emojis::get_by_shortcode("sparkles").unwrap().as_str(),
-        format!("Created new project '{}' successfully!", name)//.green().bold()
-    );
+    println!("✨ Created new project '{}' successfully!", name);
 
     if !use_default_template {
-        println!("{} {}", 
-            emojis::get_by_shortcode("warning").unwrap().as_str(),
-            "No templates were included. Add your own in templates/"//.yellow()
-        );
+        println!("⚠️ No templates were included. Add your own in templates/");
     }
 
     Ok(())
@@ -944,8 +1025,11 @@ fn build_site(output_base: &PathBuf, config: &Config, verbose: bool) -> Result<(
         .filter(|p| !p.contains("/assets/") && !p.contains("assets/"))
     {
         let page = global_context.build_page(&path)?;
-        // Print the tree structure
-        // page.print_tree(0);
+        
+        if verbose {
+            // Print the tree structure
+            page.print_tree(0);
+        }
         
         if let TemplateNode::Page { output_path, front_matter, .. } = &*page {
             let ctx = TemplateContext::new(None);
@@ -953,9 +1037,9 @@ fn build_site(output_base: &PathBuf, config: &Config, verbose: bool) -> Result<(
             
             create_dir(output_path.parent().unwrap(), verbose)?;
 
-            // if verbose {
-            //     println!("writing html to {}", output_path.to_str().unwrap());
-            // }
+            if verbose {
+                println!("writing html to {}", output_path.to_str().unwrap());
+            }
             fs::write(output_path, page.render(ctx, &mut global_context))?;
         } else {
             panic!("could not build page {}", path);
@@ -979,39 +1063,39 @@ struct Cli {
     #[command(subcommand)]
     command: Option<Commands>,
     
-    /// Path to config file (optional)
+    // Path to config file (optional)
     #[arg(short, long)]
     config: Option<PathBuf>,
     
-    /// Verbose output
+    // Verbose output
     #[arg(short, long)]
     verbose: bool,
 }
 
 #[derive(clap::Subcommand)]
 enum Commands {
-    /// Build the site
+    // Build the site
     Build {
-        /// Output directory
+        // Output directory
         #[arg(short, long, default_value = "output")]
         output: PathBuf,
         
-        /// Clean output directory before building
+        // Clean output directory before building
         #[arg(short, long)]
         clean: bool,
     },
-    /// Watch for changes and rebuild
+    // Watch for changes and rebuild
     Watch {
-        /// Port for live reload
+        // Port for live reload
         #[arg(short, long, default_value_t = 3000)]
         port: u16,
     },
-    /// Create a new project
+    // Create a new project
     New {
-        /// Project name
+        // Project name
         name: String,
         
-        /// Use default template
+        // Use default template
         #[arg(short, long)]
         default: bool,
     },

@@ -9,4 +9,4 @@ serde_yaml = "0.9.34"
 serde = { version = "1.0", features = ["derive"] }
 chrono = "0.4.40"
 clap = { version = "4.0", features = ["derive"] }
-emojis = "0.6.4"
+notify = "8.0.0"
