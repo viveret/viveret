@@ -29,7 +29,7 @@ use serde_yaml::Value;
  * - scripting with something like lua?
  * - page tags and categories
  * - index to view all pages with tags/categories
- * - verbosity to output for debugging without rebuilding/changing code
+ * - verbosity to output levels for debugging without rebuilding/changing code, avoid too much output
  */
 
 
