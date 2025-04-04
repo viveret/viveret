@@ -1,0 +1,608 @@
+@font-face {
+    font-family: 'Quicksand';
+    src: url('../fonts/quicksand/Quicksand-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Sue Ellen Francisco';
+    src: url('../fonts/Sue_Ellen_Francisco/SueEllenFrancisco-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poiret One';
+    src: url('../fonts/Poiret_One/PoiretOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'socicon';
+    src: url('font/socicon-webfont.eot');
+    src: url('font/socicon-webfont.eot?#iefix') format('embedded-opentype'),
+    url('font/socicon-webfont.woff') format('woff'),
+    url('font/socicon-webfont.ttf') format('truetype'),
+    url('font/socicon-webfont.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    text-transform: initial;
+}
+
+.socicon {
+    font-family: 'socicon' !important;
+}
+
+html, body {
+    font-family: sans-serif;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    height: auto;
+    font-family: "Poiret One", sans-serif;
+}
+
+body {
+    background: linear-gradient(#BBD8FF, #BBFFEF, #BEFFBB, #F3FFBB, #FFD4BB, #FFBBD8);
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(
+            #1a3a6a,       /* Deep navy blue */
+            #1a6a5a,       /* Dark teal */
+            #1a6a2a,       /* Deep forest green */
+            #6a5a1a,       /* Dark gold */
+            #6a3a1a,       /* Burnt orange */
+            #6a1a3a        /* Deep magenta */
+        );
+    }
+}
+
+img {
+    width: 100%;
+}
+
+.imgShowcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: column;
+    grid-column-gap: 8px;
+    margin-bottom: 1rem;
+}
+
+.imgShowcase img {
+    max-width: 100%;
+    height: auto;
+}
+
+.ContentContainer.gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: max-content repeat(auto-fill, max-content);
+    grid-auto-flow: column, row;
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
+}
+
+.ContentContainer.gallery h3 {
+    grid-row: 1;
+    grid-column: 1/4;
+}
+
+.ContentContainer.gallery img {
+    max-width: 100%;
+    height: auto;
+}
+
+#content-bg {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(white 4%, transparent 0), radial-gradient(white 4%, transparent 0);
+    background-size: 60px 60px;
+    background-position: -15px -15px, 15px 15px;
+}
+
+@keyframes bg-animation {
+    from {
+        filter: blur(1.5px) hue-rotate(0deg);
+    }
+    to {
+        filter: blur(1.5px) hue-rotate(3600deg);
+    }
+}
+
+#content {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-rows: max-content;
+    grid-template-columns: auto 75% auto;
+    grid-template-rows: repeat(10, max-content) 1fr max-content;
+    min-height: 100vh;
+}
+
+@media only screen and (max-width: 768px) {
+    #content {
+        grid-template-columns: auto 88% auto;
+    }
+    h1 {
+        font-size: 1.6rem;
+        text-align: center;
+        margin: 0;
+    }
+    h3 {
+        margin-top: 8px;
+        text-align: center;
+    }
+    figure {
+        margin: 0;
+    }
+    html, body {
+        font-size: 0.8rem;
+    }
+    .imgShowcase {
+        grid-column-gap: 2px;
+    }
+    p {
+        margin: 0;
+    }
+    .ContentContainer.gallery {
+        grid-column-gap: 3px;
+        grid-row-gap: 1px;
+    }
+}
+
+figcaption {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 6px;
+}
+
+.myPicture {
+    grid-row: 1;
+    width: 100%;
+    text-align: center;
+}
+
+.myPicture .crop {
+    width: 128px;
+    height: 128px;
+    margin-top: -24px;
+    border: 12px solid white;
+    overflow: hidden;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+@media (prefers-color-scheme: dark) {
+    .myPicture .crop {
+        border: 12px solid #1a1a1a;
+    }
+}
+
+.myPicture div:last-child {
+    margin-top: -16px;
+    font-family: Cookie;
+    font-weight: 100;
+    font-size: 30px;
+}
+
+.myPicture img {
+    width: 122px;
+    height: 122px;
+    position: relative;
+    left: -9px;
+    top: -6px;
+}
+
+@media only screen and (max-width: 768px) {
+    .myPicture .crop {
+        margin-top: -28px;
+        width: 92px;
+        height: 92px;
+        border: 4px solid white;
+    }
+    @media (prefers-color-scheme: dark) {
+        .myPicture .crop {
+            border: 4px solid #1a1a1a;
+        }
+    }
+    .myPicture div:last-child {
+        font-size: 12px;
+        margin-top: -8px;
+    }
+    .myPicture img {
+        width: 92px;
+        height: 92px;
+        left: -5px;
+        top: -3px;
+    }
+}
+
+.TitleLeft {
+    grid-row: 1;
+    grid-column: 1;
+    padding-left: 8px;
+}
+
+.TitleRight {
+    grid-row: 1;
+    grid-column: 3;
+    padding-right: 8px;
+}
+
+@media only screen and (max-width: 768px) {
+    .TitleLeft, .TitleRight {
+        padding: 0;
+    }
+}
+
+a {
+    color: inherit;
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+}
+
+a:hover, a:focus {
+    text-decoration: underline;
+}
+
+a.Title:hover, a.Title:focus {
+    text-decoration: none;
+}
+
+a.Title, a.Subtitle, a.Title:visited, a.Subtitle:visited, .Title a, .Subtitle a, .Title a:visited, .Subtitle a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+a.Title:hover, a.Subtitle:hover, .Title a:hover, .Subtitle a:hover {
+    color: grey;
+}
+
+.Title {
+    font-weight: 100;
+    font-size: 64pt;
+    line-height: 62pt;
+    margin: 8px 0 -8px 0;
+    text-align: center;
+    display: grid;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    font-family: 'Sue Ellen Francisco', sans-serif;
+    text-transform: uppercase;
+}
+
+@media only screen and (max-width: 1024px) {
+    .Title {
+        font-size: 48pt;
+        line-height: 60pt;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .Title {
+        font-size: 38pt;
+        line-height: 32pt;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .Title {
+        font-size: 28pt;
+        line-height: 28pt;
+    }
+}
+
+h3 {
+    font-family: 'Sue Ellen Francisco', sans-serif;
+    text-transform: uppercase;
+}
+
+.Subtitle {
+    font-size: 32pt;
+    line-height: 23pt;
+    font-weight: 100;
+    padding-bottom: 8px;
+    grid-row: 2;
+    grid-column: 1/4;
+    text-align: center;
+}
+
+.Subtitle a {
+    color: inherit;
+}
+
+@media only screen and (max-width: 1024px) {
+    .Subtitle {
+        font-size: 15pt;
+        line-height: 8pt;
+        padding: 4px 0;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .Subtitle {
+        font-size: 14pt;
+        line-height: 28pt;
+        padding: 2px 0;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .Subtitle {
+        font-size: 9pt;
+        line-height: 4pt;
+        padding: 1px 0;
+    }
+}
+
+.ImageBorder {
+    border: 1px solid #000000;
+}
+
+.ContentContainer {
+    grid-column: 2;
+    color: black;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    display: block;
+    padding: 1em;
+    width: 100%;
+    margin: 1em auto 1em auto;
+    border-radius: 4px;
+    background: white;
+}
+
+@media (prefers-color-scheme: dark) {
+    .ContentContainer {
+        color: white;
+        box-shadow: 0 3px 6px rgba(255, 255, 255, 0.16), 0 3px 6px rgba(255, 255, 255, 0.23);
+        background: #1a1a1a;
+    }
+}
+
+header.ContentContainer {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 156px 1fr;
+    margin-top: 28px;
+}
+
+ul.ContentContainer {
+    margin: 0 auto 0 auto;
+    text-align: center;
+}
+
+.BottomFiller {
+    height: 24px;
+}
+
+@media only screen and (max-width: 768px) {
+    .ContentContainer {
+        text-align: justify;
+    }
+    header.ContentContainer {
+        grid-template-columns: 1fr 92px 1fr;
+    }
+    footer.ContentContainer {
+        text-align: center;
+    }
+}
+
+body .ContentContainer:last-child {
+    grid-row: 12;
+}
+
+footer {
+    display: block;
+    padding: 1em;
+    width: 100%;
+    margin: 1em auto 1em auto;
+    border-radius: 4px;
+    background: white;
+    grid-column: 2;
+    color: black;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+@media (prefers-color-scheme: dark) {
+    footer {
+        background: black;
+        color: white;
+        box-shadow: 0 3px 6px rgba(255, 255, 255, 0.16), 0 3px 6px rgba(255, 255, 255, 0.23);
+    }
+}
+
+footer p {
+    color: inherit;
+}
+
+.timeframeGrid {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-template-columns: max-content 1fr;
+}
+
+.timeframeGrid > span:nth-child(2n) {
+    text-align: right;
+}
+
+.timeframeGrid > span:nth-child(2n + 1) {
+    text-align: justify;
+    padding-left: 4px;
+}
+
+.timeframeGrid h3 {
+    grid-row: 1;
+    grid-column: 1/3;
+    margin-top: 8px;
+}
+
+.menu-bar {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.menu-bar li {
+    display: inline-block;
+}
+
+.menu-bar li:before {
+    content: '  ';
+    font-size: 14px;
+    padding-left: 5px;
+}
+
+.menu-bar li:after {
+    content: '  ';
+    font-size: 14px;
+    padding-right: 5px;
+}
+
+.menu-bar-emoji li::before {
+    content:"🌸"
+}
+
+.menu-bar-emoji li::after {
+    content:"🐝"
+}
+
+@media only screen and (max-width: 768px) {
+    .menu-bar li:before {
+        font-size: 12px;
+        padding-left: 1px;
+    }
+    .menu-bar li:after {
+        font-size: 12px;
+        padding-right: 1px;
+    }
+}
+
+#banner {
+    position: absolute;
+    top: 0px;
+    width: calc(100% - 94px);
+    height: 100px;
+    z-index: -1;
+    border-radius: 25px 0px 0px 25px;
+    background: url(/images/mogai/lgbt-banner-background.png);
+    border: 2px solid black;
+    margin-left: 82px;
+}
+
+@media (prefers-color-scheme: dark) {
+    #banner {
+        border: 2px solid white;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Quicksand !important;
+}
+
+h2 {
+    font-size: 31px;
+}
+
+.outer {
+    font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif !important;
+}
+
+#forkme_banner {
+    display: block;
+    position: absolute;
+    overflow-y: hidden;
+    top: 0;
+    right: 10px;
+    z-index: 10;
+    font-weight: 700;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    color: #fff;
+    background: #c6538c;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all ease-in-out 0.2s;
+    width: 12em;
+    max-height: 2.5rem;
+}
+
+#forkme_banner:hover {
+    max-height: 8rem;
+}
+
+#forkme_banner > p {
+    padding: 0.5rem 2rem 0.5rem 0.5rem;
+    margin-bottom: 0;
+}
+
+#forkme_banner > p a {
+    text-decoration: underline;
+}
+
+#forkme_banner > a {
+    padding: 0.5rem 2rem 0.5rem 0.5rem;
+    background: #c6538c;
+    display: block;
+}
+
+#forkme_banner a {
+    color: #fff;
+}
+
+#header_wrap {
+    background: #212121;
+    background: -moz-linear-gradient(top, #383838, #212121);
+    background: -webkit-linear-gradient(top, #383838, #212121);
+    background: -ms-linear-gradient(top, #383838, #212121);
+    background: -o-linear-gradient(top, #383838, #212121);
+    background: linear-gradient(to top, #383838, #212121);
+}
+
+img.emoji {
+    border: none;
+    box-shadow: none;
+    padding: 0.1em;
+    margin: 0;
+}
+
+td > img.emoji {
+    vertical-align: bottom;
+}
+
+section table {
+    width: 100%;
+}
+
+section table tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+    section table tr:nth-child(odd) {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+}
+
+a.cta {
+    border-radius: 1000px;
+    padding: 0.5em 0.75em;
+    box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.23);
+    border: 1px solid #c6538c;
+    background: linear-gradient(to right, #e07aa7, #b04c7b);
+    margin: 0.5em 0 0;
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+}
+
+a.cta:hover, a.cta:visited {
+    color: #fff;
+    text-decoration: none;
+}
+
+a.cta:hover {
+    filter: brightness(0.8);
+}
