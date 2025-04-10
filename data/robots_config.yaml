@@ -1,0 +1,13 @@
+auto_include_generated_html: true
+crawl_delay: 20
+sitemap: /sitemap.xml
+
+user_agents:
+  - user_agents: ["Googlebot", "Bingbot"]
+    crawl_delay: 50
+
+  - user_agents: ["Slurp", "DuckDuckBot"]
+    crawl_delay: 30
+
+  - user_agents: ["*"]
+    crawl_delay: 10

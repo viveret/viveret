@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
+  <loc>http://localhost:8000/index.html</loc>
+  <lastmod>2025-04-04T22:17:24.734035746+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url><url>
+  <loc>http://localhost:8000/projects.html</loc>
+  <lastmod>2025-04-04T22:17:24.735058863+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url><url>
+  <loc>http://localhost:8000/credits.html</loc>
+  <lastmod>2025-04-04T23:32:32.894762206+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url><url>
+  <loc>http://localhost:8000/stackoverflow.html</loc>
+  <lastmod>2025-04-01T23:25:10.898543872+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url><url>
+  <loc>http://localhost:8000/mckinstry.html</loc>
+  <lastmod>2025-04-01T23:25:10.897120269+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url><url>
+  <loc>http://localhost:8000/proficiencies.html</loc>
+  <lastmod>2025-04-04T22:17:24.734833081+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url><url>
+  <loc>http://localhost:8000/education.html</loc>
+  <lastmod>2025-04-01T23:25:10.897120269+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url><url>
+  <loc>http://localhost:8000/README.html</loc>
+  <lastmod>2025-04-04T22:17:24.726271317+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url></urlset>

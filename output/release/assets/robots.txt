@@ -1,0 +1,43 @@
+Sitemap: /sitemap.xml
+
+User-agent: Googlebot
+User-agent: Bingbot
+Crawl-delay: 50
+# Auto-included generated files
+Allow: /index.html
+Allow: /projects.html
+Allow: /credits.html
+Allow: /stackoverflow.html
+Allow: /mckinstry.html
+Allow: /proficiencies.html
+Allow: /education.html
+Allow: /README.html
+
+
+User-agent: Slurp
+User-agent: DuckDuckBot
+Crawl-delay: 30
+# Auto-included generated files
+Allow: /index.html
+Allow: /projects.html
+Allow: /credits.html
+Allow: /stackoverflow.html
+Allow: /mckinstry.html
+Allow: /proficiencies.html
+Allow: /education.html
+Allow: /README.html
+
+
+User-agent: *
+Crawl-delay: 10
+# Auto-included generated files
+Allow: /index.html
+Allow: /projects.html
+Allow: /credits.html
+Allow: /stackoverflow.html
+Allow: /mckinstry.html
+Allow: /proficiencies.html
+Allow: /education.html
+Allow: /README.html
+
+

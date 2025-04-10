@@ -2,3 +2,4 @@ input_dir: ./
 output_dir: ./output/{{variant}}
 watch: false
 variants: ["local", "release"]
+generate_robots_txt: true
