@@ -44,7 +44,7 @@ Last Updated: 2nd of April, 2025
 
 ## Technologies ([Details](proficiencies.md))
 ### Languages
-C / C++, C#, Java, Assembly 80x86, HTML / CSS, PHP, SQL, Lua, VB.NET, Java / Type Script, Python
+Rust, C#, C / C++, Java / Kotlin, Assembly 80x86, HTML / CSS, PHP, SQL, Lua, VB.NET, Java / Type Script, Python
 ### Operating Systems / Platforms
 Linux, Android, Raspberry Pi, Microsoft Windows 2000/XP/Vista/7/8/10/Server
 ### IDEs / Editors
