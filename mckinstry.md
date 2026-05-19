@@ -11,7 +11,7 @@ I get asked a lot about the structure and dynamic of the team I was on.
 - I planned out a project with stretch goals so that we could go at a pace they were comfortable with.
 - They had to return to university after a few months, making this the only time there was another dev.
 
-## Many Roles: Product Co-Owner / Founder
+## Many Roles: Internal Software Product Co-Owner / Creator
 
 - Project planning, documentation, management
 - UX/UI design

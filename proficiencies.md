@@ -28,20 +28,21 @@ title: My Skills
 | Theoretical Physics | ⭐ |
 | Chemistry | ⭐ |
 | Coffee & Espresso | Where do I even begin? |
-| Cooking | ⭐⭐ |
+| Cooking | ⭐⭐⭐ |
 | Relaxing | ⭐⭐⭐⭐⭐ |
 
 ## Languages
 
 | Name                    | Rank out of 5 stars |
 | ----------------------- | ------------------- |
-| C                       | ⭐⭐⭐ |
-| C++                     | ⭐⭐⭐ |
+| Rust                    | ⭐⭐⭐⭐ |
+| C                       | ⭐⭐⭐⭐ |
+| C++                     | ⭐⭐⭐⭐ |
 | C#                      | ⭐⭐⭐⭐ |
 | Java                    | ⭐⭐⭐⭐ |
 | Kotlin                  | ⭐⭐⭐ |
 | Assembly (80x86)        | ⭐⭐ |
-| HTML / CSS              | ⭐⭐⭐ |
+| HTML / CSS              | ⭐⭐⭐⭐ |
 | PHP                     | ⭐ |
 | SQL                     | ⭐⭐⭐ |
 | Lua                     | ⭐⭐⭐ |
@@ -49,7 +50,6 @@ title: My Skills
 | JavaScript / TypeScript | ⭐⭐⭐ |
 | Python                  | ⭐ |
 | Go                      | - |
-| Rust                    | - |
 
 ## Operating Systems / Platforms
 
