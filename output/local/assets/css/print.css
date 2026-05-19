@@ -1,0 +1,13 @@
+
+.noprint {
+    text-shadow: red 0px 0px 1px, orange 0px 0px 2px, yellow 0px 0px 3px, green 0px 0px 4px, cyan 0px 0px 5px, blue 0px 0px 6px, purple 0px 0px 7px;
+}
+
+@media print and (color) {
+    .noprint {
+        display: none !important;
+    }
+    header, #header-links {
+        display: none !important;
+    }
+}

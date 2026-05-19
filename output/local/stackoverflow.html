@@ -5,33 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
     <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8000/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" media="print" href="http://localhost:8000/assets/css/print.css">
     
     <meta property="title" content="stackoverflow - Viveret Steele - Senior Full-Stack Software Developer" />
     <meta property="description" content="Viveret Steele's website, resume, portfolio" />
     <meta property="og:title" content="stackoverflow - Viveret Steele - Senior Full-Stack Software Developer" />
-    <meta property="og:type" content="{{ page.type }}" />
-    <meta property="og:url" content="{{ page.url }}" />
+    <meta property="og:type" content="{{ page.type | default: 'website' }}" />
+    
+    
     <meta property="og:image" content="{{ site.image }}" />
 
     <title>stackoverflow - Viveret Steele - Senior Full-Stack Software Developer</title>
 
     <link rel="icon" type="image/png" href="http://localhost:8000/assets/favicon.png">
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="http://localhost:8000/sitemap.xml">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+    <link href="http://localhost:8000/assets/fontawesome-free-7.2.0-web/css/fontawesome.css" rel="stylesheet">
+    <link href="http://localhost:8000/assets/fontawesome-free-7.2.0-web/css/brands.css" rel="stylesheet" />
+    <link href="http://localhost:8000/assets/fontawesome-free-7.2.0-web/css/solid.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="content-bg"></div>
+    <div id="content-bg" class="noprint"></div>
     <div id="content">
       <header class="ContentContainer">
         <div id="forkme_banner">
           <a href="https://github.com/viveret/viveret">View on GitHub</a>
-          <p>Revision 0575baf</p>
-          <p>(last modified: 2026-05-18 20:16:39)</p>
         </div>
 
         <div class="myPicture">
@@ -45,27 +43,23 @@
         <a href="http://localhost:8000/" class="Title TitleRight"><span>s</span><span>t</span><span>e</span><span>e</span><span>l</span><span>e</span></a>
         <div class="Subtitle"><a href="http://localhost:8000/software.html" title="My Software Engineering Career">software engineer</a>, <a href="http://localhost:8000/freelance.html" title="Tutoring, Mentoring, Consulting, and Freelancing">freelancer</a>, <a href="http://localhost:8000/artist.html" title="I'm also an artist">artist</a> in the <a href="https://en.wikipedia.org/wiki/Seattle" target="_blank">🍎 Seattle Area 🌧️</a></div>
       </header>
-      <div class="ContentContainer">
+      <div class="ContentContainer" id="header-links">
         <ul class="menu-bar">
           <li><a title="My Resume" href="http://localhost:8000/README.html"><i class="far fa-2x fa-file-alt"></i></a></li>
           <li><a title="E-Mail Me!" href="mailto:viveret.amant.official@gmail.com"><i class="far fa-2x fa-envelope"></i></a></li>
-          <li><a title="My LinkedIn" href="https://www.linkedin.com/in/viveret/"><i class="fab fa-2x fa-linkedin-in"></i></a></li>
-          <li><a title="My BlueSky" href="https://bsky.app/profile/viverets.bsky.social"><i class="fab fa-2x fa-bluesky"></i></a></li>
-          <li><a title="My Mastodon" href="https://lgbtqia.space/@viveret"><i class="fab fa-2x fa-mastodon"></i></a></li>
-          <li><a title="My GitHub" href="https://github.com/viveret"><i class="fab fa-2x fa-github"></i></a></li>
+          <li><a title="My LinkedIn" href="https://www.linkedin.com/in/viveret/" target="_blank"><i class="fab fa-2x fa-linkedin-in"></i></a></li>
+          <li><a title="My BlueSky" href="https://bsky.app/profile/viverets.bsky.social" target="_blank"><i class="fab fa-2x fa-bluesky"></i></a></li>
+          <li><a title="My Mastodon" href="https://lgbtqia.space/@viveret" target="_blank"><i class="fab fa-2x fa-mastodon"></i></a></li>
+          <li><a title="My GitHub" href="https://github.com/viveret" target="_blank"><i class="fab fa-2x fa-github"></i></a></li>
           <li><a title="LGBTQ Lingo" href="https://viveret.github.io/lgbt-lingo/" target="_blank"><i class="fas fa-2x fa-book"></i></a></li>
         </ul>
-        <ul class="menu-bar menu-bar-emoji mt-1">
+        <ul class="menu-bar menu-bar-emoji mt-1 Quicksand bold">
           <li><a href="http://localhost:8000/README.html">My Resume</a></li>
           <li><a href="http://localhost:8000/projects.html">My Projects</a></li>
-<!--          <li><a href="blog.html">Blog</a></li>
-          <li><a href="tags.html">Pages by Tag</a></li>
-          <li><a href="categories.html">Pages by Category</a></li>
--->
           <li><a href="http://localhost:8000/education.html">My Education</a></li>
           <li><a href="http://localhost:8000/proficiencies.html">My Skills</a></li>
         </ul>
-        <ul class="menu-bar menu-bar-emoji mt-1">
+        <ul class="menu-bar menu-bar-emoji mt-1 Quicksand bold">
           <li><a href="http://localhost:8000/mckinstry.html">My Work at McKinstry</a></li>
           <li><a href="http://localhost:8000/stackoverflow.html">My Work at StackOverflow</a></li>
         </ul>
@@ -84,27 +78,19 @@
   </section>
 </div>
 
-      <footer class="ContentContainer">
+      <footer class="ContentContainer noprint">
         <ul class="menu-bar menu-bar-emoji">
           <li><a href="https://github.com/viveret">My GitHub</a></li>
           <li><a href="https://www.linkedin.com/in/viveret/">My LinkedIn</a></li>
           <li><a href="mailto:viveret.amant.official@gmail.com">viveret.amant.official@gmail.com</a></li>
           <li><a href="http://localhost:8000/credits.html">Credits</a></li>
         </ul>
-        <center><small><a target="_blank" href="https://github.com/viveret/viveret/commit/0575baf">#0575baf</a>, generated Mon May 18 20:16:39 2026, modified Tue Apr  1 16:25:10 2025</small></center>
+        <center><small><a target="_blank" href="https://github.com/viveret/viveret/commit/6f39c04">#6f39c04</a>, generated Tue May 19 08:36:27 2026, modified Tue Apr  1 16:25:10 2025</small></center>
       </footer>
       <div class="BottomFiller"></div>
     </div>
 
     
-      <script
-        src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous"></script>
-      <script 
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
     
 </body>
 </html>

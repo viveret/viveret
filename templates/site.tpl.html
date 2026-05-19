@@ -7,33 +7,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ relative-url /assets/css/style.css }}">
+    <link rel="stylesheet" type="text/css" media="print" href="{{ relative-url /assets/css/print.css }}">
     
     <meta property="title" content="{{ if title }}{{ title }} - {{ site.title }}{{ else }}{{ site.title }}{{ endif }}" />
     <meta property="description" content="{{ site.description }}" />
     <meta property="og:title" content="{{ if title }}{{ title }} - {{ site.title }}{{ else }}{{ site.title }}{{ endif }}" />
-    <meta property="og:type" content="{{ page.type }}" />
+    <meta property="og:type" content="{{ page.type | default: 'website' }}" />
+    {{ if page.description }}
+    <meta property="og:description" content="{{ page.description }}" />
+    {{ endif }}
+    {{ if page.url }}
     <meta property="og:url" content="{{ page.url }}" />
+    {{ endif }}
     <meta property="og:image" content="{{ if page.image }}{{ page.image }}{{ else }}{{ site.image }}{{ endif }}" />
 
     <title>{{ if title }}{{ title }} - {{ site.title }}{{ else }}{{ site.title }}{{ endif }}</title>
 
     <link rel="icon" type="image/png" href="{{ relative-url /assets/favicon.png }}">
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ relative-url /sitemap.xml }}">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+    <link href="{{ relative-url /assets/fontawesome-free-7.2.0-web/css/fontawesome.css }}" rel="stylesheet">
+    <link href="{{ relative-url /assets/fontawesome-free-7.2.0-web/css/brands.css }}" rel="stylesheet" />
+    <link href="{{ relative-url /assets/fontawesome-free-7.2.0-web/css/solid.css }}" rel="stylesheet" />
 </head>
 <body>
-    <div id="content-bg"></div>
+    <div id="content-bg" class="noprint"></div>
     <div id="content">
       <header class="ContentContainer">
         <div id="forkme_banner">
           <a href="{{ site.github.repository_url }}">View on GitHub</a>
-          <p>Revision {{ build_revision }}</p>
-          <p>(last modified: {{ datetime }})</p>
         </div>
 
         <div class="myPicture">
@@ -47,27 +49,23 @@
         <a href="{{ site.url }}" class="Title TitleRight"><span>s</span><span>t</span><span>e</span><span>e</span><span>l</span><span>e</span></a>
         <div class="Subtitle"><a href="{{ relative-url software.html }}" title="My Software Engineering Career">software engineer</a>, <a href="{{ relative-url freelance.html }}" title="Tutoring, Mentoring, Consulting, and Freelancing">freelancer</a>, <a href="{{ relative-url artist.html }}" title="I'm also an artist">artist</a> in the <a href="https://en.wikipedia.org/wiki/Seattle" target="_blank">🍎 Seattle Area 🌧️</a></div>
       </header>
-      <div class="ContentContainer">
+      <div class="ContentContainer" id="header-links">
         <ul class="menu-bar">
           <li><a title="My Resume" href="{{ relative-url /README.html }}"><i class="far fa-2x fa-file-alt"></i></a></li>
           <li><a title="E-Mail Me!" href="mailto:{{ site.owner_email }}"><i class="far fa-2x fa-envelope"></i></a></li>
-          <li><a title="My LinkedIn" href="{{ site.linkedin_url }}"><i class="fab fa-2x fa-linkedin-in"></i></a></li>
-          <li><a title="My BlueSky" href="{{ site.bluesky_url }}"><i class="fab fa-2x fa-bluesky"></i></a></li>
-          <li><a title="My Mastodon" href="{{ site.mastodon_url }}"><i class="fab fa-2x fa-mastodon"></i></a></li>
-          <li><a title="My GitHub" href="{{ site.github.owner_url }}"><i class="fab fa-2x fa-github"></i></a></li>
+          <li><a title="My LinkedIn" href="{{ site.linkedin_url }}" target="_blank"><i class="fab fa-2x fa-linkedin-in"></i></a></li>
+          <li><a title="My BlueSky" href="{{ site.bluesky_url }}" target="_blank"><i class="fab fa-2x fa-bluesky"></i></a></li>
+          <li><a title="My Mastodon" href="{{ site.mastodon_url }}" target="_blank"><i class="fab fa-2x fa-mastodon"></i></a></li>
+          <li><a title="My GitHub" href="{{ site.github.owner_url }}" target="_blank"><i class="fab fa-2x fa-github"></i></a></li>
           <li><a title="LGBTQ Lingo" href="{{ lgbtlingo_url }}" target="_blank"><i class="fas fa-2x fa-book"></i></a></li>
         </ul>
-        <ul class="menu-bar menu-bar-emoji mt-1">
+        <ul class="menu-bar menu-bar-emoji mt-1 Quicksand bold">
           <li><a href="{{ relative-url README.html }}">My Resume</a></li>
           <li><a href="{{ relative-url projects.html }}">My Projects</a></li>
-<!--          <li><a href="blog.html">Blog</a></li>
-          <li><a href="tags.html">Pages by Tag</a></li>
-          <li><a href="categories.html">Pages by Category</a></li>
--->
           <li><a href="{{ relative-url education.html }}">My Education</a></li>
           <li><a href="{{ relative-url proficiencies.html }}">My Skills</a></li>
         </ul>
-        <ul class="menu-bar menu-bar-emoji mt-1">
+        <ul class="menu-bar menu-bar-emoji mt-1 Quicksand bold">
           <li><a href="{{ relative-url mckinstry.html }}">My Work at McKinstry</a></li>
           <li><a href="{{ relative-url stackoverflow.html }}">My Work at StackOverflow</a></li>
         </ul>
@@ -75,7 +73,7 @@
 
       {{ content }}
 
-      <footer class="ContentContainer">
+      <footer class="ContentContainer noprint">
         <ul class="menu-bar menu-bar-emoji">
           <li><a href="{{ site.github.owner_url }}">My GitHub</a></li>
           <li><a href="{{ site.linkedin_url }}">My LinkedIn</a></li>
@@ -88,20 +86,7 @@
     </div>
 
     {{ if site.debug }}
-      <script
-        src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     {{ else }}
-      <script
-        src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous"></script>
-      <script 
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
     {{ endif }}
 </body>
 </html>

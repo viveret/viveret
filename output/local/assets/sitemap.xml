@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
   <loc>http://localhost:8000/index.html</loc>
-  <lastmod>2025-04-04T22:17:24.734035746+00:00</lastmod>
+  <lastmod>2026-05-19T13:52:28.790901571+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
   <loc>http://localhost:8000/projects.html</loc>
   <lastmod>2025-04-04T22:17:24.735058863+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
+  <loc>http://localhost:8000/software.html</loc>
+  <lastmod>2026-05-19T14:24:12.413023954+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url><url>
   <loc>http://localhost:8000/credits.html</loc>
-  <lastmod>2025-04-04T23:32:32.894762206+00:00</lastmod>
+  <lastmod>2026-05-19T13:44:51.525473636+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
   <loc>http://localhost:8000/stackoverflow.html</loc>
   <lastmod>2025-04-01T23:25:10.898543872+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url><url>
+  <loc>http://localhost:8000/games.html</loc>
+  <lastmod>2026-05-19T13:51:59.868594856+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url><url>
+  <loc>http://localhost:8000/lore.html</loc>
+  <lastmod>2026-05-19T13:51:37.422850512+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
   <loc>http://localhost:8000/mckinstry.html</loc>
@@ -28,6 +40,14 @@
   <changefreq>monthly</changefreq>
 </url><url>
   <loc>http://localhost:8000/README.html</loc>
-  <lastmod>2026-05-11T18:28:48.036210922+00:00</lastmod>
+  <lastmod>2026-05-19T15:00:28.264859861+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url><url>
+  <loc>http://localhost:8000/artist.html</loc>
+  <lastmod>2026-05-19T14:06:32.992487717+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url><url>
+  <loc>http://localhost:8000/freelance.html</loc>
+  <lastmod>2026-05-19T14:22:30.694205500+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url></urlset>

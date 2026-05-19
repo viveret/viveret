@@ -1,15 +1,11 @@
+||||
+|-------------------------|-------------------------|-------------------------|
+|📫 [viveret.amant.official@gmail.com](mailto:viveret.amant.official@gmail.com)|🔗 [@viveret@lgbtqia.space](https://lgbtqia.space/@viveret) | 💼 [Linkedin/viveret](www.linkedin.com/in/viveret)|
+
 ## Senior Full-Stack Software Developer
-Pronouns: She/her/they/them
-
-Mostly Rust/C#/C++/Java
-
-Last Updated: 2nd of April, 2025
-
-📫 [viveret.amant.official@gmail.com](mailto:viveret.amant.official@gmail.com)
-
-🔗 [https://lgbtqia.space/@viveret](https://lgbtqia.space/@viveret)
-
-💼 [www.linkedin.com/in/viveret](https://www.linkedin.com/in/viveret)
+||||
+|-------------------------|-------------------------|-------------------------|
+|- Pronouns: She/her/they/them -|- Mostly Rust/C#/C++/Java -|- Last Updated: 2nd of April, 2025 -|
 
 ## Work Experience
 ### Full-Stack Software Developer at [Stack Exchange](https://stackexchange.com/) / [Stack Overflow](https://stackoverflow.com/) (July 2019 - August 2024) ([Details](stackoverflow.md))
@@ -67,9 +63,7 @@ Bachelor’s in Computer Science. Completed:
 - Java Practicum - small applications, C System Programming, Machine Organization, Computer Architecture, Artificial Intelligence & Knowledge Acquisition (machine learning)
 
 ### Green River Community College (Sept. 2013 to June 2015)
-Associate's in Computer Science. Completed:
-- Calculus I - IV, Statistics, C++, and Java I & II
-- Chemistry with Lab, Engineering Physics with Lab I - III
+Associate's in Computer Science. Notable courses: Calculus I - IV, Statistics, C++, and Java I & II
 
 
 <!--
