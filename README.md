@@ -1,6 +1,6 @@
-||||
-|-------------------------|-------------------------|-------------------------|
-|📫 [viveret.amant.official@gmail.com](mailto:viveret.amant.official@gmail.com)|🔗 [@viveret@lgbtqia.space](https://lgbtqia.space/@viveret) | 💼 [Linkedin/viveret](www.linkedin.com/in/viveret)|
+|||||
+|-------------------------|-------------------------|-------------------------|-------------------------|
+|📫 [viveret.amant.official@gmail.com](mailto:viveret.amant.official@gmail.com)|🔗 [@viveret@lgbtqia.space](https://lgbtqia.space/@viveret) |🦋 [@viverets](https://bsky.app/profile/viverets.bsky.social) | 💼 [Linkedin/viveret](www.linkedin.com/in/viveret)|
 
 ## Senior Full-Stack Software Developer
 ||||

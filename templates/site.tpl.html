@@ -38,15 +38,12 @@
           <a href="{{ site.github.repository_url }}">View on GitHub</a>
         </div>
 
-        <div class="myPicture">
-          <a class="crop" href="{{ site.url }}"><img src="{{ relative-url /assets/images/photos/face.png }}"></a>
-          <!--
-            Could do the catchphrases again with JS / json and have the blurb animated            
-            <div>"I'm Viveret and @ViewData["CurrentPhrase"]"</div>
-          -->
+        <div class="myPicture" data-faces="{{ site.faces }}">
+          <a class="crop" href="{{ site.url }}"><img id="my-picture-img" src="{{ relative-url /assets/images/photos/face.png }}"></a>
         </div>
         <a href="{{ site.url }}" class="Title TitleLeft"><span>v</span><span>i</span><span>v</span><span>e</span><span>r</span><span>e</span><span>t</span></a>
         <a href="{{ site.url }}" class="Title TitleRight"><span>s</span><span>t</span><span>e</span><span>e</span><span>l</span><span>e</span></a>
+        <div class="PictureQuote" data-catchphrases="{{ site.catchphrases }}"></div>
         <div class="Subtitle"><a href="{{ relative-url software.html }}" title="My Software Engineering Career">software engineer</a>, <a href="{{ relative-url freelance.html }}" title="Tutoring, Mentoring, Consulting, and Freelancing">freelancer</a>, <a href="{{ relative-url artist.html }}" title="I'm also an artist">artist</a> in the <a href="https://en.wikipedia.org/wiki/Seattle" target="_blank">🍎 Seattle Area 🌧️</a></div>
       </header>
       <div class="ContentContainer" id="header-links">
@@ -86,7 +83,9 @@
     </div>
 
     {{ if site.debug }}
+    <script src="{{ relative-url /assets/js/site.js }}"></script>
     {{ else }}
+    <script src="{{ relative-url /assets/js/site.min.js }}"></script>
     {{ endif }}
 </body>
 </html>
