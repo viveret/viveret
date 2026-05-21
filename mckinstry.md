@@ -16,7 +16,7 @@ I get asked a lot about the structure and dynamic of the team I was on.
 - Project planning, documentation, management
 - UX/UI design
 - Presentations, workshops, and classes
-- Essentially, as I saw problems / opportunities arrise, I prioritized & acted on them.
+- Essentially, as I saw problems / opportunities arise, I prioritized & acted on them.
 - After the project grew beyond engineers and reached other branches of the company, the branding & design group became interested and involved in the main design of the site.
 
 ## Summer Intern: What Happened & Lessons Learned

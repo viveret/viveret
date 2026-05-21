@@ -182,6 +182,7 @@ figcaption {
 .myPicture {
     grid-row: 1;
     width: 100%;
+    height: 128px;
     text-align: center;
 }
 
@@ -201,17 +202,11 @@ figcaption {
     }
 }
 
-.myPicture div:last-child {
-    margin-top: -16px;
-    font-family: Cookie;
-    font-weight: 100;
-    font-size: 30px;
-}
-
 .PictureQuote {
     font-family: Cookie;
     font-weight: 100;
     font-size: 30px;
+    white-space-collapse: preserve;
 }
 
 @media only screen and (max-width: 768px) {
