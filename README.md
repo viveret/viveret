@@ -1,11 +1,11 @@
 |||||
 |-------------------------|-------------------------|-------------------------|-------------------------|
 |📫 [viveret.amant.official@gmail.com](mailto:viveret.amant.official@gmail.com)|🔗 [@viveret@lgbtqia.space](https://lgbtqia.space/@viveret) |🦋 [@viverets](https://bsky.app/profile/viverets.bsky.social) | 💼 [Linkedin/viveret](www.linkedin.com/in/viveret)|
-
+m
 ## Senior Full-Stack Software Developer
 ||||
 |-------------------------|-------------------------|-------------------------|
-|- Pronouns: She/her/they/them -|- Mostly Rust/C#/C++/Java -|- Last Updated: 2nd of April, 2025 -|
+|- Pronouns: She/her/they/them/it -|- Mostly Rust/C#/C++/Java -|- Last Updated: 2nd of April, 2025 -|
 
 ## Work Experience
 ### Full-Stack Software Developer at [Stack Exchange](https://stackexchange.com/) / [Stack Overflow](https://stackoverflow.com/) (July 2019 - August 2024) ([Details](stackoverflow.md))

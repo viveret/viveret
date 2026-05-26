@@ -9,7 +9,7 @@ Feel free to see how it changes over time — some changes were implemented by m
 
 I also contributed to various repositories within the organization.
 
-### What were Stack Overflow Jobs / Careers / Developer Stories?
+### What were Stack Overflow Jobs, Careers, and Developer Stories?
 
 Stack Overflow Jobs and Developer Stories were two major career-focused features on Stack Overflow. Launched in 2016, Developer Story was Stack Overflow's attempt to replace the traditional resume. It offered a dynamic timeline where developers could showcase:
 
@@ -19,7 +19,7 @@ Stack Overflow Jobs and Developer Stories were two major career-focused features
 
 The goal was to focus on **what you built or worked on** rather than just where you worked or studied. However, the feature was discontinued in 2022 because Stack Overflow decided to move away from direct hiring products and focus on "employer branding" (advertising). Jobs later returned in a different partnership form before ultimately shutting down again in 2026.
 
-### How Dev Stories / Jobs / Company Pages Worked
+### How Dev Stories, Jobs, and Company Pages Worked
 - Regular Stack Overflow users have an account with their question browsing, asking, and answering history
 - A regular user can go to their profile and add different Dev Story items (achievements, certifications, proficiencies)
 - A company has a company team and company page on Stack Overflow
@@ -29,7 +29,7 @@ The goal was to focus on **what you built or worked on** rather than just where 
 - Job ads are fetched via bidding and displayed in an iframe for security
 
 
-### History of Stack Overflow Jobs / Company Pages?
+### History of Stack Overflow Jobs and Company Pages
 
 Stack Overflow Jobs went through five distinct phases:
 
@@ -78,7 +78,7 @@ timeline
 - Implemented a Elastic-Search backed search for candidate-employer messages with sentiment analysis to detect negative messages
 - Investigated platform abuse and attempted breaches, user reports
 
-### EdTech Learning Course / Sponsored Content Ads
+### EdTech Learning Course aka Sponsored Content Ads
 Around 2019–2020, Stack Overflow tested **native ad placements** for online learning platforms and coding boot-camps. These ads targeted users based on their **tag preferences** and **question activity** (e.g., a developer following the `python` tag or looking at a python question might see a Coursera Python course ad). Several leading EdTech companies were part of early tests and pilot program.
 
 #### How It Worked
@@ -112,16 +112,16 @@ Stack Overflow for Teams is a private, enterprise-focused knowledge management a
 
 ### How does Stack Overflow for Teams work?
 
-#### **1. Private Q&A Engine**  
+#### 1. Private Q&A Engine
 The product provides a private, searchable repository for organizational knowledge. It uses the same familiar Stack Overflow interface (asking, answering, commenting) but behind a company's firewall. Users can vote on answers to surface the best solutions, just like on the public site.
 
-#### **2. Developer Workflow Integration**  
+#### 2. Developer Workflow Integration
 A key feature is deep integration with chat tools. The platform integrates with Slack and Microsoft Teams, allowing users to:
 - Search the knowledge base using commands (e.g., `/stack search`)
 - Ask new questions directly from chat
 - Receive notifications when answers are posted
 
-#### **3. Gamification & Reputation**  
+#### 3. Gamification & Reputation 
 Unlike generic wikis, it uses reputation points and badges to reward subject matter experts (SMEs) for answering questions. Features like "bounties" allow users or admins to award points to encourage answers to tough questions.
 
 
