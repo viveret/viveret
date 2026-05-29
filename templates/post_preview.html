@@ -11,7 +11,7 @@
         {% endif %}
         <p><i>{{ description }}</i></p>
 
-        <img src="{{ image }}" alt="{{ title }}" style="max-width: 25vw; height: auto;" />
+        <img src="{{ image | relative_url | safe }}" alt="{{ title }}" style="max-width: 25vw; height: auto;" />
 
         <article style="text-align: left;">{{ content | safe }}</article>
     </section>
