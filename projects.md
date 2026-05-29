@@ -1,6 +1,6 @@
 ---
 layout: list
 title: Projects
-list-header: Things I've implemented
+posts: projects/_posts
 ---
-{{ list_md projects/_posts }}
+These are the projects ive worked on, finished, and not finished.

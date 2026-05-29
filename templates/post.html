@@ -1,0 +1,23 @@
+{% extends "site.html" %}
+
+{% block content %}
+<div class="ContentContainer">
+    <section>
+        <h1>{{ title }}</h1>
+        
+        {{ date }} 
+
+        {{ tags }}
+        
+        {{ categories_html() }}
+
+        <p><i>{{ description }}</i></p>
+
+        {{ image }}
+
+        <hr />
+        
+        {{ content | safe }}
+    </section>
+</div>
+{% endblock content %}

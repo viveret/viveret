@@ -2,10 +2,11 @@
 date: 2021-04-13
 title: McKinstry - Project Spider Silk
 image: /assets/images/i-can-haz-cheezburger.jpg
+image_alt: "this is a test image alt"
 description: >
   More details about the projects I worked on at McKinstry
-tags: testtag
-category: projects
+tags: [ "testtag" ]
+categories: ["technical", "programming"]
 layout: post
 ---
 

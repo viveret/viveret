@@ -1,13 +1,15 @@
-site.title: Viveret Steele - Senior Full-Stack Software Developer
-site.description: Viveret Steele's website, resume, portfolio
-site.github.repository_url: https://github.com/viveret/viveret
-site.github.owner_url: https://github.com/viveret
-site.github.owner_name: Viveret Steele
-site.lang: en-US
-site.linkedin_url: https://www.linkedin.com/in/viveret/
-site.mastodon_url: https://lgbtqia.space/@viveret
-site.bluesky_url: https://bsky.app/profile/viverets.bsky.social
-site.owner_email: viveret.amant.official@gmail.com
+title: Viveret Steele - Senior Full-Stack Software Developer
+description: Viveret Steele's website, resume, portfolio
+github:
+  repository_url: https://github.com/viveret/viveret
+  owner_url: https://github.com/viveret
+  owner_name: Viveret Steele
+lang: en-US
+image: favorite.ico
+linkedin_url: https://www.linkedin.com/in/viveret/
+mastodon_url: https://lgbtqia.space/@viveret
+bluesky_url: https://bsky.app/profile/viverets.bsky.social
+owner_email: viveret.amant.official@gmail.com
 lgbtlingo_url: https://viveret.github.io/lgbt-lingo/
-site.catchphrases: "I love coding, I love helping others, I'm passionate about technology, I enjoy learning new things, I'm a creative thinker, I'm dedicated to my work, I have a strong work ethic, I'm always looking for ways to improve"
-site.faces: "20190707_144520~2.jpg;IMG_20230514_094305.jpg;IMG_20250125_134319__01.jpg;20190710_185300~2__01~2.jpg;IMG_20230924_113014.jpg;IMG_2164_255.png"
+catchphrases: "I love coding, I love helping others, I'm passionate about technology, I enjoy learning new things, I'm a creative thinker, I'm dedicated to my work, I have a strong work ethic, I'm always looking for ways to improve"
+faces: "20190707_144520~2.jpg;IMG_20230514_094305.jpg;IMG_20250125_134319__01.jpg;20190710_185300~2__01~2.jpg;IMG_20230924_113014.jpg;IMG_2164_255.png"

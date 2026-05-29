@@ -139,6 +139,8 @@ timeline
     2024 : Enterprise : self-hosting
 ```
 
+### Timeline: My Impact on Stack Overflow for Teams
+
 ```mermaid
 timeline
     title My Work on Stack Overflow for Teams

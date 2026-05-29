@@ -4,58 +4,58 @@ User-agent: Googlebot
 User-agent: Bingbot
 Crawl-delay: 50
 # Auto-included generated files
-Allow: /index.html
-Allow: /projects.html
-Allow: /software.html
-Allow: /credits.html
-Allow: /stackoverflow.html
-Allow: /games.html
-Allow: /lore.html
-Allow: /mckinstry.html
-Allow: /proficiencies.html
-Allow: /education.html
-Allow: /ai-experience.html
-Allow: /README.html
-Allow: /artist.html
-Allow: /freelance.html
+Allow: index.html
+Allow: projects.html
+Allow: software.html
+Allow: credits.html
+Allow: stackoverflow.html
+Allow: games.html
+Allow: lore.html
+Allow: mckinstry.html
+Allow: proficiencies.html
+Allow: education.html
+Allow: ai-experience.html
+Allow: README.html
+Allow: artist.html
+Allow: freelance.html
 
 
 User-agent: Slurp
 User-agent: DuckDuckBot
 Crawl-delay: 30
 # Auto-included generated files
-Allow: /index.html
-Allow: /projects.html
-Allow: /software.html
-Allow: /credits.html
-Allow: /stackoverflow.html
-Allow: /games.html
-Allow: /lore.html
-Allow: /mckinstry.html
-Allow: /proficiencies.html
-Allow: /education.html
-Allow: /ai-experience.html
-Allow: /README.html
-Allow: /artist.html
-Allow: /freelance.html
+Allow: index.html
+Allow: projects.html
+Allow: software.html
+Allow: credits.html
+Allow: stackoverflow.html
+Allow: games.html
+Allow: lore.html
+Allow: mckinstry.html
+Allow: proficiencies.html
+Allow: education.html
+Allow: ai-experience.html
+Allow: README.html
+Allow: artist.html
+Allow: freelance.html
 
 
 User-agent: *
 Crawl-delay: 10
 # Auto-included generated files
-Allow: /index.html
-Allow: /projects.html
-Allow: /software.html
-Allow: /credits.html
-Allow: /stackoverflow.html
-Allow: /games.html
-Allow: /lore.html
-Allow: /mckinstry.html
-Allow: /proficiencies.html
-Allow: /education.html
-Allow: /ai-experience.html
-Allow: /README.html
-Allow: /artist.html
-Allow: /freelance.html
+Allow: index.html
+Allow: projects.html
+Allow: software.html
+Allow: credits.html
+Allow: stackoverflow.html
+Allow: games.html
+Allow: lore.html
+Allow: mckinstry.html
+Allow: proficiencies.html
+Allow: education.html
+Allow: ai-experience.html
+Allow: README.html
+Allow: artist.html
+Allow: freelance.html
 
 

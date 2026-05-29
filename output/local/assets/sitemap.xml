@@ -1,57 +1,57 @@
-<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
-  <loc>http://localhost:8000/index.html</loc>
-  <lastmod>2026-05-19T13:52:28.790901571+00:00</lastmod>
+<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml"><url>
+  <loc>/index.html</loc>
+  <lastmod>2026-05-27T21:12:15.146959171+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/projects.html</loc>
-  <lastmod>2025-04-04T22:17:24.735058863+00:00</lastmod>
+  <loc>/projects.html</loc>
+  <lastmod>2026-05-29T03:31:03.282499333+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/software.html</loc>
-  <lastmod>2026-05-19T14:24:12.413023954+00:00</lastmod>
+  <loc>/software.html</loc>
+  <lastmod>2026-05-21T22:01:50.699895061+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/credits.html</loc>
+  <loc>/credits.html</loc>
   <lastmod>2026-05-19T13:44:51.525473636+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/stackoverflow.html</loc>
-  <lastmod>2026-05-21T15:14:47.512153853+00:00</lastmod>
+  <loc>/stackoverflow.html</loc>
+  <lastmod>2026-05-28T19:17:13.076923788+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/games.html</loc>
+  <loc>/games.html</loc>
   <lastmod>2026-05-19T13:51:59.868594856+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/lore.html</loc>
+  <loc>/lore.html</loc>
   <lastmod>2026-05-19T13:51:37.422850512+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/mckinstry.html</loc>
+  <loc>/mckinstry.html</loc>
   <lastmod>2026-05-21T15:06:13.606417053+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/proficiencies.html</loc>
-  <lastmod>2026-05-19T15:45:32.212281377+00:00</lastmod>
+  <loc>/proficiencies.html</loc>
+  <lastmod>2026-05-28T18:59:24.618752008+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/education.html</loc>
+  <loc>/education.html</loc>
   <lastmod>2025-04-01T23:25:10.897120269+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/ai-experience.html</loc>
+  <loc>/ai-experience.html</loc>
   <lastmod>2026-05-21T21:55:00.831795536+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/README.html</loc>
-  <lastmod>2026-05-19T15:49:05.224937823+00:00</lastmod>
+  <loc>/README.html</loc>
+  <lastmod>2026-05-28T17:48:04.693972338+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/artist.html</loc>
+  <loc>/artist.html</loc>
   <lastmod>2026-05-19T14:06:32.992487717+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url><url>
-  <loc>http://localhost:8000/freelance.html</loc>
+  <loc>/freelance.html</loc>
   <lastmod>2026-05-19T14:22:30.694205500+00:00</lastmod>
   <changefreq>monthly</changefreq>
 </url></urlset>

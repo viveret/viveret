@@ -1,9 +1,9 @@
----
-layout: site
----
+{% extends "site.html" %}
+
+{% block content %}
 <div id="main_content_wrap" class="ContentContainer outer">
   <section id="main_content" class="inner">
-    {{ list-header }}
+    {{ content | safe }}
   </section>
 </div>
-{{ content }}
+{% endblock content %}

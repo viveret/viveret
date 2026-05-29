@@ -1,0 +1,18 @@
+{% extends "site.html" %}
+{% block content %}
+<div id="main_content_wrap" class="ContentContainer outer">
+  <section id="main_content" class="inner">
+    <h1>{{ title }}</h1>
+    {{ content | safe }}
+    <ol>
+      {% for item in dir_md(path=posts) %}
+      <li><a href="#{{ item.front_matter.title | slugify }}">{{ item.front_matter.title }}</a></li>
+      {% endfor %}
+    </ol>
+  </section>
+</div>
+
+{% for item in list_md(path=posts, layout='post_preview') %}
+  {{ item | safe }}
+{% endfor %}
+{% endblock content %}

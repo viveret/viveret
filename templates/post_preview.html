@@ -1,0 +1,19 @@
+{% block content %}
+<div class="ContentContainer">
+    <section>
+        <h2 id="{{ title | slugify }}">{{ title }}</h2>
+        <p><b>Date:</b> {{ date }}</p>
+        <p><b>Tags:</b> {{ tags }}</p>
+        {%if categories %}
+        <p><b>Categories:</b> {{ categories }}</p>
+        {% elif category %}
+        <p><b>Categories:</b> {{ category }}</p>
+        {% endif %}
+        <p><i>{{ description }}</i></p>
+
+        <img src="{{ image }}" alt="{{ title }}" style="max-width: 25vw; height: auto;" />
+
+        <article style="text-align: left;">{{ content | safe }}</article>
+    </section>
+</div>
+{% endblock content %}

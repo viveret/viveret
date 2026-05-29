@@ -1,7 +1,7 @@
 ---
-title: My Skills
+title: My Skills and Proficiencies
 ---
-# Proficiencies (what I'm good at)
+# My Skills and Proficiencies
 - ⭐ = entry level
 - ⭐⭐ = junior level
 - ⭐⭐⭐ = mid level
