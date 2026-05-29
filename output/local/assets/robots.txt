@@ -12,6 +12,9 @@ Allow: stackoverflow.html
 Allow: games.html
 Allow: lore.html
 Allow: mckinstry.html
+Allow: projects/posts/2025-04-4-migrating-from-jekyll-to-rust.html
+Allow: projects/posts/2021-04-10-migrating-from-c-sharp-to-jekyll.html
+Allow: projects/posts/2021-04-10-mckinstry-project-spider-silk.html
 Allow: proficiencies.html
 Allow: education.html
 Allow: ai-experience.html
@@ -32,6 +35,9 @@ Allow: stackoverflow.html
 Allow: games.html
 Allow: lore.html
 Allow: mckinstry.html
+Allow: projects/posts/2025-04-4-migrating-from-jekyll-to-rust.html
+Allow: projects/posts/2021-04-10-migrating-from-c-sharp-to-jekyll.html
+Allow: projects/posts/2021-04-10-mckinstry-project-spider-silk.html
 Allow: proficiencies.html
 Allow: education.html
 Allow: ai-experience.html
@@ -51,6 +57,9 @@ Allow: stackoverflow.html
 Allow: games.html
 Allow: lore.html
 Allow: mckinstry.html
+Allow: projects/posts/2025-04-4-migrating-from-jekyll-to-rust.html
+Allow: projects/posts/2021-04-10-migrating-from-c-sharp-to-jekyll.html
+Allow: projects/posts/2021-04-10-mckinstry-project-spider-silk.html
 Allow: proficiencies.html
 Allow: education.html
 Allow: ai-experience.html

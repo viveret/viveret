@@ -1,6 +1,6 @@
 ---
 layout: list
 title: Projects
-posts: projects/_posts
+posts: projects/posts
 ---
-These are the projects ive worked on, finished, and not finished.
+These are the projects I have worked on, finished, and not finished.

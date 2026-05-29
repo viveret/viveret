@@ -3,21 +3,21 @@
 {% block content %}
 <div class="ContentContainer">
     <section>
-        <h1>{{ title }}</h1>
-        
-        {{ date }} 
-
-        {{ tags }}
-        
-        {{ categories_html() }}
-
+        <h2 id="{{ title | slugify }}">{{ title }}</h2>
+        <div class="post-header">
+            <div><b>Date:</b> {{ date }}</div>
+            <div><b>Tags:</b> {{ tags }}</div>
+            {%if categories %}
+            <div><b>Categories:</b> {{ categories }}</div>
+            {% elif category %}
+            <div><b>Categories:</b> {{ category }}</div>
+            {% endif %}
+        </div>
         <p><i>{{ description }}</i></p>
 
-        {{ image }}
+        <img src="{{ image | relative_url | safe }}" alt="{{ title }}" style="max-width: 25vw; height: auto;" />
 
-        <hr />
-        
-        {{ content | safe }}
+        <article style="text-align: left;">{{ content | safe }}</article>
     </section>
 </div>
 {% endblock content %}

@@ -623,3 +623,20 @@ a.cta:hover, a.cta:visited {
 a.cta:hover {
     filter: brightness(0.8);
 }
+
+
+.post-header {
+    display: inline-grid;
+    grid-gap: 2rem;
+    grid-auto-flow: column;
+    align-items: center;
+    text-align: center;
+}
+
+.post-header > div::before {
+    content:"🌸"
+}
+
+.post-header > div::after {
+    content:"🐝"
+}
