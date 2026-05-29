@@ -4,8 +4,8 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css' | relative_url }}">
-    <link rel="stylesheet" type="text/css" media="print" href="{{ '/assets/css/print.css' | relative_url }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css' | relative_url | safe }}">
+    <link rel="stylesheet" type="text/css" media="print" href="{{ '/assets/css/print.css' | relative_url | safe }}">
 
     <meta property="title" content="{% if title %}{{ title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}" />
     <meta property="description" content="{% if site.description %}{{ site.description }}{% else %}{{ site.title }}{% endif %}" />
@@ -15,54 +15,54 @@
     <meta property="og:description" content="{{ page.description }}" />
     {% endif %}
     {% if page.url %}
-    <meta property="og:url" content="{{ page.url }}" />
+    <meta property="og:url" content="{{ page.url | safe }}" />
     {% endif %}
     <meta property="og:image" content="{% if page.image %}{{ page.image }}{% else %}{{ site.image }}{% endif %}" />
 
     <title>{% if title %}{{ title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
 
-    <link rel="icon" type="image/png" href="{{ '/assets/favicon.png' | relative_url }}">
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ '/sitemap.xml' | relative_url }}">
+    <link rel="icon" type="image/png" href="{{ '/assets/favicon.png' | relative_url | safe }}">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ '/sitemap.xml' | relative_url | safe }}">
 
-    <link href="{{ '/assets/fontawesome-free-7.2.0-web/css/fontawesome.css' | relative_url }}" rel="stylesheet">
-    <link href="{{ '/assets/fontawesome-free-7.2.0-web/css/brands.css' | relative_url }}" rel="stylesheet" />
-    <link href="{{ '/assets/fontawesome-free-7.2.0-web/css/solid.css' | relative_url }}" rel="stylesheet" />
+    <link href="{{ '/assets/fontawesome-free-7.2.0-web/css/fontawesome.css' | relative_url | safe }}" rel="stylesheet">
+    <link href="{{ '/assets/fontawesome-free-7.2.0-web/css/brands.css' | relative_url | safe }}" rel="stylesheet" />
+    <link href="{{ '/assets/fontawesome-free-7.2.0-web/css/solid.css' | relative_url | safe }}" rel="stylesheet" />
 </head>
 <body>
     <div id="content-bg" class="noprint"></div>
     <div id="content">
       <header class="ContentContainer">
         <div id="forkme_banner">
-          <a href="{{ site.github.repository_url }}">View on GitHub</a>
+          <a href="{{ site.github.repository_url | safe }}">View on GitHub</a>
         </div>
 
         <div class="myPicture" data-faces="{{ site.faces }}">
-          <a class="crop" href="{{ site.url }}"><img id="my-picture-img" src="{{ '/assets/images/photos/face.png' | relative_url }}"></a>
+          <a class="crop" href="{{ site.url | safe }}"><img id="my-picture-img" src="{{ '/assets/images/photos/face.png' | relative_url | safe }}"></a>
         </div>
-        <a href="{{ site.url }}" class="Title TitleLeft"><span>v</span><span>i</span><span>v</span><span>e</span><span>r</span><span>e</span><span>t</span></a>
-        <a href="{{ site.url }}" class="Title TitleRight"><span>s</span><span>t</span><span>e</span><span>e</span><span>l</span><span>e</span></a>
+        <a href="{{ site.url | safe }}" class="Title TitleLeft"><span>v</span><span>i</span><span>v</span><span>e</span><span>r</span><span>e</span><span>t</span></a>
+        <a href="{{ site.url | safe }}" class="Title TitleRight"><span>s</span><span>t</span><span>e</span><span>e</span><span>l</span><span>e</span></a>
         <div class="PictureQuote" data-catchphrases="{{ site.catchphrases }}"></div>
-        <div class="Subtitle"><a href="{{ '/software.html' | relative_url }}" title="My Software Engineering Career">software engineer</a>, <a href="{{ '/freelance.html' | relative_url }}" title="Tutoring, Mentoring, Consulting, and Freelancing">freelancer</a>, <a href="{{ '/artist.html' | relative_url }}" title="I'm also an artist">artist</a> in the <a href="https://en.wikipedia.org/wiki/Seattle" target="_blank">🍎 Seattle Area 🌧️</a></div>
+        <div class="Subtitle"><a href="{{ '/software.html' | relative_url | safe }}" title="My Software Engineering Career">software engineer</a>, <a href="{{ '/freelance.html' | relative_url | safe }}" title="Tutoring, Mentoring, Consulting, and Freelancing">freelancer</a>, <a href="{{ '/artist.html' | relative_url | safe }}" title="I'm also an artist">artist</a> in the <a href="https://en.wikipedia.org/wiki/Seattle" target="_blank">🍎 Seattle Area 🌧️</a></div>
       </header>
       <div class="ContentContainer" id="header-links">
         <ul class="menu-bar">
-          <li><a title="My Resume" href="{{ '/README.html' | relative_url }}"><i class="far fa-2x fa-file-alt"></i></a></li>
+          <li><a title="My Resume" href="{{ '/README.html' | relative_url | safe }}"><i class="far fa-2x fa-file-alt"></i></a></li>
           <li><a title="E-Mail Me!" href="mailto:{{ site.owner_email }}"><i class="far fa-2x fa-envelope"></i></a></li>
-          <li><a title="My LinkedIn" href="{{ '/linkedin.html' | relative_url }}" target="_blank"><i class="fab fa-2x fa-linkedin-in"></i></a></li>
-          <li><a title="My BlueSky" href="{{ '/bluesky.html' | relative_url }}" target="_blank"><i class="fab fa-2x fa-bluesky"></i></a></li>
-          <li><a title="My Mastodon" href="{{ '/mastodon.html' | relative_url }}" target="_blank"><i class="fab fa-2x fa-mastodon"></i></a></li>
-          <li><a title="My GitHub" href="{{ '/github.html' | relative_url }}" target="_blank"><i class="fab fa-2x fa-github"></i></a></li>
-          <li><a title="LGBTQ Lingo" href="{{ '/lgbtlingo.html' | relative_url }}" target="_blank"><i class="fas fa-2x fa-book"></i></a></li>
+          <li><a title="My LinkedIn" href="{{ '/linkedin.html' | relative_url | safe }}" target="_blank"><i class="fab fa-2x fa-linkedin-in"></i></a></li>
+          <li><a title="My BlueSky" href="{{ '/bluesky.html' | relative_url | safe }}" target="_blank"><i class="fab fa-2x fa-bluesky"></i></a></li>
+          <li><a title="My Mastodon" href="{{ '/mastodon.html' | relative_url | safe }}" target="_blank"><i class="fab fa-2x fa-mastodon"></i></a></li>
+          <li><a title="My GitHub" href="{{ '/github.html' | relative_url | safe }}" target="_blank"><i class="fab fa-2x fa-github"></i></a></li>
+          <li><a title="LGBTQ Lingo" href="{{ '/lgbtlingo.html' | relative_url | safe }}" target="_blank"><i class="fas fa-2x fa-book"></i></a></li>
         </ul>
         <ul class="menu-bar menu-bar-emoji mt-1 Quicksand bold">
-          <li><a href="{{ '/README.html' | relative_url }}">My Resume</a></li>
-          <li><a href="{{ '/projects.html' | relative_url }}">My Projects</a></li>
-          <li><a href="{{ '/education.html' | relative_url }}">My Education</a></li>
-          <li><a href="{{ '/proficiencies.html' | relative_url }}">My Skills</a></li>
+          <li><a href="{{ '/README.html' | relative_url | safe }}">My Resume</a></li>
+          <li><a href="{{ '/projects.html' | relative_url | safe }}">My Projects</a></li>
+          <li><a href="{{ '/education.html' | relative_url | safe }}">My Education</a></li>
+          <li><a href="{{ '/proficiencies.html' | relative_url | safe }}">My Skills</a></li>
         </ul>
         <ul class="menu-bar menu-bar-emoji mt-1 Quicksand bold">
-          <li><a href="{{ '/mckinstry.html' | relative_url }}">My Work at McKinstry</a></li>
-          <li><a href="{{ '/stackoverflow.html' | relative_url }}">My Work at StackOverflow</a></li>
+          <li><a href="{{ '/mckinstry.html' | relative_url | safe }}">My Work at McKinstry</a></li>
+          <li><a href="{{ '/stackoverflow.html' | relative_url | safe }}">My Work at StackOverflow</a></li>
         </ul>
       </div>
 
@@ -72,20 +72,20 @@
 
       <footer class="ContentContainer noprint">
         <ul class="menu-bar menu-bar-emoji">
-          <li><a href="{{ site.github.owner_url }}">My GitHub</a></li>
-          <li><a href="{{ site.linkedin_url }}">My LinkedIn</a></li>
-          <li><a href="mailto:{{ site.owner_email }}">{{ site.owner_email }}</a></li>
-          <li><a href="{{ '/credits.html' | relative_url }}">Credits</a></li>
+          <li><a href="{{ site.github.owner_url | safe }}">My GitHub</a></li>
+          <li><a href="{{ site.linkedin_url | safe }}">My LinkedIn</a></li>
+          <li><a href="mailto:{{ site.owner_email | safe }}">{{ site.owner_email }}</a></li>
+          <li><a href="{{ '/credits.html' | relative_url | safe }}">Credits</a></li>
         </ul>
-        <center><small><a target="_blank" href="{{ site.github.repository_url }}/commit/{{ site.build_revision_long }}">#{{ site.build_revision_short }}</a>, modified {{ modified_datetime_pretty }}, generated {{ datetime_pretty }}</small></center>
+        <center><small><a target="_blank" href="{{ site.github.repository_url | safe }}/commit/{{ site.build_revision_long | safe }}">#{{ site.build_revision_short }}</a>, modified {{ modified_datetime_pretty }}, generated {{ datetime_pretty }}</small></center>
       </footer>
       <div class="BottomFiller"></div>
     </div>
 
     {% if site.debug %}
-    <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/site.js' | relative_url | safe }}"></script>
     {% else %}
-    <script src="{{ '/assets/js/site.min.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/site.min.js' | relative_url | safe }}"></script>
     {% endif %}
 </body>
 </html>
