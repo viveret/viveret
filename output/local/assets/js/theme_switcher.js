@@ -10,7 +10,9 @@ if (savedTheme) {
 } else {
     // apply default theme
     const defaultTheme = '{{ data.themes.default }}';
-    const defaultCssClass = popup.querySelector(`button[data-theme="${defaultTheme}"]`).getAttribute('data-css-class');
+    const defaultButton = popup.querySelector(`button[data-theme="${defaultTheme}"]`);
+    console.log('defaultButton', defaultButton);
+    const defaultCssClass = defaultButton.getAttribute('data-css-class');
     document.body.setAttribute('data-theme', defaultTheme);
     document.body.classList.add(defaultCssClass);
 }
