@@ -8,6 +8,8 @@
 |- Pronouns: She/her/they/them/it -|- Mostly Rust/C#/C++/Java -|- Last Updated: 2nd of April, 2025 -|
 
 ## Work Experience
+#### Extended Vacation (Aug 2024 - End of 2026) ([Details](vacation-2024-2026.md))
+
 ### Full-Stack Software Developer at [Stack Exchange](https://stackexchange.com/) / [Stack Overflow](https://stackoverflow.com/) (July 2019 - August 2024) ([Details](stackoverflow.md))
 - Worked on Talent team for Developer Jobs, Developer Stories, and Company pages.
 - Helped improve the job board, hiring & brand awareness platform used worldwide by devs and software companies.

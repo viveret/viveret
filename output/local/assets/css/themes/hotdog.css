@@ -1,0 +1,141 @@
+body.hotdog-theme {
+    background: linear-gradient(45deg, red, yellow, red, yellow, red, yellow);
+    font-family: "Comic Sans MS", sans-serif;
+}
+body.hotdog-theme a, body.hotdog-theme .PictureQuote, body.hotdog-theme .Title, body.hotdog-theme .Subtitle, body.hotdog-theme header, body.hotdog-theme h1, body.hotdog-theme h2, body.hotdog-theme h3, body.hotdog-theme h4, body.hotdog-theme h5, body.hotdog-theme h6 {
+    font-family: "Comic Sans MS", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    body.hotdog-theme {
+        background: linear-gradient(
+            45deg, darkred, goldenrod, darkred, goldenrod, darkred, goldenrod
+        );
+    }
+}
+
+body.hotdog-theme #content-bg {
+    background-size: 60px 60px;
+    background-position: -15px -15px, 15px 15px;
+    background-image: radial-gradient(lightgreen 4%, transparent 0), radial-gradient(lightgreen 4%, transparent 0);
+}
+
+body.hotdog-theme .post-header > div::before {
+    content:"🌭"
+}
+
+body.hotdog-theme .post-header > div::after {
+    content:"🌭"
+}
+
+body.hotdog-theme .menu-bar-emoji li::before {
+    content:"🌭"
+}
+
+body.hotdog-theme .menu-bar-emoji li::after {
+    content:"🌭"
+}
+
+body.hotdog-theme button {
+    font-family: "Comic Sans MS", sans-serif;
+    color: black;
+    border: 0.25rem solid red;
+    background: yellow;
+    cursor: pointer;
+}
+
+body.hotdog-theme figcaption {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body.hotdog-theme .myPicture .crop  {
+    border-color: yellow;
+}
+
+@media (prefers-color-scheme: dark) {
+    body.hotdog-theme .myPicture .crop {
+        border-color: yellow;
+    }
+}
+@media only screen and (max-width: 768px) {
+    body.hotdog-theme .myPicture .crop {
+        border-color: yellow;
+    }
+}
+
+body.hotdog-theme a.Title:hover, body.hotdog-theme a.Subtitle:hover, body.hotdog-theme .Title a:hover, body.hotdog-theme .Subtitle a:hover {
+    color: grey;
+}
+
+body.hotdog-theme .ImageBorder {
+    border-color: yellow;
+}
+
+body.hotdog-theme .ContentContainer {
+    color: black;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    background: white;
+}
+
+@media (prefers-color-scheme: dark) {
+    body.hotdog-theme .ContentContainer {
+        color: white;
+        box-shadow: 0 3px 6px rgba(255, 255, 255, 0.16), 0 3px 6px rgba(255, 255, 255, 0.23);
+        background: #1a1a1a;
+    }
+}
+
+body.hotdog-theme footer {
+    background: white;
+    color: black;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+@media (prefers-color-scheme: dark) {
+    body.hotdog-theme footer {
+        background: black;
+        color: white;
+        box-shadow: 0 3px 6px rgba(255, 255, 255, 0.16), 0 3px 6px rgba(255, 255, 255, 0.23);
+    }
+}
+
+body.hotdog-theme #forkme_banner {
+    color: black;
+    background: yellow;
+    border: 0.25rem solid red;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+body.hotdog-theme #forkme_banner > a {
+    background: yellow;
+}
+
+body.hotdog-theme #forkme_banner a {
+    color: black;
+}
+body.hotdog-theme section table tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+    body.hotdog-theme section table tr:nth-child(odd) {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+}
+
+
+body.hotdog-theme a.cta {
+    box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.23);
+    border-color: yellow;
+    background: linear-gradient(to right, red, yellow, red, yellow, red, yellow);
+    color: black;
+}
+
+body.hotdog-theme a.cta:hover, body.hotdog-theme a.cta:visited {
+    color: black;
+    text-decoration: none;
+}
+
+body.hotdog-theme a.cta:hover {
+    filter: brightness(0.8);
+}

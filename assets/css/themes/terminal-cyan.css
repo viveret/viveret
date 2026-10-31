@@ -1,0 +1,18 @@
+body.terminal-cyan-theme {
+    background-color: #000000;
+    color: #00FFFF;
+    font-family: monospace;
+    text-shadow: 0 0 5px #00FFFF;
+    caret-color: #00FFFF;
+}
+
+
+body.terminal-cyan-theme button {
+    background-color: #000000;
+    color: #00FFFF;
+    border: 1px solid #00FFFF;
+    font-family: monospace;
+    text-shadow: 0 0 5px #00FFFF;
+    caret-color: #00FFFF;
+    cursor: pointer;
+}

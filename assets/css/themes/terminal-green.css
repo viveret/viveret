@@ -1,0 +1,18 @@
+body.terminal-green-theme {
+    background-color: #000000;
+    color: #00FF00;
+    font-family: monospace;
+    text-shadow: 0 0 5px #00FF00;
+    caret-color: #00FF00;
+}
+
+
+body.terminal-green-theme button {
+    background-color: #000000;
+    color: #00FF00;
+    border: 1px solid #00FF00;
+    font-family: monospace;
+    text-shadow: 0 0 5px #00FF00;
+    caret-color: #00FF00;
+    cursor: pointer;
+}

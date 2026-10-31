@@ -1,0 +1,17 @@
+#theme-switcher-button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+#theme-switcher-popup {
+    display: flex;
+    gap: 1rem;
+    position: absolute;
+    left: 2rem;
+    top: 2rem;
+}
+
+#theme-switcher-popup button {
+    white-space: nowrap;
+}

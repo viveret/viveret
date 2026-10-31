@@ -1,18 +1,33 @@
 {% extends "site.html" %}
 {% block content %}
+{% set posts_list = list_md(path=posts, layout='post_preview', all=true) %}
 <div id="main_content_wrap" class="ContentContainer outer">
   <section id="main_content" class="inner">
-    <h1>{{ title }}</h1>
+    <h1>{{ title }} ({{ posts_list.total }})</h1>
     {{ content | safe }}
-    <ol>
-      {% for item in dir_md(path=posts) %}
-      <li><a href="#{{ item.front_matter.title | slugify }}">{{ item.front_matter.title }}</a></li>
-      {% endfor %}
-    </ol>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between">
+      {% set posts_dir = dir_md(path=posts) %}
+      <div>
+        <h2>By Date</h2>
+        <ul>
+          {% for item in posts_dir | sort(attribute='front_matter.date', reverse=true) %}
+          <li><a href="#{{ item.front_matter.title | slugify }}">{{ item.front_matter.date }} - {{ item.front_matter.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div>
+        <h2>By Title</h2>
+        <ul>
+          {% for item in posts_dir | sort(attribute='front_matter.title') %}
+          <li><a href="#{{ item.front_matter.title | slugify }}">{{ item.front_matter.date }} - {{ item.front_matter.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
   </section>
 </div>
 
-{% for item in list_md(path=posts, layout='post_preview') %}
+{% for item in posts_list.items %}
   {{ item | safe }}
 {% endfor %}
 {% endblock content %}

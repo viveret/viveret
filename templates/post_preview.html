@@ -1,22 +1,30 @@
 {% block content %}
-<div class="ContentContainer">
-    <section>
-        <h2 id="{{ title | slugify }}">{{ title }}</h2>
-        <div class="post-header">
-            <div><b>Date:</b> {{ date }}</div>
-            <div><b>Tags:</b> {{ tags }}</div>
-            {%if categories %}
-            <div><b>Categories:</b> {{ categories }}</div>
-            {% elif category %}
-            <div><b>Categories:</b> {{ category }}</div>
-            {% endif %}
+{% set item_href = path | md_path_to_url_path | relative_url | safe %}
+<div class="ContentContainer PostPreviewContainer">
+    <a href="{{ item_href }}"><h2 id="{{ title | slugify }}">{{ title }}</h2></a>
+    <div class="post-header">
+        <div><b>Date:</b> {{ date }}</div>
+        <div><b>Tags:</b> {{ tags }}</div>
+        {%if categories %}
+        <div><b>Categories:</b> {{ categories }}</div>
+        {% elif category %}
+        <div><b>Categories:</b> {{ category }}</div>
+        {% endif %}
+    </div>
+    <div class="post-body">
+        {% if image %}
+        {% set image_alt = image_alt | default(value=title) %}
+        <a href="{{ item_href }}">
+            <img src="{{ image | relative_url | safe }}" alt="{{ image_alt }}" title="{{ image_alt }}" />
+        </a>
+        {% endif %}
+        <div>
+            <section>
+                <p><i>{{ description }}</i></p>
+                <article class="read-more" style="text-align: left;">{{ content | truncate_html(length=1000) | safe }}</article>
+            </section>
         </div>
-        <p><i>{{ description }}</i></p>
-
-        <img src="{{ image | relative_url | safe }}" alt="{{ title }}" style="max-width: 25vw; height: auto;" />
-
-        <article class="read-more" style="text-align: left;">{{ content | truncate(length=200) | safe }}</article>
-        <a class="read-more-link" href="{{ path | md_path_to_url_path | relative_url | safe }}">Read More</a>
-    </section>
+    </div>
+    <a class="read-more-link bottom-right" href="{{ item_href }}">Read More 🡲</a>
 </div>
 {% endblock content %}

@@ -1,0 +1,38 @@
+default: rainbow
+themes:
+  - key: light
+    name: Light Theme
+    css_class: light-theme
+  - key: dark
+    name: Dark Theme
+    css_class: dark-theme
+  - key: system
+    name: System Theme
+    css_class: system-theme
+  - key: rainbow
+    name: Rainbow Theme
+    css_class: rainbow-theme
+  - key: seattle
+    name: Seattle Theme
+    css_class: seattle-theme
+  - key: terminal-green
+    name: Terminal Green Theme
+    css_class: terminal-green-theme
+  - key: terminal-blue
+    name: Terminal Blue Theme
+    css_class: terminal-blue-theme
+  - key: terminal-pink
+    name: Terminal Pink Theme
+    css_class: terminal-pink-theme
+  - key: terminal-cyan
+    name: Terminal Cyan Theme
+    css_class: terminal-cyan-theme
+  - key: hotdog
+    name: Hotdog Theme
+    css_class: hotdog-theme
+  - key: autumn
+    name: Autumn Theme
+    css_class: autumn-theme
+  - key: winter
+    name: Winter Theme
+    css_class: winter-theme

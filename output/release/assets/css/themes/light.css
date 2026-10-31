@@ -1,0 +1,16 @@
+body.light-theme {
+    /* Light theme styles */
+    font-family: "Quicksand", sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.light-theme .myPicture .crop  {
+    border-color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+    body.light-theme .myPicture .crop {
+        border-color: #1a1a1a;
+    }
+}

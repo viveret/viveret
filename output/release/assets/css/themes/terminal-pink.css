@@ -1,0 +1,18 @@
+body.terminal-pink-theme {
+    background-color: #000000;
+    color: #FF88FF;
+    font-family: monospace;
+    text-shadow: 0 0 5px #FF88FF;
+    caret-color: #FF88FF;
+}
+
+
+body.terminal-pink-theme button {
+    background-color: #000000;
+    color: #FF88FF;
+    border: 1px solid #FF88FF;
+    font-family: monospace;
+    text-shadow: 0 0 5px #FF88FF;
+    caret-color: #FF88FF;
+    cursor: pointer;
+}

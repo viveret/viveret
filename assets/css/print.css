@@ -7,7 +7,7 @@
     .noprint {
         display: none !important;
     }
-    header, #header-links {
+    #header-links {
         display: none !important;
     }
 }

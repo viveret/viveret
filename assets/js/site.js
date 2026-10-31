@@ -32,7 +32,7 @@
 	document.addEventListener('DOMContentLoaded', function(){
 		var container = document.querySelector('.myPicture') || document.getElementById('my-picture') || document.body;
 		
-        var img = document.getElementById('my-picture-img') || container.querySelector('img');
+        var img = document.getElementById('my-picture-img');
 		if(img){
 			var facesList = parseList(container.getAttribute('data-faces'));
 			var roll = Math.floor(Math.random()*10);
@@ -48,10 +48,10 @@
 			var phrases = parseList(raw);
 			if (phrases.length > 0) {
 				var phrase = pickRandom(phrases);
-				var prefix = "I'm Viveret and ";
+				var prefix = "\"I'm Viveret and ";
 				var text = phrase;
 				if(String(phrase).toLowerCase().indexOf('viveret') === -1) text = prefix + phrase;
-				quoteEl.textContent = text;
+				quoteEl.textContent = text + "\"";
 				quoteEl.style.opacity = 1;
 			}
 		}

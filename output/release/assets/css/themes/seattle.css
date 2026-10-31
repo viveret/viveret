@@ -1,0 +1,15 @@
+body.seattle-theme {
+  background-color: navy;
+  color: #ffffff;
+}
+
+body.seattle-theme .ContentContainer {
+    border: 0.5rem solid seashell;
+    border-radius: 0.5rem;
+    background-color: forestgreen;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+body.seattle-theme .myPicture .crop  {
+    border-color: seashell;
+}

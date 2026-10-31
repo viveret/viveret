@@ -1,0 +1,13 @@
+<!-- theme switcher view - button and popup, script -->
+<button id="theme-switcher-button" class="noprint">Switch Theme</button>
+<div id="theme-switcher-popup" style="display: none;" class="noprint">
+    {% for theme in data.themes.themes %}
+    <button data-theme="{{ theme.key }}" class="{{ theme.css_class }}-btn" data-theme="{{ theme.key }}"
+        data-css-class="{{ theme.css_class }}">{{ theme.name }}</button>
+    {% endfor %}
+</div>
+{% if site.debug %}
+<script src="{{ '/assets/js/theme_switcher.js' | relative_url | safe }}"></script>
+{% else %}
+<script src="{{ '/assets/js/theme_switcher.min.js' | relative_url | safe }}"></script>
+{% endif %}

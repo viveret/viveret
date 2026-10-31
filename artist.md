@@ -8,4 +8,9 @@ I'm very attentive and analytical towards impactful or interesting designs, aest
 - Some digital (regular and SVG)
 - Photography (city, public art and graffiti, landscapes, nature, animals and plants)
 
-todo: add sections and examples, maybe a portfolio/links
+My artist name is sometimes Queerpins or Viv.
+
+See more:
+- [My photography](photography.md)
+- [My digital art](art-digital.md)
+- [My physical art](art-physical.md)

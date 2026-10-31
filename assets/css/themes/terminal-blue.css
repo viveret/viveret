@@ -1,0 +1,18 @@
+body.terminal-blue-theme {
+    background-color: #000000;
+    color: #0000FF;
+    font-family: monospace;
+    text-shadow: 0 0 5px #0000FF;
+    caret-color: #0000FF;
+}
+
+
+body.terminal-blue-theme button {
+    background-color: #000000;
+    color: #0000FF;
+    border: 1px solid #0000FF;
+    font-family: monospace;
+    text-shadow: 0 0 5px #0000FF;
+    caret-color: #0000FF;
+    cursor: pointer;
+}

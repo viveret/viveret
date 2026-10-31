@@ -1,7 +1,7 @@
 {% extends "site.html" %}
 
 {% block content %}
-<div class="ContentContainer">
+<div class="ContentContainer PostContainer">
     <section>
         <h2 id="{{ title | slugify }}">{{ title }}</h2>
         <div class="post-header">
@@ -14,10 +14,11 @@
             {% endif %}
         </div>
         <p><i>{{ description }}</i></p>
-
-        <img src="{{ image | relative_url | safe }}" alt="{{ title }}" style="max-width: 25vw; height: auto;" />
-
-        <article style="text-align: left;">{{ content | safe }}</article>
     </section>
+    {% if image %}
+    {% set image_alt = image_alt | default(value=title) %}
+    <img src="{{ image | relative_url | safe }}" alt="{{ image_alt }}" title="{{ image_alt }}" style="max-width: 75vw; height: auto;" />
+    {% endif %}
+    <article style="text-align: left;">{{ content | safe }}</article>
 </div>
 {% endblock content %}

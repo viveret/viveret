@@ -6,15 +6,21 @@
 - Was successful side business with recurring clients but challenging work helping some who were struggling to learn.
 
 ## Software engineering / development
-I have collaborated on various hobby or hackathon projects and games with strangers and friends but most of the time we realized it was more of an experimental outlet for an idea and probably not worth investing full-time energy that could go to existing work.
+Before 2016, I have collaborated on various hobby or hackathon projects and games with strangers and friends but most of the time we realized it was more of an experimental outlet for an idea and probably not worth investing full-time energy that could go to existing work.
+
+After 2016, I have not done much freelance software work and am open to offers. See my [projects](projects.md), [proficiencies](proficiencies.md), [education](education.md), and [resume](README.md) for information on my capabilities.
 
 ## Art
 I take commissions but my skills are specific.
 
 I can do:
-- App / site logos and icons/graphics
-- UI icons
-- Website styles and aesthetics
+### Designs:
+- Websites and apps
+- Logos and icons/graphics
+- UI / GUI
+- Styles and aesthetics
 - Stylized 2D and 3D renderings of datasets or 3D meshes (I have a lot of computer graphics knowledge and experience)
+- Flyers and posters
 
-todo: add sections and examples, maybe a portfolio/links
+### Drawing / Painting, Digital and Physical:
+- [see my portfolio for examples](artist.md)

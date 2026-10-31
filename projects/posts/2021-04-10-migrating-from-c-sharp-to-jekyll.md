@@ -1,12 +1,12 @@
 ---
 date: 2021-04-13
-title: Migrating from C# on .NET core w/ Razor to Jekyll
-image: /assets/images/i-can-haz-cheezburger.jpg
+title: Migrating my personal site from C# + Razor to Jekyll
 description: >
-  Learn how I took a somewhat static traditional website and converted it into a Jekyll project hosted with GitHub Pages.
-tags: testtag
+  My mostly static C# + Razor website was converted into a Jekyll project hosted with GitHub Pages.
+tags: [ personal, c#, jekyll ]
 category: projects
 layout: post
 ---
 
-eeeeee
+
+This was a temporary state of my personal website project where it was no longer actively running all the time but instead was built to run on GitHub pages statically. My site was already mostly static, so the migration was fairly easy. I used Jekyll because that was what was recommended at the time.
