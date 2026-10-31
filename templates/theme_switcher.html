@@ -1,6 +1,6 @@
 <!-- theme switcher view - button and popup, script -->
 <button id="theme-switcher-button" class="noprint">Switch Theme</button>
-<div id="theme-switcher-popup" style="display: none;" class="noprint">
+<div id="theme-switcher-popup" style="display: none;" class="noprint" data-default-theme="{{ data.themes.default }}">
     {% for theme in data.themes.themes %}
     <button data-theme="{{ theme.key }}" class="{{ theme.css_class }}-btn" data-theme="{{ theme.key }}"
         data-css-class="{{ theme.css_class }}">{{ theme.name }}</button>

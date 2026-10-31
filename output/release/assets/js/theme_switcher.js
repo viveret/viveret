@@ -9,7 +9,7 @@ if (savedTheme) {
     document.body.classList.add(savedCssClass);
 } else {
     // apply default theme
-    const defaultTheme = '{{ data.themes.default }}';
+    const defaultTheme = popup.dataset.defaultTheme;
     const defaultButton = popup.querySelector(`button[data-theme="${defaultTheme}"]`);
     console.log('defaultButton', defaultButton);
     const defaultCssClass = defaultButton.getAttribute('data-css-class');
